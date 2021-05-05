@@ -7,6 +7,8 @@ using UnityEngine.UI;
 public class GameConsoleHandler : MonoBehaviour
 {
     [SerializeField]
+    private bool onStartup = true;
+    [SerializeField]
     private Text outputText;
     [SerializeField]
     private InputField inputText;
@@ -100,7 +102,10 @@ public class GameConsoleHandler : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+        if (!onStartup)
+        {
+            Hide();
+        }
     }
 
 

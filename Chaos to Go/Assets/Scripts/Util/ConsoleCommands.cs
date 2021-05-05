@@ -74,6 +74,14 @@ public class ConsoleCommands
         return output;
     }
 
+
+    public static string exit()
+    {
+        Application.Quit();
+        Debug.Log("Closing Game!");
+        return BuildOutput();
+    }
+
     // ================================================================================================= //
     //                                     END CONSOLE COMMANDS                                          //
     // ================================================================================================= //
