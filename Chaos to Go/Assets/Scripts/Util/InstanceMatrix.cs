@@ -1,6 +1,7 @@
 ﻿using System;
+using System.Collections;
 
-public class InstanceMatrix<T>
+public class InstanceMatrix<T> : IEnumerable
 {
     private T[] buffer;
     private uint x, y;
@@ -27,5 +28,11 @@ public class InstanceMatrix<T>
     private uint index(uint i, uint j)
     {
         return i * y + j;
+    }
+
+
+    public IEnumerator GetEnumerator()
+    {
+        return buffer.GetEnumerator();
     }
 }
