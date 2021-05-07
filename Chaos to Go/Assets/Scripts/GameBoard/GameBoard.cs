@@ -33,7 +33,7 @@ public class GameBoard : MonoBehaviour
             {
                 GameBoardTile tile = Instantiate(prefab);
                 tile.name = "Tile" + i + "_" + j;
-                tileMatrix.Set(i, j, tile);
+                AddTile(tile, i, j);
             }
         }
     }
@@ -56,6 +56,49 @@ public class GameBoard : MonoBehaviour
     public void AddTile(GameBoardTile tile, uint x, uint y)
     {
         tileMatrix.Set(x, y, tile);
+        tile.x = x;
+        tile.y = y;
+    }
+
+
+    public bool FindAndReplace(GameBoardTile newTile, float maxDist = 10.0f)
+    {
+        GameBoardTile oldTile = FindClosestTileTo(newTile.transform.position);
+        Vector3 v = (oldTile.transform.position - newTile.transform.position);
+        Vector2 v_xz = new Vector2(v.x, v.z);
+        float d = v_xz.magnitude;
+        if(d <= maxDist)
+        {
+            AddTile(newTile, oldTile.x, oldTile.y);
+            Destroy(oldTile);
+            Build();
+            return true;
+        }
+        return false;
+    }
+
+
+    public GameBoardTile FindClosestTileTo(Vector3 position)
+    {
+        float minDist = float.PositiveInfinity;
+        GameBoardTile closestTile = null;
+
+        for (uint i = 0; i < x; i++)
+        {
+            for (uint j = 0; j < y; j++)
+            {
+                GameBoardTile tile = tileMatrix.Get(i, j);
+                Vector3 v = tile.transform.position - position;
+                float dist = v.magnitude;
+                if(dist < minDist)
+                {
+                    minDist = dist;
+                    closestTile = tile;
+                }
+            }
+        }
+
+        return closestTile;
     }
 
 

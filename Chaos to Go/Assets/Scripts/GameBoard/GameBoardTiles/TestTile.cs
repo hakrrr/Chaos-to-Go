@@ -7,7 +7,7 @@ public class TestTile : GameBoardTile
     // Start is called before the first frame update
     void Start()
     {
-
+        RegisterDragBehavior();
     }
 
     // Update is called once per frame
