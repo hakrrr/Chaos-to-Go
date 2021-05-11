@@ -70,7 +70,7 @@ public class GameBoard : MonoBehaviour
         if(d <= maxDist)
         {
             AddTile(newTile, oldTile.x, oldTile.y);
-            Destroy(oldTile);
+            Destroy(oldTile.gameObject);
             Build();
             return true;
         }
