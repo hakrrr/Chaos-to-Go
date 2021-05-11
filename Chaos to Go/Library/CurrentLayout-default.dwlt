@@ -397,9 +397,9 @@ MonoBehaviour:
   m_PlayAudio: 0
   m_AudioPlay: 0
   m_Position:
-    m_Target: {x: 0.34671926, y: -2.1950006, z: -14.1234}
+    m_Target: {x: -41.005898, y: -18.975653, z: -26.372015}
     speed: 2
-    m_Value: {x: 0.34671926, y: -2.1950006, z: -14.1234}
+    m_Value: {x: -41.005898, y: -18.975653, z: -26.372015}
   m_RenderMode: 0
   m_CameraMode:
     drawMode: 0
@@ -428,13 +428,13 @@ MonoBehaviour:
       speed: 2
       m_Value: 0
   m_Rotation:
-    m_Target: {x: 0.026680518, y: -0.5038425, z: 0.015572409, w: 0.863253}
+    m_Target: {x: 0.108242825, y: -0.8311065, z: 0.17401953, w: 0.5169953}
     speed: 2
-    m_Value: {x: 0.026656896, y: -0.5051324, z: 0.015612276, w: 0.86248875}
+    m_Value: {x: 0.102470875, y: -0.8294596, z: 0.16201822, w: 0.52463955}
   m_Size:
-    m_Target: 9.036609
+    m_Target: 66.610855
     speed: 2
-    m_Value: 7.9617696
+    m_Value: 69.74959
   m_Ortho:
     m_Target: 0
     speed: 2
@@ -515,7 +515,7 @@ MonoBehaviour:
   m_SceneHierarchy:
     m_TreeViewState:
       scrollPos: {x: 0, y: 0}
-      m_SelectedIDs: 1a2d0000
+      m_SelectedIDs: 50f7ffff
       m_LastClickedID: 0
       m_ExpandedIDs: 78fbffff
       m_RenameOverlay:
@@ -592,9 +592,9 @@ MonoBehaviour:
     m_IsLocked: 0
   m_FolderTreeState:
     scrollPos: {x: 0, y: 96}
-    m_SelectedIDs: a02e0000
-    m_LastClickedID: 11936
-    m_ExpandedIDs: 00000000ae2c0000d62d0000502e00001c2f00002a2f000000ca9a3b
+    m_SelectedIDs: a22e0000
+    m_LastClickedID: 11938
+    m_ExpandedIDs: 00000000b02c0000d82d0000522e00001e2f00002c2f000000ca9a3b
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -622,7 +622,7 @@ MonoBehaviour:
     scrollPos: {x: 0, y: 0}
     m_SelectedIDs: 
     m_LastClickedID: 0
-    m_ExpandedIDs: 00000000ae2c0000d62d00001c2f00002a2f0000
+    m_ExpandedIDs: 00000000b02c0000d82d00001e2f00002c2f0000
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -647,8 +647,8 @@ MonoBehaviour:
       m_Icon: {fileID: 0}
       m_ResourceFile: 
   m_ListAreaState:
-    m_SelectedInstanceIDs: 1a2d0000
-    m_LastClickedInstanceID: 11546
+    m_SelectedInstanceIDs: 50f7ffff
+    m_LastClickedInstanceID: -2224
     m_HadKeyboardFocusLastEvent: 1
     m_ExpandedInstanceIDs: c62300004080000000000000
     m_RenameOverlay:
