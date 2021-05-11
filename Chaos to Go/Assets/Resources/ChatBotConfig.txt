@@ -1,0 +1,3 @@
+username: chaos_to_go
+channelName: chaos_to_go
+password: oauth:x8tisyc91b191avctc7whf0be00wfs
