@@ -141,7 +141,7 @@ MonoBehaviour:
   m_MinSize: {x: 683, y: 344}
   m_MaxSize: {x: 12008, y: 8044}
   vertical: 0
-  controlID: 50
+  controlID: 110
 --- !u!114 &7
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -166,7 +166,7 @@ MonoBehaviour:
   m_MinSize: {x: 204, y: 344}
   m_MaxSize: {x: 4004, y: 8044}
   vertical: 1
-  controlID: 51
+  controlID: 74
 --- !u!114 &8
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -397,9 +397,9 @@ MonoBehaviour:
   m_PlayAudio: 0
   m_AudioPlay: 0
   m_Position:
-    m_Target: {x: -41.005898, y: -18.975653, z: -26.372015}
+    m_Target: {x: 32.223213, y: -17.75794, z: 46.326374}
     speed: 2
-    m_Value: {x: -41.005898, y: -18.975653, z: -26.372015}
+    m_Value: {x: 32.223213, y: -17.75794, z: 46.326374}
   m_RenderMode: 0
   m_CameraMode:
     drawMode: 0
@@ -428,13 +428,13 @@ MonoBehaviour:
       speed: 2
       m_Value: 0
   m_Rotation:
-    m_Target: {x: 0.108242825, y: -0.8311065, z: 0.17401953, w: 0.5169953}
+    m_Target: {x: 0.1394038, y: 0.25791013, z: -0.03762695, w: 0.95533127}
     speed: 2
-    m_Value: {x: 0.102470875, y: -0.8294596, z: 0.16201822, w: 0.52463955}
+    m_Value: {x: 0.14106046, y: 0.25211498, z: -0.03716763, w: 0.95663923}
   m_Size:
-    m_Target: 66.610855
+    m_Target: 69.99572
     speed: 2
-    m_Value: 69.74959
+    m_Value: 73.293945
   m_Ortho:
     m_Target: 0
     speed: 2
@@ -515,8 +515,8 @@ MonoBehaviour:
   m_SceneHierarchy:
     m_TreeViewState:
       scrollPos: {x: 0, y: 0}
-      m_SelectedIDs: 50f7ffff
-      m_LastClickedID: 0
+      m_SelectedIDs: 78fbffff
+      m_LastClickedID: -1160
       m_ExpandedIDs: 78fbffff
       m_RenameOverlay:
         m_UserAcceptedRename: 0
@@ -580,11 +580,11 @@ MonoBehaviour:
     m_SkipHidden: 0
     m_SearchArea: 1
     m_Folders:
-    - Assets/Shaders
+    - Assets/Materials/vfx
   m_ViewMode: 1
   m_StartGridSize: 64
   m_LastFolders:
-  - Assets/Shaders
+  - Assets/Materials/vfx
   m_LastFoldersGridSize: -1
   m_LastProjectPath: D:\Users\Raoul\Documents\Git\masterpraktikum1\Chaos-to-Go\Chaos
     to Go
@@ -592,9 +592,9 @@ MonoBehaviour:
     m_IsLocked: 0
   m_FolderTreeState:
     scrollPos: {x: 0, y: 96}
-    m_SelectedIDs: a22e0000
-    m_LastClickedID: 11938
-    m_ExpandedIDs: 00000000b02c0000d82d0000522e00001e2f00002c2f000000ca9a3b
+    m_SelectedIDs: be2d0000
+    m_LastClickedID: 11710
+    m_ExpandedIDs: 00000000ae2c0000d62d0000502e00001e2f00002c2f000000ca9a3b
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -622,7 +622,7 @@ MonoBehaviour:
     scrollPos: {x: 0, y: 0}
     m_SelectedIDs: 
     m_LastClickedID: 0
-    m_ExpandedIDs: 00000000b02c0000d82d00001e2f00002c2f0000
+    m_ExpandedIDs: 00000000ae2c0000d62d00001e2f00002c2f0000
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -647,8 +647,8 @@ MonoBehaviour:
       m_Icon: {fileID: 0}
       m_ResourceFile: 
   m_ListAreaState:
-    m_SelectedInstanceIDs: 50f7ffff
-    m_LastClickedInstanceID: -2224
+    m_SelectedInstanceIDs: 
+    m_LastClickedInstanceID: 0
     m_HadKeyboardFocusLastEvent: 1
     m_ExpandedInstanceIDs: c62300004080000000000000
     m_RenameOverlay:
