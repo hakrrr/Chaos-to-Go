@@ -1,4 +1,4 @@
-﻿Shader "Custom/CellShader"
+﻿Shader "Custom/CelShader"
 {
     Properties
     {
@@ -9,9 +9,9 @@
         _Specular("Specular Strength", Range(0.0, 1.0)) = 1.0
         _SpecularExponent("Specular Exponent", Range(0.0, 128.0)) = 8.0
 
-        _CellCount("Cell Count", Int) = 4
-        _CellColor1 ("Cell Color Dark", Color) = (1,1,1,1)
-        _CellColor2 ("Cell Color Bright", Color) = (1,1,1,1)
+        _CelCount("Cel Count", Int) = 4
+        _CelColor1 ("Cel Color Dark", Color) = (1,1,1,1)
+        _CelColor2 ("Cel Color Bright", Color) = (1,1,1,1)
 
         _OutlineStrength("Outline Strength", Range(0.0, 1.0)) = 1.0
         _OutlineColor("Outline Color", Color) = (0, 0, 0, 1)
@@ -55,24 +55,24 @@
             uniform float _Diffuse;
             uniform float _Specular;
             uniform float _SpecularExponent;
-            uniform int _CellCount;
-            uniform vec4 _CellColor1;
-            uniform vec4 _CellColor2;
+            uniform int _CelCount;
+            uniform vec4 _CelColor1;
+            uniform vec4 _CelColor2;
 
             uniform vec3 _WorldSpaceCameraPos;
             uniform vec4 _WorldSpaceLightPos0; 
             uniform vec4 _LightColor0;
 
-            vec3 compute_cell_color(vec3 col, vec3 colLow, vec3 colHigh, int cellCount){
-                vec3 step = (1.0 / float(cellCount)) * (colHigh - colLow);
-                vec3 minDistCell = colLow;
-                for(int i = 0; i < cellCount; i++){
+            vec3 compute_cel_color(vec3 col, vec3 colLow, vec3 colHigh, int celCount){
+                vec3 step = (1.0 / float(celCount)) * (colHigh - colLow);
+                vec3 minDistCel = colLow;
+                for(int i = 0; i < celCount; i++){
                     vec3 col2 = colLow + float(i) * step;
-                    if(distance(minDistCell, col) > distance(col2, col)){
-                        minDistCell = col2;
+                    if(distance(minDistCel, col) > distance(col2, col)){
+                        minDistCel = col2;
                     }
                 }
-                return minDistCell;
+                return minDistCel;
             }
 
             void main(){
@@ -96,13 +96,12 @@
                     _Specular * attentuation * vec3(_LightColor0) * col * pow(max(0.0, dot(reflect(-lightDir, Normal), viewDir)), _SpecularExponent);
 
                 vec4 phongColor = vec4((amb + diff + spec) * col * texture2D(_MainTex, TextureCoordinate).rgb, 1.0f);
-                if(_CellCount == 0){
+                if(_CelCount == 0){
                     gl_FragColor = phongColor;
                 }
                 else{
-                    //gl_FragColor = vec4(compute_cell_color(phongColor.rgb, _CellColor1.rgb, _CellColor2.rgb, _CellCount), 1.0);
-                    vec3 cellColor = compute_cell_color(phongColor.rgb, _CellColor1.rgb, _CellColor2.rgb, _CellCount);
-                    gl_FragColor = vec4((amb + diff + spec) * cellColor, 1.0);
+                    vec3 celColor = compute_cel_color(phongColor.rgb, _CelColor1.rgb, _CelColor2.rgb, _CelCount);
+                    gl_FragColor = vec4((amb + diff + spec) * celColor, 1.0);
                 }
             }
 

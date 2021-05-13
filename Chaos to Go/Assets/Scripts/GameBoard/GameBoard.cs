@@ -14,6 +14,8 @@ public class GameBoard : MonoBehaviour
     [SerializeField]
     private GameBoardTile emptyTilePrefab;
     [SerializeField]
+    private BaseTile baseTilePrefab;
+    [SerializeField]
     private Transform tileRoot;
 
     private InstanceMatrix<GameBoardTile> tileMatrix;
@@ -21,7 +23,7 @@ public class GameBoard : MonoBehaviour
 
     public void FillEmpty()
     {
-        Fill(emptyTilePrefab);
+        FillRandom(baseTilePrefab);
     }
 
 
@@ -34,6 +36,30 @@ public class GameBoard : MonoBehaviour
                 GameBoardTile tile = Instantiate(prefab);
                 tile.name = "Tile" + i + "_" + j;
                 AddTile(tile, i, j);
+            }
+        }
+    }
+
+
+    public void FillRandom(BaseTile prefab)
+    {
+        for (uint i = 0; i < x; i++)
+        {
+            for (uint j = 0; j < y; j++)
+            {
+                BaseTile tile = Instantiate(prefab);
+                int dirStart = (int)Random.Range(0.0f, 4.0f);
+                int dirEnd = (int)Random.Range(0.0f, 4.0f);
+                if(dirStart == dirEnd)
+                {
+                    if (dirStart == 3)
+                        dirStart = 1;
+                    dirEnd = 3;
+                }
+                tile.SetDirections((BaseTile.eDirection)dirStart, (BaseTile.eDirection)dirEnd);
+                tile.name = "Tile" + i + "_" + j;
+                AddTile(tile, i, j);
+                Destroy(tile.GetComponent<DraggableObject>());
             }
         }
     }
