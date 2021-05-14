@@ -51,8 +51,6 @@ MonoBehaviour:
   tileDim: {x: 4, y: 4}
   emptyTilePrefab: {fileID: 9095638000222197105, guid: a05d850f9e79a1848a9e726981ab748a,
     type: 3}
-  baseTilePrefab: {fileID: 1661685733953968785, guid: aaa977960ceab184c96c07b11f9bfafb,
-    type: 3}
   tileRoot: {fileID: 9062265955366504585}
 --- !u!1 &9062265955366504584
 GameObject:
