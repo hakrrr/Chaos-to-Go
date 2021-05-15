@@ -7,7 +7,7 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: CelShader
+  m_Name: carrot1
   m_Shader: {fileID: 4800000, guid: 87f3adf36cf35084193ef572f1e85612, type: 3}
   m_ShaderKeywords: 
   m_LightmapFlags: 4
@@ -56,13 +56,12 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     m_Floats:
-    - _Ambient: 0.411
+    - _Ambient: 0.7
     - _BumpScale: 1
     - _CelCount: 8
-    - _CellCount: 8
     - _Cutoff: 0.5
     - _DetailNormalMapScale: 1
-    - _Diffuse: 0.86
+    - _Diffuse: 0.28
     - _DstBlend: 0
     - _GlossMapScale: 1
     - _Glossiness: 0.5
@@ -70,21 +69,19 @@ Material:
     - _Metallic: 0
     - _Mode: 0
     - _OcclusionStrength: 1
-    - _OutlineMode: 0
-    - _OutlineStrength: 0.5
+    - _OutlineMode: 1
+    - _OutlineStrength: 0.3
     - _Parallax: 0.02
     - _SmoothnessTextureChannel: 0
-    - _Specular: 1
-    - _SpecularExponent: 23
+    - _Specular: 0.5
+    - _SpecularExponent: 4
     - _SpecularHighlights: 1
     - _SrcBlend: 1
     - _UVSec: 0
     - _ZWrite: 1
     m_Colors:
-    - _CelColor1: {r: 0.020024916, g: 0.31130624, b: 0.8490566, a: 1}
-    - _CelColor2: {r: 0.3726415, g: 0.5423349, b: 1, a: 1}
-    - _CellColor1: {r: 0.0014239977, g: 0.25024477, b: 0.3018868, a: 1}
-    - _CellColor2: {r: 0, g: 0.59949684, b: 1, a: 1}
-    - _Color: {r: 0, g: 0.67959046, b: 1, a: 1}
+    - _CelColor1: {r: 1, g: 0.38001707, b: 0, a: 1}
+    - _CelColor2: {r: 1, g: 0.38602668, b: 0, a: 1}
+    - _Color: {r: 1, g: 1, b: 1, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
     - _OutlineColor: {r: 0, g: 0, b: 0, a: 1}

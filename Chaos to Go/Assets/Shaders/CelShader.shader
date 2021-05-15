@@ -15,6 +15,7 @@
 
         _OutlineStrength("Outline Strength", Range(0.0, 1.0)) = 1.0
         _OutlineColor("Outline Color", Color) = (0, 0, 0, 1)
+        _OutlineMode("Set to Scale - Normal", Int) = 1
     }
     SubShader
     {
@@ -101,7 +102,7 @@
                 }
                 else{
                     vec3 celColor = compute_cel_color(phongColor.rgb, _CelColor1.rgb, _CelColor2.rgb, _CelCount);
-                    gl_FragColor = vec4((amb + diff + spec) * celColor, 1.0);
+                    gl_FragColor = vec4((amb + diff + spec) * celColor * texture2D(_MainTex, TextureCoordinate).rgb, 1.0f);
                 }
             }
 
@@ -117,15 +118,25 @@
             #ifdef VERTEX
 
             uniform float _OutlineStrength;
+            uniform int _OutlineMode;
 
             uniform vec4 _WorldSpaceCameraPos;
 
             void main(){
-                float dist = distance(gl_Vertex, _WorldSpaceCameraPos);
-                float thickness = 0.1f * _OutlineStrength;
-                float scale = 1.0f + thickness * 0.05 * dist;
-                vec3 scaledPos = gl_Vertex.xyz * scale;
-                gl_Position = gl_ModelViewProjectionMatrix * vec4(scaledPos, 1.0f);
+                if(_OutlineMode == 0){
+                    float dist = distance(gl_Vertex, _WorldSpaceCameraPos);
+                    float thickness = 0.1f * _OutlineStrength;
+                    float scale = 1.0f + thickness * 0.05 * dist;
+                    vec3 scaledPos = gl_Vertex.xyz * scale;
+                    gl_Position = gl_ModelViewProjectionMatrix * vec4(scaledPos, 1.0f);
+                }
+                else{
+                    float dist = distance(gl_Vertex, _WorldSpaceCameraPos);
+                    float thickness = 0.1f * _OutlineStrength;
+                    float extrude = thickness * 0.05 * dist;
+                    vec3 extrudedPos = gl_Vertex.xyz + extrude * gl_Normal;
+                    gl_Position = gl_ModelViewProjectionMatrix * vec4(extrudedPos, 1.0f);
+                }
             }
 
             #endif
