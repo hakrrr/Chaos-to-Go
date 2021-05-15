@@ -58,10 +58,10 @@ Material:
     m_Floats:
     - _Ambient: 0.8
     - _BumpScale: 1
-    - _CelCount: 8
+    - _CelCount: 16
     - _Cutoff: 0.5
     - _DetailNormalMapScale: 1
-    - _Diffuse: 0.47
+    - _Diffuse: 0.896
     - _DstBlend: 0
     - _GlossMapScale: 1
     - _Glossiness: 0.5

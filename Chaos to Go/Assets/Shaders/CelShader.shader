@@ -10,8 +10,6 @@
         _SpecularExponent("Specular Exponent", Range(0.0, 128.0)) = 8.0
 
         _CelCount("Cel Count", Int) = 4
-        _CelColor1 ("Cel Color Dark", Color) = (1,1,1,1)
-        _CelColor2 ("Cel Color Bright", Color) = (1,1,1,1)
 
         _OutlineStrength("Outline Strength", Range(0.0, 1.0)) = 1.0
         _OutlineColor("Outline Color", Color) = (0, 0, 0, 1)
@@ -53,8 +51,6 @@
             uniform float _Specular;
             uniform float _SpecularExponent;
             uniform int _CelCount;
-            uniform vec4 _CelColor1;
-            uniform vec4 _CelColor2;
 
             uniform vec3 _WorldSpaceCameraPos;
             uniform vec4 _WorldSpaceLightPos0; 
@@ -97,7 +93,7 @@
                     gl_FragColor = phongColor;
                 }
                 else{
-                    vec3 celColor = compute_cel_color(phongColor.rgb, _CelColor1.rgb, _CelColor2.rgb, _CelCount);
+                    vec3 celColor = compute_cel_color(phongColor.rgb, amb * _Color.rgb, vec3(1, 1, 1), _CelCount);
                     gl_FragColor = vec4((amb + diff + spec) * celColor * texture2D(_MainTex, TextureCoordinate).rgb, 1.0f);
                 }
             }

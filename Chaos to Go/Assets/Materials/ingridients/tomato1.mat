@@ -56,9 +56,9 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     m_Floats:
-    - _Ambient: 0.22
+    - _Ambient: 0.6
     - _BumpScale: 1
-    - _CelCount: 8
+    - _CelCount: 16
     - _Cutoff: 0.5
     - _DetailNormalMapScale: 1
     - _Diffuse: 0.62
@@ -74,7 +74,7 @@ Material:
     - _Parallax: 0.02
     - _SmoothnessTextureChannel: 0
     - _Specular: 1
-    - _SpecularExponent: 8
+    - _SpecularExponent: 4
     - _SpecularHighlights: 1
     - _SrcBlend: 1
     - _UVSec: 0
@@ -82,6 +82,6 @@ Material:
     m_Colors:
     - _CelColor1: {r: 1, g: 0, b: 0, a: 1}
     - _CelColor2: {r: 1, g: 0.6933962, b: 0.6933962, a: 1}
-    - _Color: {r: 1, g: 0.5235849, b: 0.5235849, a: 1}
+    - _Color: {r: 1, g: 0, b: 0, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
     - _OutlineColor: {r: 0, g: 0, b: 0, a: 1}
