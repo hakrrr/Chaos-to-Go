@@ -70,7 +70,7 @@ Material:
     - _Mode: 0
     - _OcclusionStrength: 1
     - _OutlineMode: 1
-    - _OutlineStrength: 0.3
+    - _OutlineStrength: 0.4
     - _Parallax: 0.02
     - _SmoothnessTextureChannel: 0
     - _Specular: 0
@@ -80,8 +80,8 @@ Material:
     - _UVSec: 0
     - _ZWrite: 1
     m_Colors:
-    - _CelColor1: {r: 0, g: 0.11320752, b: 0.095971346, a: 1}
-    - _CelColor2: {r: 0.33490568, g: 1, b: 0.7899702, a: 1}
-    - _Color: {r: 0, g: 1, b: 0.68421054, a: 1}
+    - _CelColor1: {r: 0, g: 0.11372549, b: 0.024878453, a: 1}
+    - _CelColor2: {r: 0.08276967, g: 0.5660378, b: 0.16331439, a: 1}
+    - _Color: {r: 0.10840159, g: 0.7924528, b: 0.34583986, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
     - _OutlineColor: {r: 0, g: 0, b: 0, a: 1}
