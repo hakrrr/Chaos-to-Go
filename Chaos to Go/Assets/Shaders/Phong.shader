@@ -18,18 +18,14 @@
             GLSLPROGRAM
 
             #ifdef VERTEX
-            
-            uniform vec3 _WorldSpaceCameraPos; 
-            uniform mat4 _Object2World;
-            uniform mat4 _World2Object;
 
             varying vec4 WorldPos; 
             varying vec3 Normal;
             varying vec2 TextureCoordinate;
 
             void main(){
-                WorldPos = _Object2World * gl_Vertex;
-                Normal = normalize(vec3(vec4(gl_Normal, 0.0) * _World2Object));
+                WorldPos = unity_ObjectToWorld * gl_Vertex;
+                Normal = normalize((unity_ObjectToWorld * vec4(gl_Normal, 0.0)).xyz);
                 TextureCoordinate = gl_MultiTexCoord0.xy;
                 gl_Position = gl_ModelViewProjectionMatrix * gl_Vertex;
             }
