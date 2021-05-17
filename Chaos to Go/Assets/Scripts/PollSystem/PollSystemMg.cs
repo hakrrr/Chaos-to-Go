@@ -61,7 +61,7 @@ namespace TwitchChat
             int maxValue = voteCounter.Max();
             int maxIndex = voteCounter.ToList().IndexOf(maxValue);
             
-            //@Dorotha
+            //@Dorota
             spawnInfo result = choices[maxIndex];
 
             Debug.Log("Result: " + result.IngredientName + " " + result.SpawnPoint);
