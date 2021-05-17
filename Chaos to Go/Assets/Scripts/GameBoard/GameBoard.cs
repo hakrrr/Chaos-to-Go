@@ -17,6 +17,7 @@ public class GameBoard : MonoBehaviour
     private Transform tileRoot;
 
     private InstanceMatrix<GameBoardTile> tileMatrix;
+    private InstanceMatrix<bool> blockedTiles;
 
 
     public void FillEmpty()
@@ -55,6 +56,8 @@ public class GameBoard : MonoBehaviour
 
     public void AddTile(GameBoardTile tile, uint x, uint y)
     {
+        if (blockedTiles.Get(x, y))
+            return;
         tileMatrix.Set(x, y, tile);
         tile.x = x;
         tile.y = y;
@@ -69,6 +72,10 @@ public class GameBoard : MonoBehaviour
         float d = v_xz.magnitude;
         if(d <= maxDist)
         {
+            if (IsTileBlocked(oldTile.x, oldTile.y))
+            {
+                return false;
+            }
             AddTile(newTile, oldTile.x, oldTile.y);
             Destroy(oldTile);
             Build();
@@ -102,10 +109,36 @@ public class GameBoard : MonoBehaviour
     }
 
 
+    public void BlockTile(uint x, uint y)
+    {
+        blockedTiles.Set(x, y, true);
+    }
+
+
+    public void FreeTile(uint x, uint y)
+    {
+        blockedTiles.Set(x, y, false);
+    }
+
+
+    public bool IsTileBlocked(uint x, uint y)
+    {
+        return blockedTiles.Get(x, y);
+    }
+
+
     // Start is called before the first frame update
     void Start()
     {
         tileMatrix = new InstanceMatrix<GameBoardTile>(x, y);
+        blockedTiles = new InstanceMatrix<bool>(x, y);
+        for(uint i = 0; i < x; i++)
+        {
+            for(uint j = 0; j < y; j++)
+            {
+                blockedTiles.Set(i, j, false);
+            }
+        }
         FillEmpty();
         Build();
     }
