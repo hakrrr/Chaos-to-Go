@@ -60,7 +60,10 @@ namespace TwitchChat
             //max voteCounter => spawnInfo
             int maxValue = voteCounter.Max();
             int maxIndex = voteCounter.ToList().IndexOf(maxValue);
+            
+            //@Dorotha
             spawnInfo result = choices[maxIndex];
+
             Debug.Log("Result: " + result.IngredientName + " " + result.SpawnPoint);
             Debug.Log("-------------------------");
         }
@@ -70,7 +73,7 @@ namespace TwitchChat
             //Reset CD
             IngCD = MaxCD;
 
-            //Generate 3 Unique Random Emotes for VoteCasting
+            //Generate 3 Random Emotes for VoteCasting
             var result = Enumerable.Range(0, emotes.Length).OrderBy(g => Guid.NewGuid()).Take(3).ToArray();
             for (int i = 0; i < 3; i++) currentEmotes[i] = emotes[result[i]];
             
@@ -78,7 +81,7 @@ namespace TwitchChat
             Debug.Log("Current Voting Emotes are: ");
             for (int i = 0; i < 3; i++) Debug.Log(currentEmotes[i]);
 
-            //Generate 3 random ingredients with SpawnPoints
+            //Generate 3 random ingredients with spawnPoints
             var rngIng = Enumerable.Range(0, ingredients.Length).OrderBy(g => Guid.NewGuid()).Take(3).ToArray();
             var rngSpawn = Enumerable.Range(1, MaxSpawns).OrderBy(g => Guid.NewGuid()).Take(3).ToArray();
             for (int i = 0; i < 3; i++) choices[i] = new spawnInfo(ingredients[rngIng[i]], rngSpawn[i]);
@@ -86,7 +89,7 @@ namespace TwitchChat
             Debug.Log("Current Choices: ");
             for (int i = 0; i < 3; i++) Debug.Log(choices[i].IngredientName + " " + choices[i].SpawnPoint);
 
-            //TODO Update Images
+            //TODO Update Images according to ing + spawnPoints & emotes
 
             //Reset VoteCounter
             for (int i = 0; i < 3; i++) voteCounter[i] = 0;
