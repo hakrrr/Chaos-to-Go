@@ -13,11 +13,25 @@ namespace TwitchChat
         [SerializeField]
         private Text IngCDText;
         private float IngCD;
-        private float MaxCD = 10;
+        private float MaxCD = 30;
+        private int MaxSpawns = 5;
 
+        private string[] ingredients = { "tomato", "chicken", "onion", "carrot", "asparagus" };
         private string[] emotes = { "1", "2", "3", "4", "5" };
         private string[] currentEmotes = new string[3];
         private int[] voteCounter = new int[3] { 0, 0, 0 };
+        private spawnInfo[] choices = new spawnInfo[3];
+
+        public struct spawnInfo
+        {
+            public string IngredientName;
+            public int SpawnPoint;
+            public spawnInfo(string name, int point)
+            {
+                this.IngredientName = name; 
+                this.SpawnPoint = point;
+            }
+        }
 
         void Start()
         {
@@ -42,7 +56,13 @@ namespace TwitchChat
         void EvalVote()
         {
             //Print out the votes
-            for (int i = 0; i < 3; i++) Debug.Log("Ingredient " + (i+1) +" has " + voteCounter[i] + "votes");
+            for (int i = 0; i < 3; i++) Debug.Log("Ingredient " + (i+1) +" has " + voteCounter[i] + " votes");
+            //max voteCounter => spawnInfo
+            int maxValue = voteCounter.Max();
+            int maxIndex = voteCounter.ToList().IndexOf(maxValue);
+            spawnInfo result = choices[maxIndex];
+            Debug.Log("Result: " + result.IngredientName + " " + result.SpawnPoint);
+            Debug.Log("-------------------------");
         }
 
         private void ResetPoll()
@@ -58,7 +78,15 @@ namespace TwitchChat
             Debug.Log("Current Voting Emotes are: ");
             for (int i = 0; i < 3; i++) Debug.Log(currentEmotes[i]);
 
-            //TODO Generate random ingredients and update the images
+            //Generate 3 random ingredients with SpawnPoints
+            var rngIng = Enumerable.Range(0, ingredients.Length).OrderBy(g => Guid.NewGuid()).Take(3).ToArray();
+            var rngSpawn = Enumerable.Range(1, MaxSpawns).OrderBy(g => Guid.NewGuid()).Take(3).ToArray();
+            for (int i = 0; i < 3; i++) choices[i] = new spawnInfo(ingredients[rngIng[i]], rngSpawn[i]);
+
+            Debug.Log("Current Choices: ");
+            for (int i = 0; i < 3; i++) Debug.Log(choices[i].IngredientName + " " + choices[i].SpawnPoint);
+
+            //TODO Update Images
 
             //Reset VoteCounter
             for (int i = 0; i < 3; i++) voteCounter[i] = 0;
