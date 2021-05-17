@@ -22,7 +22,7 @@ namespace TwitchChat
         private int[] voteCounter = new int[3] { 0, 0, 0 };
         private spawnInfo[] choices = new spawnInfo[3];
 
-        public struct spawnInfo
+        struct spawnInfo
         {
             public string IngredientName;
             public int SpawnPoint;
