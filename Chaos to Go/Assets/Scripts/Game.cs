@@ -51,6 +51,7 @@ public class Game : MonoBehaviour
 
     public void SetRecipe(int recipeIdx, Recipes.Recipe recipe)
     {
+        recipeOrderUI.ResetRecipeUI(recipeIdx);
         recipeOrderUI.ShowRecipe(recipe, recipeIdx);
         foodOrders[recipeIdx] = recipe;
     }
