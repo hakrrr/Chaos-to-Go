@@ -51,7 +51,6 @@ public class Game : MonoBehaviour
 
     public void SetRecipe(int recipeIdx, Recipes.Recipe recipe)
     {
-        recipeOrderUI.ResetRecipeUI(recipeIdx);
         recipeOrderUI.ShowRecipe(recipe, recipeIdx);
         foodOrders[recipeIdx] = recipe;
     }
@@ -68,13 +67,14 @@ public class Game : MonoBehaviour
     {
         GAME = this;
         console.transform.localScale = new Vector3(1, 1, 1);
-        SetRecipe(0, Recipes.RECIPES[0]);
-        SetRecipe(1, Recipes.RECIPES[1]);
     }
+
 
     // Update is called once per frame
     void Update()
     {
-        
+        // For demonstration purposes...
+        SetRecipe(0, Recipes.RECIPES[0]);
+        SetRecipe(1, Recipes.RECIPES[1]);
     }
 }

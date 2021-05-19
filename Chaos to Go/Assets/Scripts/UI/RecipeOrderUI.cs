@@ -10,11 +10,7 @@ public class RecipeOrderUI : MonoBehaviour
     [SerializeField]
     private Image[] iconSlots;
     [SerializeField]
-    private Image[] plusSigns = new Image[6];
-    [SerializeField]
-    private GameObject[] recipeRootObjects = new GameObject[3];
-
-    private Recipes recipes;
+    private Image[] plusSigns;
 
 
     public void ResetRecipeUI(int idx)
@@ -29,7 +25,8 @@ public class RecipeOrderUI : MonoBehaviour
 
     public void ShowRecipe(Recipes.Recipe recipe, int idx)
     {
-        // Hide plus-icosn when necessary
+        ResetRecipeUI(idx);
+        // Hide plus-icons when necessary
         if(recipe.ingredient1 != Recipes.eIngredients.empty)
         {
             iconSlots[Game.RECIPE_MAX_SIZE * idx].sprite = iconTextures[(int)recipe.ingredient1 - 1];
@@ -52,15 +49,8 @@ public class RecipeOrderUI : MonoBehaviour
 
     public void Start()
     {
-        recipes = new Recipes();
         ResetRecipeUI(0);
         ResetRecipeUI(1);
         ResetRecipeUI(2);
-
-        //ShowRecipe(Recipes.RECIPES[0], 0);
-        //ShowRecipe(Recipes.RECIPES[1], 1);
     }
-
-
-
 }
