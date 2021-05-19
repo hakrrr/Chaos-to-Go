@@ -58,10 +58,10 @@ Material:
     m_Floats:
     - _Ambient: 0.79
     - _BumpScale: 1
-    - _CelCount: 8
+    - _CelCount: 16
     - _Cutoff: 0.5
     - _DetailNormalMapScale: 1
-    - _Diffuse: 0.64
+    - _Diffuse: 1
     - _DstBlend: 0
     - _GlossMapScale: 1
     - _Glossiness: 0.5
@@ -73,7 +73,7 @@ Material:
     - _OutlineStrength: 0.0625
     - _Parallax: 0.02
     - _SmoothnessTextureChannel: 0
-    - _Specular: 0.09
+    - _Specular: 0.159
     - _SpecularExponent: 32
     - _SpecularHighlights: 1
     - _SrcBlend: 1
