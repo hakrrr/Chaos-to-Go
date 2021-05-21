@@ -110,7 +110,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 60eeb460ff64eab49a3e2d9e2bc73d49, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  screenDistance: 50
+  screenDistance: 70
 --- !u!1 &1661685733988669732
 GameObject:
   m_ObjectHideFlags: 0

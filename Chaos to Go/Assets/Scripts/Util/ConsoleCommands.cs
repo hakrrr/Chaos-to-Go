@@ -82,6 +82,48 @@ public class ConsoleCommands
         return BuildOutput();
     }
 
+
+    public static string give()
+    {
+        string output = BuildOutput();
+        if (argc < 2)
+            return output + "\nPlease specify what you want!\n" +
+                            "give <obj> <type> <typeargs> ; <obj> in {tile}";
+
+        switch (args[1])
+        {
+            case "tile":
+                {
+
+                    if (argc < 3)
+                    {
+                        return output + "\nPlease specify what you want!\n" +
+                                        "give tile <tilename>";
+                    }
+
+                    switch (args[2])
+                    {
+                        case "basetile":
+                            {
+                                if (argc < 5)
+                                {
+                                    return output + "\nPlease specify a direction!\n" +
+                                                    "give tile basetile <dir1> <dir2> ; <dir1>, <dir2> in {0,1,2,3}";
+                                }
+
+                                TileSelectionMenu menu = GameObject.Find("TileSelectionMenu").GetComponent<TileSelectionMenu>();
+                                menu.AddBaseTile(0, (BaseTile.eDirection) int.Parse(args[3]), (BaseTile.eDirection) int.Parse(args[4]));
+                            }
+                            break;
+                    }
+
+                }
+                break;
+        }
+
+        return BuildOutput();
+    }
+
     // ================================================================================================= //
     //                                     END CONSOLE COMMANDS                                          //
     // ================================================================================================= //
