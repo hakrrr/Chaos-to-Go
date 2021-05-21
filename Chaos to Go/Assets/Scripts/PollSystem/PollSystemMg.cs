@@ -12,6 +12,16 @@ namespace TwitchChat
     {
         [SerializeField]
         private Text IngCDText;
+        [SerializeField]
+        private Text[] SpawnPoints;
+        [SerializeField]
+        private Image[] IngredientSlot;
+        [SerializeField]
+        private Sprite[] IconTextures;
+
+
+        private Recipes.eIngredients eIng;
+
         private float IngCD;
         private float MaxCD = 30;
         private int MaxSpawns = 5;
@@ -94,6 +104,12 @@ namespace TwitchChat
             for (int i = 0; i < 3; i++) Debug.Log(choices[i].IngredientName + " " + choices[i].SpawnPoint);
 
             //TODO Update Images according to ing + spawnPoints & emotes
+            for (int i = 0; i < choices.Length; i++)
+            {
+                SpawnPoints[i].GetComponent<Text>().text = choices[i].SpawnPoint.ToString();
+                var e = Enum.Parse(typeof(Recipes.eIngredients), choices[i].IngredientName);
+                IngredientSlot[i].sprite = IconTextures[(int)e - 1];
+            }
 
             //Reset VoteCounter
             for (int i = 0; i < 3; i++) voteCounter[i] = 0;
