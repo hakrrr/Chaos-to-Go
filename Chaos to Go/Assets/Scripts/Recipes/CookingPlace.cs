@@ -36,7 +36,23 @@ public class CookingPlace : MonoBehaviour
         {
             CheckRecipe();
         }
-        
+
+        int c_empty = 0;
+        for(int i = 0; i < MAX_INGREDIENTS; i++)
+        {
+            if(inPot[i] != Recipes.eIngredients.empty)
+            {
+                c_empty++;
+            }
+        }
+        if(c_empty == MAX_INGREDIENTS)
+        {
+            inPot = new Recipes.eIngredients[MAX_INGREDIENTS];
+            for (int i = 0; i < MAX_INGREDIENTS; i++)
+            {
+                inPot[i] = Recipes.eIngredients.empty;
+            }
+        }
     }
 
 
@@ -69,7 +85,7 @@ public class CookingPlace : MonoBehaviour
                 {
                     inPot[i] = Recipes.eIngredients.empty;
                 }
-                break;
+                return;
             }
         }
     }
