@@ -70,11 +70,17 @@ public class Game : MonoBehaviour
     }
 
 
+    bool recipesSet = false;
     // Update is called once per frame
     void Update()
     {
         // For demonstration purposes...
-        SetRecipe(0, Recipes.RECIPES[0]);
-        SetRecipe(1, Recipes.RECIPES[1]);
+        if (!recipesSet)
+        {
+            SetRecipe(0, Recipes.RECIPES[0]);
+            SetRecipe(1, Recipes.RECIPES[1]);
+            recipesSet = true;
+        }
+        
     }
 }
