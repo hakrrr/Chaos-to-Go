@@ -15,7 +15,7 @@ public class IngredientsManager : MonoBehaviour
 
     //array of spawn points
     //teporarily declared here, but should be declared on start, according to level topology
-    Vector3[] spawnPoints = new Vector3[] {new Vector3(-6,0,6), new Vector3(-2, 0, 6), new Vector3(2, 0, 6), new Vector3(6, 0, 6), new Vector3(0, 0, 0) };
+    Vector3[] spawnPoints = new Vector3[] {new Vector3(-6,0,6), new Vector3(-2, 0, 6), new Vector3(2, 0, 6), new Vector3(6, 0, 6), new Vector3(6, 0, 6) };
 
     // Start is called before the first frame update
     void Start()
