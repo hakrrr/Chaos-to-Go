@@ -12,12 +12,32 @@ namespace TwitchChat
     {
         [SerializeField]
         private Text IngCDText;
+        [SerializeField]
+        private Text[] SpawnPoints;
+        [SerializeField]
+        private Image[] IngredientSlot;
+        [SerializeField]
+        private Image[] EmoteSlot;
+        [SerializeField]
+        private Sprite[] IconTextures;
+        [SerializeField]
+        private Sprite[] EmoteTextures;
+
+        private enum eEmote
+        {
+            LUL,
+            MonkaS,
+            KEKW,
+            Kappa,
+            TriHard
+        }
+
         private float IngCD;
         private float MaxCD = 30;
         private int MaxSpawns = 5;
 
         private string[] ingredients = { "tomato", "chicken", "onion", "carrot", "asparagus" };
-        private string[] emotes = { "1", "2", "3", "4", "5" };
+        private string[] emotes = { "LUL", "MonkaS", "KEKW", "Kappa", "TriHard" };
         private string[] currentEmotes = new string[3];
         private int[] voteCounter = new int[3] { 0, 0, 0 };
         private spawnInfo[] choices = new spawnInfo[3];
@@ -94,6 +114,14 @@ namespace TwitchChat
             for (int i = 0; i < 3; i++) Debug.Log(choices[i].IngredientName + " " + choices[i].SpawnPoint);
 
             //TODO Update Images according to ing + spawnPoints & emotes
+            for (int i = 0; i < choices.Length; i++)
+            {
+                SpawnPoints[i].GetComponent<Text>().text = choices[i].SpawnPoint.ToString();
+                var e = Enum.Parse(typeof(Recipes.eIngredients), choices[i].IngredientName);
+                IngredientSlot[i].sprite = IconTextures[(int)e - 1];
+                e = Enum.Parse(typeof(eEmote), currentEmotes[i]);
+                EmoteSlot[i].sprite = EmoteTextures[(int)e];
+            }
 
             //Reset VoteCounter
             for (int i = 0; i < 3; i++) voteCounter[i] = 0;
