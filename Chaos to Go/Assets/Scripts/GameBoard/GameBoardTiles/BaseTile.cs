@@ -54,4 +54,14 @@ public class BaseTile : GameBoardTile
         }
     }
 
+    public eDirection getStart()
+    {
+        return this.start;
+    }
+
+    public eDirection getEnd()
+    {
+        return this.end;
+    }
+
 }

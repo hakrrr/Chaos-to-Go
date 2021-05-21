@@ -63,6 +63,10 @@ namespace TwitchChat
             
             //@Dorota
             spawnInfo result = choices[maxIndex];
+            //Find the spawning script and spawn ingredients according to poll results
+            GameObject ingredientsManager = GameObject.Find("IngredientsManager");
+            IngredientsManager ingredientSpawningScript = ingredientsManager.GetComponent<IngredientsManager>();
+            ingredientSpawningScript.SpawnIngredient(result.IngredientName, result.SpawnPoint);
 
             Debug.Log("Result: " + result.IngredientName + " " + result.SpawnPoint);
             Debug.Log("-------------------------");

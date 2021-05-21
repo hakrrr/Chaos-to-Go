@@ -11,10 +11,18 @@ public class IngredientsManager : MonoBehaviour
     public GameObject asparagus;
     public GameObject chicken;
 
+    private GameObject tilesArray;
+
+    //array of spawn points
+    //teporarily declared here, but should be declared on start, according to level topology
+    //WRONG: positions of tiles are relative!!!11!!1
+    Vector3[] spawnPoints = new Vector3[] {new Vector3(-6,0,6), new Vector3(-2, 0, 6), new Vector3(2, 0, 6), new Vector3(6, 0, 6), new Vector3(0, 0, 0) };
+
     // Start is called before the first frame update
     void Start()
     {
-        //SpawnIngredient("chicken", new Vector3(0, 0, 0));
+        //int i = 0;
+        //SpawnIngredient("chicken", i);
     }
 
     // Update is called once per frame
@@ -24,24 +32,24 @@ public class IngredientsManager : MonoBehaviour
     }
 
     //or strings or ID for ingredient and position, what do we like to have here?
-    void SpawnIngredient(string type, Vector3 spawnPoint)
+    public void SpawnIngredient(string type, int spawnPointID)
     {
         switch (type)
         {
             case "tomato":
-                Instantiate(tomato, spawnPoint, Quaternion.identity, transform);
+                Instantiate(tomato, transform.localPosition + spawnPoints[spawnPointID], Quaternion.identity, transform);
                 break;
             case "onion":
-                Instantiate(onion, spawnPoint, Quaternion.identity, transform);
+                Instantiate(onion, transform.localPosition + spawnPoints[spawnPointID], Quaternion.identity, transform);
                 break;
             case "carrot":
-                Instantiate(carrot, spawnPoint, Quaternion.identity, transform);
+                Instantiate(carrot, transform.localPosition + spawnPoints[spawnPointID], Quaternion.identity, transform);
                 break;
             case "asparagus":
-                Instantiate(asparagus, spawnPoint, Quaternion.identity, transform);
+                Instantiate(asparagus, transform.localPosition + spawnPoints[spawnPointID], Quaternion.identity, transform);
                 break;
             case "chicken":
-                Instantiate(chicken, spawnPoint, Quaternion.identity, transform);
+                Instantiate(chicken, transform.localPosition + spawnPoints[spawnPointID], Quaternion.identity, transform);
                 break;
             default:
                 break;
