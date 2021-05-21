@@ -90,7 +90,7 @@ public class GameBoard : MonoBehaviour
     }
 
 
-    public bool FindAndReplace(GameBoardTile newTile, float maxDist = 10.0f)
+    public bool FindAndReplace(GameBoardTile newTile, float maxDist = 2.0f)
     {
         GameBoardTile oldTile = FindClosestTileTo(newTile.transform.position);
         Vector3 v = (oldTile.transform.position - newTile.transform.position);
