@@ -56,6 +56,18 @@ public class Game : MonoBehaviour
     }
 
 
+    public Recipes.Recipe[] GetFoodOrders()
+    {
+        return foodOrders;
+    }
+
+
+    public void NextRecipe(int recipeIdx)
+    {
+        SetRecipe(recipeIdx, Recipes.RECIPES[(int)Random.Range(0.0f, Recipes.RECIPES.Length)]);
+    }
+
+
     private void UpdateScoreText()
     {
         scoreText.text = "" + score;
@@ -77,8 +89,9 @@ public class Game : MonoBehaviour
         // For demonstration purposes...
         if (!recipesSet)
         {
-            SetRecipe(0, Recipes.RECIPES[0]);
-            SetRecipe(1, Recipes.RECIPES[1]);
+            NextRecipe(0);
+            NextRecipe(1);
+            NextRecipe(2);
             recipesSet = true;
         }
         
