@@ -15,12 +15,15 @@ public class Ingredient : MonoBehaviour
     {
         public movementType movement;
         public string name;
-        public int boundtop;
+        public Vector3 position;
+        /*public int boundtop;
         public int bounddown;
         public int boundleft;
-        public int boundright;
+        public int boundright;*/
     }
 
+    private Tile previousTile;
+    private bool lastTimeSingleHit;
     private Tile currentTile;
     private Tile nextTile;
 
@@ -28,130 +31,197 @@ public class Ingredient : MonoBehaviour
 
     float angle = 0;
     float speed = (2 * Mathf.PI) / 5; //2*PI in degress is 360, so you get 5 seconds to complete a circle
-    float radius = 5;   
+    float radius = 5;
+    int debugCounter = 0;
 
+    float offset = 16 / (4 * 2);
 
     // Start is called before the first frame update
     void Start()
     {
-        /*topology[0][0] = new Vector2(-6, 6);
-        topology[0][1] = new Vector2(-6, 2);
-        topology[0][2] = new Vector2(-6, -2);
-        topology[0][3] = new Vector2(-6, -6);
-
-        topology[1][0] = new Vector2(-2, 6);
-        topology[1][1] = new Vector2(-2, 2);
-        topology[1][2] = new Vector2(-2, -2);
-        topology[1][3] = new Vector2(-2, -6);
-
-        topology[2][0] = new Vector2(2, 6);
-        topology[2][1] = new Vector2(2, 2);
-        topology[2][2] = new Vector2(2, -2);
-        topology[2][3] = new Vector2(2, -6);
-
-        topology[3][0] = new Vector2(6, 6);
-        topology[3][1] = new Vector2(6, 2);
-        topology[3][2] = new Vector2(6, -2);
-        topology[3][3] = new Vector2(6, -6);*/
-
-        //nowait
         wait = false;
         currentTile.movement = movementType.none;
+        lastTimeSingleHit = true;
     }
 
     // Update is called once per frame
     void Update()
     {
+        Debug.Log("CurrentTileAtBeginningOfUpdate:" + debugCounter + " " + currentTile.name);
+        //Debug.Log("NextTile:" + nextTile.name);
+
+        //find_colisions, return array full of important collided objects
+        List<GameObject> hit = find_tile(new Vector2(transform.position.x, transform.position.z));
+        Debug.Log("Number of hits:" + hit.Count);
+        //Initialize, on start, but after the tiles where initialized (could be moved to on start, after testing)
         if (currentTile.movement == movementType.none)
         {
-            find_tile(new Vector2(transform.position.x, transform.position.z));
-            Debug.Log("Update: " + currentTile.movement);
+            updateCurrentTile(hit[0]);
+            //Debug.Log("Initialized: " + currentTile.movement);
+            Debug.Log("CurrentTile initialized: " + currentTile.name);
         }
 
-        
-
-        if (tileChanged(currentTile))
+        //nothing there
+        if (hit.Count == 0)
         {
-            //HULK SMASH!
+            //die
             Destroy(gameObject);
-            //update negative score for destroying ingredients
+            //Debug.Log("DESTROYED: fell out of board");
         }
-
-        //if waiting
-        if (wait)
+        //one tile there
+        if(hit.Count == 1)
         {
-            //check if newtile changed
-            if (tileChanged(nextTile))
+            //goal? - yay
+
+            //detected tile is not the same as current -> it was swaped
+            if (!hit[0].name.Equals(currentTile.name))
             {
-                //if possible to move further after change
-                if (movementfit(currentTile.movement, nextTile.movement))
+                //die
+                Destroy(gameObject);
+                Debug.Log("DESTROYED: smashed with currentTile " + currentTile.name + " and hit " + hit[0].name);
+            }
+            move(currentTile.movement);
+            lastTimeSingleHit = true;
+        }
+        //two tiles there - on the boundary
+        if(hit.Count == 2)
+        {
+            if(wait)
+            {
+                //Debug.Log("waiting...");
+                //if both not current 
+                if (!hit[0].name.Equals(currentTile.name) && !hit[1].name.Equals(currentTile.name))
                 {
-                    //replace current with next and move accordingly to movement pattern and wait no more
-                    currentTile = nextTile;
-                    move(currentTile.movement);
-                    wait = false;
+                    //then current tile swaped -> die
+                    Destroy(gameObject);
+                    Debug.Log("DESTROYED: smashed 2");
+                }
+                //if one current but second not next
+                else if (hit[0].name.Equals(currentTile.name) && !hit[1].name.Equals(nextTile.name))
+                {
+                    //then next swaped
+                    //update next
+                    updateNextTile(hit[1]);
+                    Debug.Log("NextTile swaped1: " + nextTile.name);
+                    moveFurtherIfPossible(); 
+                }
+                //same in other direction
+                else if (hit[1].name.Equals(currentTile.name) && !hit[0].name.Equals(nextTile.name))
+                {
+                    //then next swaped
+                    //update next
+                    updateNextTile(hit[0]);
+                    Debug.Log("NextTile swaped2: " + nextTile.name);
+                    moveFurtherIfPossible();
                 }
             }
+            else
+            {
+                Debug.Log("Not waiting");
+                //check if new tile hit or still hitting previous tile
+                //first time detection
+                if (lastTimeSingleHit)
+                {
+                    Debug.Log("First detection");
+                    wait = true;
+                    //if both not current 
+                    if (!hit[0].name.Equals(currentTile.name) && !hit[1].name.Equals(currentTile.name))
+                    {
+                        //then current tile swaped -> die
+                        Destroy(gameObject);
+                        Debug.Log("DESTROYED: smashed 3");
+                    }
+                    //check which is new, which old
+                    //if one current but second not
+                    else if (hit[0].name.Equals(currentTile.name) && !hit[1].name.Equals(currentTile.name))
+                    {
+                        //update next with new hit
+                        updateNextTile(hit[1]);
+                        Debug.Log("NextTile first hit1: " + nextTile.name);
+                        moveFurtherIfPossible();
+                    }
+                    //same in other direction
+                    else if (hit[1].name.Equals(currentTile.name) && !hit[0].name.Equals(currentTile.name))
+                    {
+                        //update next with new hit
+                        updateNextTile(hit[0]);
+                        Debug.Log("NextTile first hit1: " + nextTile.name);
+                        moveFurtherIfPossible();
+                    }
+                }
+                //passing-by detection
+                else
+                {
+                    //like in one hit
+                    //check if current changed
+                    if (!hit[0].name.Equals(currentTile.name) && !hit[1].name.Equals(currentTile.name))
+                    {
+                        //then current tile swaped -> die
+                        Destroy(gameObject);
+                        Debug.Log("DESTROYED: smashed 4");
+                    }
+                    //if not, move further 
+                    move(currentTile.movement);
+                }
+            }
+            lastTimeSingleHit = false;
         }
-        else
+        if(hit.Count > 2)
         {
-            move(currentTile.movement);
-        }
-
-        if (outOfBounds())
-        {
-            //find where are you
-                //nowhere -> die
-                    //Destroy(gameObject);
-                    //update score for destroying
-                //goal -> yay -> die
-                    //check if correct recipe
-                    //update score accordingly
-                    //Destroy(gameObject);
-                //newtile
-                    //wait = true;
-                    //nextTile = found tile
-                    //compare: can move further?
-                    //YES: switch new to current, move accordingly
-                    //if (movementfit(currentTile.movement, nextTile.movement))
-                    //{
-                        //replace current with next and move accordingly to movement pattern and wait no more
-                        //currentTile = nextTile;
-                        //move(currentTile.movement);
-                        //wait = false;
-                    //}
-        }
-
+            Debug.LogError("Too many tiles detected! Am I (" + gameObject + ") in the corner?");
+        }    
     }
 
-    void find_tile(Vector2 position)
+    void moveFurtherIfPossible()
     {
-        /*Debug.Log("Here!");
-        GameObject gameBoard = GameObject.Find("GameBoard");
-        GameBoard gameBoardScript = gameBoard.GetComponent<GameBoard>();
-        Debug.Log("There!");
-        GameBoardTile tile = gameBoardScript.FindClosestTileTo(new Vector3(0, 0, 0));*/
-        //I want to have base tile here!
-        //How to do that? Inheritance :/
-        //Debug.Log("Tile : " + tile.name);
+        //if current and next movement match it is possible to move
+        if(movementfit(currentTile.movement, nextTile.movement))
+        {
+            //make next the current, move accordingly and wait no more
+            currentTile = nextTile;
+            Debug.Log("CAN MOVE, so CurrentTile: " + currentTile.name);
+            move(currentTile.movement);
+            wait = false;
+        }
+    }
 
-        Collider[] colliders = Physics.OverlapSphere(transform.position, 1);
+    void updateNextTile(GameObject g)
+    {
+        nextTile.name = g.name;
+        string start = g.GetComponent<BaseTile>().getStart();
+        string end = g.GetComponent<BaseTile>().getEnd();
+        nextTile.movement = whichMovType(start, end);
+        nextTile.position = g.transform.position;
+        Debug.Log("UpdateNextTile call: " + nextTile.movement);
+    }
+    void updateCurrentTile(GameObject g)
+    {
+        currentTile.name = g.name;
+        string start = g.GetComponent<BaseTile>().getStart();
+        string end = g.GetComponent<BaseTile>().getEnd();
+        currentTile.movement = whichMovType(start, end);
+        currentTile.position = g.transform.position;
+        Debug.Log("UpdateCurrentTile call: " + currentTile.movement);
+    }
+
+    List<GameObject> find_tile(Vector2 position)
+    {
+        List<GameObject> output = new List<GameObject>();
+
+        Collider[] colliders = Physics.OverlapSphere(transform.position, 2);//make it smaller but make tiles colliders bigger
         Debug.Log("Kolidiert : " + colliders);
 
         foreach (Collider hit in colliders)
         {
             Collider col = hit.GetComponent<Collider>();
             if (col.gameObject.GetComponent<BaseTile>())
-            {
-                Debug.Log("Hit:" + hit);
-                //currentTile.name = col.gameObject.name;
-                string start = col.gameObject.GetComponent<BaseTile>().getStart();
-                string end = col.gameObject.GetComponent<BaseTile>().getEnd();
-                currentTile.movement = whichMovType(start, end);
-                Debug.Log("MOVE: " + currentTile.movement);
+            {                
+                output.Add(col.gameObject);
             }
+            //if col.gameObject is goal, add that too
 
         }
+        return output;
     }
 
     movementType whichMovType(string s, string e)
@@ -215,47 +285,30 @@ public class Ingredient : MonoBehaviour
                 transform.position = transform.position + new Vector3(-1, 0, 0) * speed * Time.deltaTime;
                 break;
             case movementType.topleft:
-                angle -= speed * Time.deltaTime;
-                transform.position = new Vector3(Mathf.Cos(angle) * radius, 0, Mathf.Sin(angle) * radius);
+                transform.RotateAround(currentTile.position + new Vector3(-offset, 0, offset), Vector3.up, 20 * Time.deltaTime);
                 break;
             case movementType.topright:
-                angle += speed * Time.deltaTime;
-                transform.position = new Vector3(Mathf.Cos(angle) * radius, 0, Mathf.Sin(angle) * radius);
+                transform.RotateAround(currentTile.position + new Vector3(offset, 0, offset), Vector3.up, -20 * Time.deltaTime);
                 break;
             case movementType.downleft:
-                angle += speed * Time.deltaTime;
-                transform.position = new Vector3(Mathf.Cos(angle) * radius, 0, Mathf.Sin(angle) * radius);
+                transform.RotateAround(currentTile.position + new Vector3(-offset, 0, -offset), Vector3.up, -20 * Time.deltaTime);
                 break;
             case movementType.downright:
-                angle -= speed * Time.deltaTime;
-                transform.position = new Vector3(Mathf.Cos(angle) * radius, 0, Mathf.Sin(angle) * radius);
+                transform.RotateAround(currentTile.position + new Vector3(offset, 0, -offset), Vector3.up, 20 * Time.deltaTime);
                 break;
             case movementType.lefttop:
-                angle += speed * Time.deltaTime;
-                transform.position = new Vector3(Mathf.Cos(angle) * radius, 0, Mathf.Sin(angle) * radius);
+                transform.RotateAround(currentTile.position + new Vector3(-offset, 0, offset), Vector3.up, -20 * Time.deltaTime);
                 break;
             case movementType.leftdown:
-                angle -= speed * Time.deltaTime;
-                transform.position = new Vector3(Mathf.Cos(angle) * radius, 0, Mathf.Sin(angle) * radius);
+                transform.RotateAround(currentTile.position + new Vector3(-offset, 0, -offset), Vector3.up, 20 * Time.deltaTime);
                 break;
             case movementType.righttop:
-                angle -= speed * Time.deltaTime;
-                transform.position = new Vector3(Mathf.Cos(angle) * radius, 0, Mathf.Sin(angle) * radius);
+                transform.RotateAround(currentTile.position + new Vector3(offset, 0, offset), Vector3.up, 20 * Time.deltaTime);
                 break;
             case movementType.rightdown:
-                angle += speed * Time.deltaTime;
-                transform.position = new Vector3(Mathf.Cos(angle) * radius, 0, Mathf.Sin(angle) * radius);
+                transform.RotateAround(currentTile.position + new Vector3(offset, 0, -offset), Vector3.up, -20 * Time.deltaTime);;
                 break;
         }
-    }
-
-    //check if ingredient moved out of current conveyor belt tile
-    bool outOfBounds()
-    {
-        if (transform.position.x >= currentTile.boundright || transform.position.x <= currentTile.boundleft ||
-            transform.position.z >= currentTile.boundtop || transform.position.z <= currentTile.bounddown)
-            return true;
-        return false;
     }
 
     //check if corresponding tile has been replaced and update local variables
