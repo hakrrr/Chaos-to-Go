@@ -16,22 +16,12 @@ public class Ingredient : MonoBehaviour
         public movementType movement;
         public string name;
         public Vector3 position;
-        /*public int boundtop;
-        public int bounddown;
-        public int boundleft;
-        public int boundright;*/
     }
-
-    private Tile previousTile;
     private bool lastTimeSingleHit;
     private Tile currentTile;
     private Tile nextTile;
 
-    Vector2[][] topology;
-
-    float angle = 0;
-    float speed = (2 * Mathf.PI) / 5; //2*PI in degress is 360, so you get 5 seconds to complete a circle
-    float radius = 5;
+    float speed = 2;
     int debugCounter = 0;
 
     float offset = 16 / (4 * 2);
@@ -66,7 +56,7 @@ public class Ingredient : MonoBehaviour
         {
             //die
             Destroy(gameObject);
-            //Debug.Log("DESTROYED: fell out of board");
+            Debug.Log("DESTROYED: fell out of board");
         }
         //one tile there
         if(hit.Count == 1)
@@ -208,7 +198,7 @@ public class Ingredient : MonoBehaviour
     {
         List<GameObject> output = new List<GameObject>();
 
-        Collider[] colliders = Physics.OverlapSphere(transform.position, 2);//make it smaller but make tiles colliders bigger
+        Collider[] colliders = Physics.OverlapSphere(new Vector3(position.x, (float)0.75, position.y), 2);//make it smaller but make tiles colliders bigger
         Debug.Log("Kolidiert : " + colliders);
 
         foreach (Collider hit in colliders)
@@ -309,14 +299,6 @@ public class Ingredient : MonoBehaviour
                 transform.RotateAround(currentTile.position + new Vector3(offset, 0, -offset), Vector3.up, -20 * Time.deltaTime);;
                 break;
         }
-    }
-
-    //check if corresponding tile has been replaced and update local variables
-    bool tileChanged(Tile t)
-    {
-        //find tile at position
-        //compare with local variable (compare names or some kind of IDs so that the movement pattern is not misleading
-        return false;
     }
 
     bool movementfit(movementType curr, movementType next)
