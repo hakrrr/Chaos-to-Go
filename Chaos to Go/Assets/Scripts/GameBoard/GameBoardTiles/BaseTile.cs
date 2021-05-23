@@ -54,14 +54,36 @@ public class BaseTile : GameBoardTile
         }
     }
 
-    public eDirection getStart()
+    public string getStart()
     {
-        return this.start;
+        switch(this.start)
+        {
+            case eDirection.down:
+                return "down";
+            case eDirection.up:
+                return "top";
+            case eDirection.left:
+                return "left";
+            case eDirection.right:
+                return "right";
+        }
+        return "none";
     }
 
-    public eDirection getEnd()
+    public string getEnd()
     {
-        return this.end;
+        switch (this.end)
+        {
+            case eDirection.down:
+                return "down";
+            case eDirection.up:
+                return "top";
+            case eDirection.left:
+                return "left";
+            case eDirection.right:
+                return "right";
+        }
+        return "none";
     }
 
 }

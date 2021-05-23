@@ -14,6 +14,7 @@ public class Ingredient : MonoBehaviour
     struct Tile
     {
         public movementType movement;
+        public string name;
         public int boundtop;
         public int bounddown;
         public int boundleft;
@@ -23,22 +24,52 @@ public class Ingredient : MonoBehaviour
     private Tile currentTile;
     private Tile nextTile;
 
+    Vector2[][] topology;
+
+    float angle = 0;
+    float speed = (2 * Mathf.PI) / 5; //2*PI in degress is 360, so you get 5 seconds to complete a circle
+    float radius = 5;   
+
 
     // Start is called before the first frame update
     void Start()
     {
-        //Debug.Log("Chicken!!!");
-        //check where are you find_tile()
-        find_tile(new Vector2(transform.position.x, transform.position.z));
-        //set as current tile (INHERITANCE PROBLEM)
+        /*topology[0][0] = new Vector2(-6, 6);
+        topology[0][1] = new Vector2(-6, 2);
+        topology[0][2] = new Vector2(-6, -2);
+        topology[0][3] = new Vector2(-6, -6);
+
+        topology[1][0] = new Vector2(-2, 6);
+        topology[1][1] = new Vector2(-2, 2);
+        topology[1][2] = new Vector2(-2, -2);
+        topology[1][3] = new Vector2(-2, -6);
+
+        topology[2][0] = new Vector2(2, 6);
+        topology[2][1] = new Vector2(2, 2);
+        topology[2][2] = new Vector2(2, -2);
+        topology[2][3] = new Vector2(2, -6);
+
+        topology[3][0] = new Vector2(6, 6);
+        topology[3][1] = new Vector2(6, 2);
+        topology[3][2] = new Vector2(6, -2);
+        topology[3][3] = new Vector2(6, -6);*/
 
         //nowait
         wait = false;
+        currentTile.movement = movementType.none;
     }
 
     // Update is called once per frame
     void Update()
     {
+        if (currentTile.movement == movementType.none)
+        {
+            find_tile(new Vector2(transform.position.x, transform.position.z));
+            Debug.Log("Update: " + currentTile.movement);
+        }
+
+        
+
         if (tileChanged(currentTile))
         {
             //HULK SMASH!
@@ -95,16 +126,73 @@ public class Ingredient : MonoBehaviour
 
     void find_tile(Vector2 position)
     {
-        Debug.Log("Here!");
+        /*Debug.Log("Here!");
         GameObject gameBoard = GameObject.Find("GameBoard");
         GameBoard gameBoardScript = gameBoard.GetComponent<GameBoard>();
-        GameBoardTile tile = gameBoardScript.FindClosestTileTo(new Vector3(position.x, 0, position.y));
-
+        Debug.Log("There!");
+        GameBoardTile tile = gameBoardScript.FindClosestTileTo(new Vector3(0, 0, 0));*/
         //I want to have base tile here!
         //How to do that? Inheritance :/
-        Debug.Log("Tile : " + tile.name);
+        //Debug.Log("Tile : " + tile.name);
 
-        currentTile.movement = movementType.none;
+        Collider[] colliders = Physics.OverlapSphere(transform.position, 1);
+        Debug.Log("Kolidiert : " + colliders);
+
+        foreach (Collider hit in colliders)
+        {
+            Collider col = hit.GetComponent<Collider>();
+            if (col.gameObject.GetComponent<BaseTile>())
+            {
+                Debug.Log("Hit:" + hit);
+                //currentTile.name = col.gameObject.name;
+                string start = col.gameObject.GetComponent<BaseTile>().getStart();
+                string end = col.gameObject.GetComponent<BaseTile>().getEnd();
+                currentTile.movement = whichMovType(start, end);
+                Debug.Log("MOVE: " + currentTile.movement);
+            }
+
+        }
+    }
+
+    movementType whichMovType(string s, string e)
+    {
+        if(s=="top")
+        {
+            if (e == "down")
+                return movementType.topdown;
+            if (e == "left")
+                return movementType.topleft;
+            if (e == "right")
+                return movementType.topright;
+        }
+        if (s == "down")
+        {
+            if (e == "top")
+                return movementType.downtop;
+            if (e == "left")
+                return movementType.downleft;
+            if (e == "right")
+                return movementType.downright;
+        }
+        if (s == "left")
+        {
+            if (e == "top")
+                return movementType.lefttop;
+            if (e == "down")
+                return movementType.leftdown;
+            if (e == "right")
+                return movementType.leftright;
+        }
+        if (s == "right")
+        {
+            if (e == "top")
+                return movementType.righttop;
+            if (e == "down")
+                return movementType.rightdown;
+            if (e == "left")
+                return movementType.rightleft;
+        }
+        return movementType.none;
     }
 
     //move according to the movement pattern
@@ -115,28 +203,48 @@ public class Ingredient : MonoBehaviour
             case movementType.none:
                 break;
             case movementType.topdown:
+                transform.position = transform.position + new Vector3(0, 0, -1) * speed * Time.deltaTime;
                 break;
             case movementType.downtop:
+                transform.position = transform.position + new Vector3(0, 0, 1) * speed * Time.deltaTime;
                 break;
             case movementType.leftright:
+                transform.position = transform.position + new Vector3(1, 0, 0) * speed * Time.deltaTime;
                 break;
             case movementType.rightleft:
+                transform.position = transform.position + new Vector3(-1, 0, 0) * speed * Time.deltaTime;
                 break;
             case movementType.topleft:
+                angle -= speed * Time.deltaTime;
+                transform.position = new Vector3(Mathf.Cos(angle) * radius, 0, Mathf.Sin(angle) * radius);
                 break;
             case movementType.topright:
+                angle += speed * Time.deltaTime;
+                transform.position = new Vector3(Mathf.Cos(angle) * radius, 0, Mathf.Sin(angle) * radius);
                 break;
             case movementType.downleft:
+                angle += speed * Time.deltaTime;
+                transform.position = new Vector3(Mathf.Cos(angle) * radius, 0, Mathf.Sin(angle) * radius);
                 break;
             case movementType.downright:
+                angle -= speed * Time.deltaTime;
+                transform.position = new Vector3(Mathf.Cos(angle) * radius, 0, Mathf.Sin(angle) * radius);
                 break;
             case movementType.lefttop:
+                angle += speed * Time.deltaTime;
+                transform.position = new Vector3(Mathf.Cos(angle) * radius, 0, Mathf.Sin(angle) * radius);
                 break;
             case movementType.leftdown:
+                angle -= speed * Time.deltaTime;
+                transform.position = new Vector3(Mathf.Cos(angle) * radius, 0, Mathf.Sin(angle) * radius);
                 break;
             case movementType.righttop:
+                angle -= speed * Time.deltaTime;
+                transform.position = new Vector3(Mathf.Cos(angle) * radius, 0, Mathf.Sin(angle) * radius);
                 break;
             case movementType.rightdown:
+                angle += speed * Time.deltaTime;
+                transform.position = new Vector3(Mathf.Cos(angle) * radius, 0, Mathf.Sin(angle) * radius);
                 break;
         }
     }
