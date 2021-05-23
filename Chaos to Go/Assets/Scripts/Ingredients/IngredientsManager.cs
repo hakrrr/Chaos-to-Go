@@ -31,9 +31,6 @@ public class IngredientsManager : MonoBehaviour
     }
 
     //Spawns ingredient of type "type" at spawn point with "spawnPointID
-    //--------------------------TODO------------------------------
-    //               proper scaling and rotation 
-    //------------------------------------------------------------
     public void SpawnIngredient(string type, int spawnPointID)
     {
         switch (type)

@@ -6,7 +6,19 @@ public class Ingredient : MonoBehaviour
 {
     enum movementType
     {
-        none, topdown, downtop, leftright, rightleft, topleft, topright, downleft, downright, lefttop, leftdown, righttop, rightdown
+        none, 
+        topdown, 
+        downtop, 
+        leftright, 
+        rightleft, 
+        topleft, 
+        topright, 
+        downleft, 
+        downright, 
+        lefttop, 
+        leftdown, 
+        righttop, 
+        rightdown
     }
 
     private bool wait;
@@ -26,49 +38,51 @@ public class Ingredient : MonoBehaviour
 
     float offset = 16 / (4 * 2);
 
+    Game gameScript;
+   
+
     // Start is called before the first frame update
     void Start()
     {
         wait = false;
         currentTile.movement = movementType.none;
         lastTimeSingleHit = true;
+        GameObject game = GameObject.Find("Game");
+        gameScript = game.GetComponent<Game>();
     }
 
     // Update is called once per frame
     void Update()
     {
-        Debug.Log("CurrentTileAtBeginningOfUpdate:" + debugCounter + " " + currentTile.name);
-        //Debug.Log("NextTile:" + nextTile.name);
-
         //find_colisions, return array full of important collided objects
         List<GameObject> hit = find_tile(new Vector2(transform.position.x, transform.position.z));
-        Debug.Log("Number of hits:" + hit.Count);
+
         //Initialize, on start, but after the tiles where initialized (could be moved to on start, after testing)
         if (currentTile.movement == movementType.none)
         {
             updateCurrentTile(hit[0]);
             //Debug.Log("Initialized: " + currentTile.movement);
-            Debug.Log("CurrentTile initialized: " + currentTile.name);
+            //Debug.Log("CurrentTile initialized: " + currentTile.name);
         }
 
         //nothing there
         if (hit.Count == 0)
         {
             //die
+            gameScript.AddScore(-100);
             Destroy(gameObject);
-            Debug.Log("DESTROYED: fell out of board");
+            //Debug.Log("DESTROYED: fell out of board");
         }
         //one tile there
         if(hit.Count == 1)
         {
-            //goal? - yay
-
             //detected tile is not the same as current -> it was swaped
             if (!hit[0].name.Equals(currentTile.name))
             {
                 //die
+                gameScript.AddScore(-100);
                 Destroy(gameObject);
-                Debug.Log("DESTROYED: smashed with currentTile " + currentTile.name + " and hit " + hit[0].name);
+                //Debug.Log("DESTROYED: smashed with currentTile " + currentTile.name + " and hit " + hit[0].name);
             }
             move(currentTile.movement);
             lastTimeSingleHit = true;
@@ -83,8 +97,9 @@ public class Ingredient : MonoBehaviour
                 if (!hit[0].name.Equals(currentTile.name) && !hit[1].name.Equals(currentTile.name))
                 {
                     //then current tile swaped -> die
+                    gameScript.AddScore(-100);
                     Destroy(gameObject);
-                    Debug.Log("DESTROYED: smashed 2");
+                    //Debug.Log("DESTROYED: smashed 2");
                 }
                 //if one current but second not next
                 else if (hit[0].name.Equals(currentTile.name) && !hit[1].name.Equals(nextTile.name))
@@ -92,7 +107,7 @@ public class Ingredient : MonoBehaviour
                     //then next swaped
                     //update next
                     updateNextTile(hit[1]);
-                    Debug.Log("NextTile swaped1: " + nextTile.name);
+                    //Debug.Log("NextTile swaped1: " + nextTile.name);
                     moveFurtherIfPossible(); 
                 }
                 //same in other direction
@@ -101,25 +116,26 @@ public class Ingredient : MonoBehaviour
                     //then next swaped
                     //update next
                     updateNextTile(hit[0]);
-                    Debug.Log("NextTile swaped2: " + nextTile.name);
+                    //Debug.Log("NextTile swaped2: " + nextTile.name);
                     moveFurtherIfPossible();
                 }
             }
             else
             {
-                Debug.Log("Not waiting");
+                //Debug.Log("Not waiting");
                 //check if new tile hit or still hitting previous tile
                 //first time detection
                 if (lastTimeSingleHit)
                 {
-                    Debug.Log("First detection");
+                    //Debug.Log("First detection");
                     wait = true;
                     //if both not current 
                     if (!hit[0].name.Equals(currentTile.name) && !hit[1].name.Equals(currentTile.name))
                     {
                         //then current tile swaped -> die
+                        gameScript.AddScore(-100);
                         Destroy(gameObject);
-                        Debug.Log("DESTROYED: smashed 3");
+                        //Debug.Log("DESTROYED: smashed 3");
                     }
                     //check which is new, which old
                     //if one current but second not
@@ -127,7 +143,7 @@ public class Ingredient : MonoBehaviour
                     {
                         //update next with new hit
                         updateNextTile(hit[1]);
-                        Debug.Log("NextTile first hit1: " + nextTile.name);
+                        //Debug.Log("NextTile first hit1: " + nextTile.name);
                         moveFurtherIfPossible();
                     }
                     //same in other direction
@@ -135,7 +151,7 @@ public class Ingredient : MonoBehaviour
                     {
                         //update next with new hit
                         updateNextTile(hit[0]);
-                        Debug.Log("NextTile first hit1: " + nextTile.name);
+                        //Debug.Log("NextTile first hit1: " + nextTile.name);
                         moveFurtherIfPossible();
                     }
                 }
@@ -147,8 +163,9 @@ public class Ingredient : MonoBehaviour
                     if (!hit[0].name.Equals(currentTile.name) && !hit[1].name.Equals(currentTile.name))
                     {
                         //then current tile swaped -> die
+                        gameScript.AddScore(-100);
                         Destroy(gameObject);
-                        Debug.Log("DESTROYED: smashed 4");
+                        //Debug.Log("DESTROYED: smashed 4");
                     }
                     //if not, move further 
                     move(currentTile.movement);
@@ -208,8 +225,33 @@ public class Ingredient : MonoBehaviour
             {                
                 output.Add(col.gameObject);
             }
-            //if col.gameObject is goal, add that too
+            if (col.gameObject.GetComponent<CookingPlace>())
+            {
+                //goal found: add ingredient to pot, then die
+                Recipes.eIngredients ingredient = Recipes.eIngredients.empty;
+                string name = gameObject.name;
+                switch(name)
+                {
+                    case "tomato(clone)":
+                        ingredient = Recipes.eIngredients.tomato;
+                        break;
+                    case "onion(clone)":
+                        ingredient = Recipes.eIngredients.onion;
+                        break;
+                    case "carrot(clone)":
+                        ingredient = Recipes.eIngredients.carrot;
+                        break;
+                    case "chicken(clone)":
+                        ingredient = Recipes.eIngredients.chicken;
+                        break;
+                    case "asparagus(clone)":
+                        ingredient = Recipes.eIngredients.asparagus;
+                        break;
+                }
+                col.gameObject.GetComponent<CookingPlace>().AddIngredient(ingredient);
 
+                Destroy(gameObject);
+            }
         }
         return output;
     }
