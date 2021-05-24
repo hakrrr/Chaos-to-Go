@@ -160,7 +160,7 @@ namespace TwitchChat
             int maxIndex = tileVoteCounter.ToList().IndexOf(maxValue);
 
 
-            tileSelectionMenu.AddBaseTile((BaseTile.eDirection) tiles_dir[rngTile[maxValue]][0], (BaseTile.eDirection) tiles_dir[rngTile[maxValue]][1]);
+            tileSelectionMenu.AddBaseTile((BaseTile.eDirection) tiles_dir[rngTile[maxIndex]][0], (BaseTile.eDirection) tiles_dir[rngTile[maxIndex]][1]);
          /* TODO: Spawn selected tile
           * 
           * //@Dorota

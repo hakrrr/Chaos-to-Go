@@ -18,7 +18,7 @@ public class TileSelectionMenu : MonoBehaviour
         int idx = -1;
         for (int i = 0; i < tiles.Length; i++)
         {
-            if (tiles[i].transform.parent != tileRoot)
+            if (tiles[i] == null || tiles[i].transform.parent != tileRoot)
             {
                 idx= i;
             }
@@ -37,7 +37,7 @@ public class TileSelectionMenu : MonoBehaviour
         newTile.name = "BaseTile" + ((int)Random.Range(0.0f, 128.0f));
         newTile.SetDirections(start, end);
         newTile.transform.parent = tileRoot;
-        newTile.transform.position = new Vector3(10.0f, 0, 10.0f + 3.0f * idx);
+        newTile.transform.position = new Vector3(13.0f, 0, 10.0f + 3.0f * idx);
         tiles[idx] = newTile;
     }
 
@@ -55,7 +55,7 @@ public class TileSelectionMenu : MonoBehaviour
         }
         newTile.SetDirections((BaseTile.eDirection)dirStart, (BaseTile.eDirection)dirEnd);
         newTile.transform.parent = tileRoot;
-        newTile.transform.position = new Vector3(10.0f, 0, 10.0f + 3.0f * idx);
+        newTile.transform.position = new Vector3(13.0f, 0, 10.0f + 3.0f * idx);
         tiles[idx] = newTile;
     }
 

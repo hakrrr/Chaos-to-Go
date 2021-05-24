@@ -33,7 +33,8 @@ public class Ingredient : MonoBehaviour
     private Tile currentTile;
     private Tile nextTile;
 
-    float speed = 2;
+    [SerializeField]
+    float speed = 1f;
     int debugCounter = 0;
 
     float offset = 16 / (4 * 2);
