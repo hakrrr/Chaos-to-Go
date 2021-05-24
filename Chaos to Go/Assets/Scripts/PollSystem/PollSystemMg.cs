@@ -36,7 +36,7 @@ namespace TwitchChat
         private enum eEmote
         {
             LUL,
-            MonkaS,
+            monkaS,
             KEKW,
             Kappa,
             TriHard
@@ -80,7 +80,7 @@ namespace TwitchChat
         "leftdown",
         "righttop",
         "rightdown" };
-        private string[] emotes = { "LUL", "MonkaS", "KEKW", "Kappa", "TriHard" };
+        private string[] emotes = { "LUL", "monkaS", "KEKW", "Kappa", "TriHard" };
         private string[] ingCurrentEmotes = new string[3];
         private string[] tileCurrentEmotes = new string[3];
         private int[] ingVoteCounter = new int[3] { 0, 0, 0 };
@@ -161,17 +161,6 @@ namespace TwitchChat
 
 
             tileSelectionMenu.AddBaseTile((BaseTile.eDirection) tiles_dir[rngTile[maxIndex]][0], (BaseTile.eDirection) tiles_dir[rngTile[maxIndex]][1]);
-         /* TODO: Spawn selected tile
-          * 
-          * //@Dorota
-            spawnInfo result = choices[maxIndex];
-            //Find the spawning script and spawn ingredients according to poll results
-            GameObject ingredientsManager = GameObject.Find("IngredientsManager");
-            IngredientsManager ingredientSpawningScript = ingredientsManager.GetComponent<IngredientsManager>();
-            ingredientSpawningScript.SpawnIngredient(result.IngredientName, result.SpawnPoint);
-
-            Debug.Log("Result: " + result.IngredientName + " " + result.SpawnPoint);*/
-            Debug.Log("---TODO IMPLEMENT SPAWNING OF TILE----");
         }
 
         private void IngResetPoll()
@@ -231,7 +220,7 @@ namespace TwitchChat
             //TODO Update Images according to ing + spawnPoints & emotes
             for (int i = 0; i < rngTile.Length; i++)
             {
-                Debug.Log("rngTile "+i+": "+rngTile[i] );
+                //Debug.Log("rngTile "+i+": "+rngTile[i] );
                 TileSlot[i].sprite = TileTextures[rngTile[i]];
                 var e = Enum.Parse(typeof(eEmote), tileCurrentEmotes[i]);
                 TileEmoteSlot[i].sprite = EmoteTextures[(int)e];

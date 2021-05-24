@@ -32,7 +32,7 @@ public class CookingPlace : MonoBehaviour
         {
             soupEffect.transform.localScale = new Vector3(3.7f, 0.5f, 3.7f);
         }
-        else if(inPot[1] != Recipes.eIngredients.empty)
+        if(inPot[1] != Recipes.eIngredients.empty)
         {
             CheckRecipe();
         }

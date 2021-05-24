@@ -217,7 +217,7 @@ public class Ingredient : MonoBehaviour
         List<GameObject> output = new List<GameObject>();
 
         Collider[] colliders = Physics.OverlapSphere(new Vector3(position.x, (float)0.75, position.y), 2);//make it smaller but make tiles colliders bigger
-        Debug.Log("Kolidiert : " + colliders);
+    //  Debug.Log("Kolidiert : " + colliders);
 
         foreach (Collider hit in colliders)
         {
