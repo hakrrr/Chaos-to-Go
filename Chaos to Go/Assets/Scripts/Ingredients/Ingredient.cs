@@ -71,7 +71,7 @@ public class Ingredient : MonoBehaviour
             //die
             gameScript.AddScore(-100);
             Destroy(gameObject);
-            //Debug.Log("DESTROYED: fell out of board");
+            Debug.Log("DESTROYED: fell out of board");
         }
         //one tile there
         if(hit.Count == 1)
@@ -186,7 +186,7 @@ public class Ingredient : MonoBehaviour
         {
             //make next the current, move accordingly and wait no more
             currentTile = nextTile;
-            Debug.Log("CAN MOVE, so CurrentTile: " + currentTile.name);
+            //Debug.Log("CAN MOVE, so CurrentTile: " + currentTile.name);
             move(currentTile.movement);
             wait = false;
         }
@@ -199,7 +199,7 @@ public class Ingredient : MonoBehaviour
         string end = g.GetComponent<BaseTile>().getEnd();
         nextTile.movement = whichMovType(start, end);
         nextTile.position = g.transform.position;
-        Debug.Log("UpdateNextTile call: " + nextTile.movement);
+        //Debug.Log("UpdateNextTile call: " + nextTile.movement);
     }
     void updateCurrentTile(GameObject g)
     {
@@ -208,7 +208,7 @@ public class Ingredient : MonoBehaviour
         string end = g.GetComponent<BaseTile>().getEnd();
         currentTile.movement = whichMovType(start, end);
         currentTile.position = g.transform.position;
-        Debug.Log("UpdateCurrentTile call: " + currentTile.movement);
+        //Debug.Log("UpdateCurrentTile call: " + currentTile.movement);
     }
 
     List<GameObject> find_tile(Vector2 position)
@@ -232,24 +232,24 @@ public class Ingredient : MonoBehaviour
                 string name = gameObject.name;
                 switch(name)
                 {
-                    case "tomato(clone)":
+                    case "tomato(Clone)":
                         ingredient = Recipes.eIngredients.tomato;
                         break;
-                    case "onion(clone)":
+                    case "onion(Clone)":
                         ingredient = Recipes.eIngredients.onion;
                         break;
-                    case "carrot(clone)":
+                    case "carrot(Clone)":
                         ingredient = Recipes.eIngredients.carrot;
                         break;
-                    case "chicken(clone)":
+                    case "chicken(Clone)":
                         ingredient = Recipes.eIngredients.chicken;
                         break;
-                    case "asparagus(clone)":
+                    case "asparagus(Clone)":
                         ingredient = Recipes.eIngredients.asparagus;
                         break;
                 }
                 col.gameObject.GetComponent<CookingPlace>().AddIngredient(ingredient);
-
+                Debug.Log("DESTROYED: cooked" + ingredient);
                 Destroy(gameObject);
             }
         }
