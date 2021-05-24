@@ -59,6 +59,8 @@ public class DraggableObject : MonoBehaviour
 
         if(btnMouseL.Check() == InputStates.InputState.JustPressed)
         {
+            if (transform.parent.transform.parent.name == "GameBoard")
+                return;
             dragging = dragged = true;
             behavior.OnPickup();
         }
