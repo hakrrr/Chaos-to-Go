@@ -41,11 +41,11 @@ namespace TwitchChat
         }
 
         private float IngCD;
-        private float IngMaxCD = 30;
+        public float IngMaxCD;
         private int MaxSpawns = 5;
 
         private float TileCD;
-        private float TileMaxCD = 15;
+        public float TileMaxCD;
 
         private string[] ingredients = { "tomato", "chicken", "onion", "carrot", "asparagus" };
         private string[] tiles = {"topdown",

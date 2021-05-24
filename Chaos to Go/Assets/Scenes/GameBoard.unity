@@ -1913,6 +1913,8 @@ MonoBehaviour:
   - {fileID: 21300000, guid: 64d5c0ebc52a4614495c983e6a7ee2e4, type: 3}
   - {fileID: 21300000, guid: b86991597a440244a859ba5362ec0cfc, type: 3}
   - {fileID: 21300000, guid: df4b2369208d89741b0a83ea0d6e93bc, type: 3}
+  IngMaxCD: 15
+  TileMaxCD: 5.4
 --- !u!1 &1709357074
 GameObject:
   m_ObjectHideFlags: 0
