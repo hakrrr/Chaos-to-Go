@@ -31,6 +31,8 @@ namespace TwitchChat
         [SerializeField]
         private Sprite[] EmoteTextures;
 
+        public TileSelectionMenu tileSelectionMenu;
+
         private enum eEmote
         {
             LUL,
@@ -48,7 +50,25 @@ namespace TwitchChat
         public float TileMaxCD;
 
         private string[] ingredients = { "tomato", "chicken", "onion", "carrot", "asparagus" };
-        private string[] tiles = {"topdown",
+
+        // eDir   left, top, right, down
+         private int[][] tiles_dir = { 
+            new int[] { 1, 3 },
+            new int[] { 3, 1 },
+            new int[] { 0, 2 },
+            new int[] { 2, 0 },
+            new int[] { 1, 0 },
+            new int[] { 1, 2 },
+            new int[] { 3, 0 },
+            new int[] { 3, 2 },
+            new int[] { 0, 1 },
+            new int[] { 0, 3 },
+            new int[] { 2, 1 },
+            new int[] { 2, 3 }, };
+        //private int[][] tiles_dir = new int[12][2] { }
+
+        private string[] tiles = {
+        "topdown",
         "downtop",
         "leftright",
         "rightleft",
@@ -66,6 +86,7 @@ namespace TwitchChat
         private int[] ingVoteCounter = new int[3] { 0, 0, 0 };
         private int[] tileVoteCounter = new int[3] { 0, 0, 0 };
         private ingSpawnInfo[] choices = new ingSpawnInfo[3];
+        private int[] rngTile = new int[3];
 
         struct ingSpawnInfo
         {
@@ -138,6 +159,8 @@ namespace TwitchChat
             int maxValue = tileVoteCounter.Max();
             int maxIndex = tileVoteCounter.ToList().IndexOf(maxValue);
 
+
+            tileSelectionMenu.AddBaseTile((BaseTile.eDirection) tiles_dir[rngTile[maxValue]][0], (BaseTile.eDirection) tiles_dir[rngTile[maxValue]][1]);
          /* TODO: Spawn selected tile
           * 
           * //@Dorota
@@ -200,7 +223,7 @@ namespace TwitchChat
             for (int i = 0; i < 3; i++) Debug.Log(tileCurrentEmotes[i]);
 
             //Generate 3 random ingredients with spawnPoints
-            var rngTile = Enumerable.Range(0, tiles.Length).OrderBy(g => Guid.NewGuid()).Take(3).ToArray();
+            rngTile = Enumerable.Range(0, tiles.Length).OrderBy(g => Guid.NewGuid()).Take(3).ToArray();
 
             Debug.Log("Current Choices: ");
             for (int i = 0; i < 3; i++) Debug.Log(tiles[rngTile[i]]);
@@ -208,8 +231,7 @@ namespace TwitchChat
             //TODO Update Images according to ing + spawnPoints & emotes
             for (int i = 0; i < rngTile.Length; i++)
             {
-                SpawnPoints[i].GetComponent<Text>().text = choices[i].SpawnPoint.ToString();
-                Debug.Log("!!!!!!!!!!!!!!!!!rngTile "+i+": "+rngTile[i] );
+                Debug.Log("rngTile "+i+": "+rngTile[i] );
                 TileSlot[i].sprite = TileTextures[rngTile[i]];
                 var e = Enum.Parse(typeof(eEmote), tileCurrentEmotes[i]);
                 TileEmoteSlot[i].sprite = EmoteTextures[(int)e];

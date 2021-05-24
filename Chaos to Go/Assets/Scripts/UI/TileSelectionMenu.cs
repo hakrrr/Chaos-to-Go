@@ -13,8 +13,21 @@ public class TileSelectionMenu : MonoBehaviour
 
 
 
-    public void AddBaseTile(int idx, BaseTile.eDirection start, BaseTile.eDirection end)
+    public void AddBaseTile(BaseTile.eDirection start, BaseTile.eDirection end)
     {
+        int idx = -1;
+        for (int i = 0; i < tiles.Length; i++)
+        {
+            if (tiles[i].transform.parent != tileRoot)
+            {
+                idx= i;
+            }
+        }
+        if (idx == -1) {
+            idx = Random.Range(0, 4);
+        }
+
+
         if (tiles[idx] != null && tiles[idx].transform.parent == tileRoot)
         {
             Destroy(tiles[idx].gameObject);
@@ -75,6 +88,7 @@ public class TileSelectionMenu : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        CheckChildren();
+        //enable to automatically respawn random tiles for used tiles
+        //  CheckChildren();
     }
 }

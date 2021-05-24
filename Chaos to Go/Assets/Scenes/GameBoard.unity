@@ -1913,6 +1913,7 @@ MonoBehaviour:
   - {fileID: 21300000, guid: 64d5c0ebc52a4614495c983e6a7ee2e4, type: 3}
   - {fileID: 21300000, guid: b86991597a440244a859ba5362ec0cfc, type: 3}
   - {fileID: 21300000, guid: df4b2369208d89741b0a83ea0d6e93bc, type: 3}
+  tileSelectionMenu: {fileID: 1773236383}
   IngMaxCD: 15
   TileMaxCD: 5.4
 --- !u!1 &1709357074
@@ -1959,6 +1960,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   commandListUser: []
+--- !u!114 &1773236383 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8241248568263393532, guid: c86ce52f88d6020448960fa6d4d4d989,
+    type: 3}
+  m_PrefabInstance: {fileID: 8241248567880541696}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8ccd7c431887bbe4c9be9debaaee4ab0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &1796441301
 PrefabInstance:
   m_ObjectHideFlags: 0

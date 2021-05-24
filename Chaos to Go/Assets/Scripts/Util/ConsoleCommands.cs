@@ -112,7 +112,7 @@ public class ConsoleCommands
                                 }
 
                                 TileSelectionMenu menu = GameObject.Find("TileSelectionMenu").GetComponent<TileSelectionMenu>();
-                                menu.AddBaseTile(0, (BaseTile.eDirection) int.Parse(args[3]), (BaseTile.eDirection) int.Parse(args[4]));
+                                menu.AddBaseTile((BaseTile.eDirection) int.Parse(args[3]), (BaseTile.eDirection) int.Parse(args[4]));
                             }
                             break;
                     }
