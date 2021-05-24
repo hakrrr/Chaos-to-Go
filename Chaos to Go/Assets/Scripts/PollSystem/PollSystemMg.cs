@@ -44,7 +44,7 @@ namespace TwitchChat
 
         private float IngCD;
         public float IngMaxCD;
-        private int MaxSpawns = 5;
+        private int MaxSpawns = 4;
 
         private float TileCD;
         public float TileMaxCD;

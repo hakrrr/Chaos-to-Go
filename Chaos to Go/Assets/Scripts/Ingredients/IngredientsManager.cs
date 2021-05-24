@@ -33,6 +33,7 @@ public class IngredientsManager : MonoBehaviour
     //Spawns ingredient of type "type" at spawn point with "spawnPointID
     public void SpawnIngredient(string type, int spawnPointID)
     {
+        spawnPointID = spawnPointID - 1;
         switch (type)
         {
             case "tomato":
