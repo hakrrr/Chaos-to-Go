@@ -317,28 +317,28 @@ public class Ingredient : MonoBehaviour
                 transform.position = transform.position + new Vector3(-1, 0, 0) * speed * Time.deltaTime;
                 break;
             case movementType.topleft:
-                transform.RotateAround(currentTile.position + new Vector3(-offset, 0, offset), Vector3.up, 20 * Time.deltaTime);
+                transform.RotateAround(currentTile.position + new Vector3(-offset, 0, offset), Vector3.up, speed/(offset*Mathf.Deg2Rad) * Time.deltaTime);
                 break;
             case movementType.topright:
-                transform.RotateAround(currentTile.position + new Vector3(offset, 0, offset), Vector3.up, -20 * Time.deltaTime);
+                transform.RotateAround(currentTile.position + new Vector3(offset, 0, offset), Vector3.up, -speed / (offset * Mathf.Deg2Rad) * Time.deltaTime);
                 break;
             case movementType.downleft:
-                transform.RotateAround(currentTile.position + new Vector3(-offset, 0, -offset), Vector3.up, -20 * Time.deltaTime);
+                transform.RotateAround(currentTile.position + new Vector3(-offset, 0, -offset), Vector3.up, -speed / (offset * Mathf.Deg2Rad) * Time.deltaTime);
                 break;
             case movementType.downright:
-                transform.RotateAround(currentTile.position + new Vector3(offset, 0, -offset), Vector3.up, 20 * Time.deltaTime);
+                transform.RotateAround(currentTile.position + new Vector3(offset, 0, -offset), Vector3.up, speed / (offset * Mathf.Deg2Rad) * Time.deltaTime);
                 break;
             case movementType.lefttop:
-                transform.RotateAround(currentTile.position + new Vector3(-offset, 0, offset), Vector3.up, -20 * Time.deltaTime);
+                transform.RotateAround(currentTile.position + new Vector3(-offset, 0, offset), Vector3.up, -speed / (offset * Mathf.Deg2Rad) * Time.deltaTime);
                 break;
             case movementType.leftdown:
-                transform.RotateAround(currentTile.position + new Vector3(-offset, 0, -offset), Vector3.up, 20 * Time.deltaTime);
+                transform.RotateAround(currentTile.position + new Vector3(-offset, 0, -offset), Vector3.up, speed / (offset * Mathf.Deg2Rad) * Time.deltaTime);
                 break;
             case movementType.righttop:
-                transform.RotateAround(currentTile.position + new Vector3(offset, 0, offset), Vector3.up, 20 * Time.deltaTime);
+                transform.RotateAround(currentTile.position + new Vector3(offset, 0, offset), Vector3.up, speed / (offset * Mathf.Deg2Rad) * Time.deltaTime);
                 break;
             case movementType.rightdown:
-                transform.RotateAround(currentTile.position + new Vector3(offset, 0, -offset), Vector3.up, -20 * Time.deltaTime);;
+                transform.RotateAround(currentTile.position + new Vector3(offset, 0, -offset), Vector3.up, -speed / (offset * Mathf.Deg2Rad) * Time.deltaTime);;
                 break;
         }
     }
