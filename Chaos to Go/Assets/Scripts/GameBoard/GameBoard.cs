@@ -84,7 +84,7 @@ public class GameBoard : MonoBehaviour
     {
         if (blockedTiles.Get(x, y))
             return;
-        tile.GetComponent<Collider>().enabled = false;
+        //tile.GetComponent<Collider>().enabled = false;
         tileMatrix.Set(x, y, tile);
         tile.x = x;
         tile.y = y;
