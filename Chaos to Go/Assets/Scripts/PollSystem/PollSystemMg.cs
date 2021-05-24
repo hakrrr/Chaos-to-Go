@@ -41,14 +41,25 @@ namespace TwitchChat
         }
 
         private float IngCD;
-        private float IngMaxCD = 30;
+        public float IngMaxCD;
         private int MaxSpawns = 5;
 
         private float TileCD;
-        private float TileMaxCD = 15;
+        public float TileMaxCD;
 
         private string[] ingredients = { "tomato", "chicken", "onion", "carrot", "asparagus" };
-        private string[] tiles = { "topbottom", "bottomtop", "leftright" };
+        private string[] tiles = {"topdown",
+        "downtop",
+        "leftright",
+        "rightleft",
+        "topleft",
+        "topright",
+        "downleft",
+        "downright",
+        "lefttop",
+        "leftdown",
+        "righttop",
+        "rightdown" };
         private string[] emotes = { "LUL", "MonkaS", "KEKW", "Kappa", "TriHard" };
         private string[] ingCurrentEmotes = new string[3];
         private string[] tileCurrentEmotes = new string[3];

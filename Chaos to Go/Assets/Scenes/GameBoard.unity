@@ -913,7 +913,7 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-  m_Sprite: {fileID: 21300000, guid: 158ead4488a8b724dbeb112f70933cc0, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 63ddc1d71111a7d43b696dc239b811b5, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -1729,7 +1729,7 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-  m_Sprite: {fileID: 21300000, guid: 158ead4488a8b724dbeb112f70933cc0, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 63ddc1d71111a7d43b696dc239b811b5, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -1895,15 +1895,26 @@ MonoBehaviour:
   - {fileID: 21300000, guid: 1c677be5d7f3be144af0966a1fb24cf6, type: 3}
   - {fileID: 21300000, guid: 6bc8fd6c5d9d7124aa3bc0d4c7af9f7d, type: 3}
   TileTextures:
-  - {fileID: 21300000, guid: 158ead4488a8b724dbeb112f70933cc0, type: 3}
-  - {fileID: 21300000, guid: 9d47f0a762d1eae4ebb745baa6d4f31f, type: 3}
+  - {fileID: 21300000, guid: 287a0ab20e2d40f41a478a7322d2e5f6, type: 3}
+  - {fileID: 21300000, guid: 63ddc1d71111a7d43b696dc239b811b5, type: 3}
   - {fileID: 21300000, guid: 402cdce48ef221e4184d7412b3fb2871, type: 3}
+  - {fileID: 21300000, guid: ac7217939203a9446937d2b5f7bd677a, type: 3}
+  - {fileID: 21300000, guid: b4f9b1e897b86114485a2e29ca355e66, type: 3}
+  - {fileID: 21300000, guid: 4b1e8820cce359a439d9b7def0ad9fec, type: 3}
+  - {fileID: 21300000, guid: 183a8b1b2af67464da7457c109056036, type: 3}
+  - {fileID: 21300000, guid: 98194f88729b94c4bbc5575771dad61b, type: 3}
+  - {fileID: 21300000, guid: b09b3d4360d7fd14588ef6f3d479d139, type: 3}
+  - {fileID: 21300000, guid: a5d601382c1b6664eab15a1403a91dd2, type: 3}
+  - {fileID: 21300000, guid: 70de5d6b49547d44aae5d5918419d939, type: 3}
+  - {fileID: 21300000, guid: 287a0ab20e2d40f41a478a7322d2e5f6, type: 3}
   EmoteTextures:
   - {fileID: 21300000, guid: 229b2fa284082df42865defe3219afd9, type: 3}
   - {fileID: 21300000, guid: da3ea2bd9bf898e4f91660ed5c50e495, type: 3}
   - {fileID: 21300000, guid: 64d5c0ebc52a4614495c983e6a7ee2e4, type: 3}
   - {fileID: 21300000, guid: b86991597a440244a859ba5362ec0cfc, type: 3}
   - {fileID: 21300000, guid: df4b2369208d89741b0a83ea0d6e93bc, type: 3}
+  IngMaxCD: 15
+  TileMaxCD: 5.4
 --- !u!1 &1709357074
 GameObject:
   m_ObjectHideFlags: 0
@@ -2247,7 +2258,7 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-  m_Sprite: {fileID: 21300000, guid: 158ead4488a8b724dbeb112f70933cc0, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 63ddc1d71111a7d43b696dc239b811b5, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1

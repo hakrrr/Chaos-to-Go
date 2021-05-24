@@ -137,11 +137,26 @@ namespace TwitchChat
             
             return result;
         }
-
+        //This can be used to override twitchs spam protection
         private void MakeUserMod(string username)
         {
-            _writer.WriteLine($"PRIVMSG #{_channelName} :Hello recruit {username}. You have been promoted to captain!");
-            _writer.WriteLine($"PRIVMSG #{_channelName} :/mod {username}");
+        string[] job_titles = {
+        "Executive Chef",
+        "Chef de Cuisine",
+        "Sous Chef",
+        "Chef de Partie",
+        "Sauté Chef",
+        "Commis Chef",
+        "Poissonnier",
+        "Kitchen Porter",
+        "Dishwasher",
+        "Waitress"};
+
+        int job_title = Random.Range(0, 10);
+
+
+        _writer.WriteLine($"PRIVMSG #{_channelName} :Hello {job_titles[job_title]} {username}. Please get to work right away!");
+         //   _writer.WriteLine($"PRIVMSG #{_channelName} :/mod {username}");
             _writer.Flush();
         }
     }
