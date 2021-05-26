@@ -161,8 +161,9 @@ public class TurningMovement : IBoardMovePattern
 
     public Vector3 Step(Vector3 position)
     {
-        return position;
-        Vector3 v1 = startPos - tileCenter;
+        // TODO!!! This does not work!!!
+
+        /*Vector3 v1 = startPos - tileCenter;
         v1.y = 0.0f;
         Vector3 v2 = endPos - tileCenter;
         v2.y = 0.0f;
@@ -171,7 +172,7 @@ public class TurningMovement : IBoardMovePattern
         Vector3 p = position - m;
         Vector3 axis = startPos - m;
         float alpha = Vector3.Angle(axis, p);
-        alpha = (alpha / 360.0f) * 2.0f * Mathf.PI;
-        return position + speed * new Vector3(Mathf.Cos(alpha), 0.0f, -Mathf.Sin(alpha)).normalized;
+        alpha = (alpha / 360.0f) * 2.0f * Mathf.PI;*/
+        return endPos;//position + speed * new Vector3(Mathf.Cos(alpha), 0.0f, -Mathf.Sin(alpha)).normalized;
     }
 }
