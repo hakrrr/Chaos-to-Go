@@ -57,7 +57,8 @@ public class GameBoard : MonoBehaviour
                         dirStart = 1;
                     dirEnd = 3;
                 }
-                tile.SetDirections((BaseTile.eDirection)dirStart, (BaseTile.eDirection)dirEnd);
+                //tile.SetDirections((BaseTile.eDirection)dirStart, (BaseTile.eDirection)dirEnd);
+                tile.SetDirections(BaseTile.eDirection.left, BaseTile.eDirection.right);
                 tile.name = "Tile" + i + "_" + j;
                 AddTile(tile, i, j);
                 Destroy(tile.GetComponent<DraggableObject>());
@@ -75,6 +76,7 @@ public class GameBoard : MonoBehaviour
                 GameBoardTile tile = tileMatrix.Get(i, j);
                 tile.transform.parent = tileRoot;
                 tile.transform.localPosition = new Vector3(botleftPos.x + i * tileDim.x, 0, botleftPos.y + j * tileDim.y);
+                tile.InitMovementPattern();
             }
         }
     }
@@ -88,6 +90,14 @@ public class GameBoard : MonoBehaviour
         tileMatrix.Set(x, y, tile);
         tile.x = x;
         tile.y = y;
+    }
+
+
+    public GameBoardTile GetTile(int x, int y)
+    {
+        if (x >= this.x || y >= this.y || x < 0 || y < 0)
+            return null;
+        return tileMatrix.Get((uint) x, (uint) y);
     }
 
 
@@ -154,9 +164,16 @@ public class GameBoard : MonoBehaviour
     }
 
 
+    public Vector2 GetTileLengths()
+    {
+        return tileDim;
+    }
+
+
     // Start is called before the first frame update
     void Start()
     {
+        Game.BOARD = this;
         tileMatrix = new InstanceMatrix<GameBoardTile>(x, y);
         blockedTiles = new InstanceMatrix<bool>(x, y);
         for(uint i = 0; i < x; i++)

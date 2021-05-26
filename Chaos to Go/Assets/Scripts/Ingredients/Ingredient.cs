@@ -2,7 +2,70 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+
 public class Ingredient : MonoBehaviour
+{
+    private int boardX, boardY;
+    private GameBoardTile tile;
+    private Recipes.eIngredients ingredientType;
+    private bool wait;
+
+
+    public void PleaseDontForgetToInitMe(int boardX, int boardY, Recipes.eIngredients ingredientType)
+    {
+        this.boardX = boardX;
+        this.boardY = boardY;
+        this.ingredientType = ingredientType;
+
+        wait = false;
+        tile = Game.BOARD.GetTile(boardX, boardY);
+    }
+
+
+    public void Update()
+    {
+        // TODO fix this!
+
+        /*if(tile == null)
+        {
+            Game.GAME.AddScore(-100);
+            Destroy(gameObject);
+            Debug.Log("DESTROYED: fell out of board");
+            return;
+        }
+
+        IBoardMovePattern movePattern = tile.GetMovePattern();
+        if(!wait)
+            transform.position = tile.GetMovePattern().Step(transform.position);
+        if (movePattern.ReachedDestination(transform.position))
+        {
+            boardX += (int) movePattern.NextTile().x;
+            boardY += (int) movePattern.NextTile().y;
+            GameBoardTile nextTile = Game.BOARD.GetTile(boardX, boardY);
+            if(nextTile != null && tile is BaseTile && nextTile is BaseTile)
+            {
+                if(((BaseTile) tile).getEnd() == ((BaseTile)nextTile).getStart())
+                {
+                    tile = nextTile;
+                    transform.position = tile.GetMovePattern().GetStart();
+                    wait = false;
+                }
+                else
+                {
+                    wait = true;
+                }
+            }
+            else
+            {
+                tile = null;
+            }
+        }*/
+
+    }
+}
+
+
+public class IngredientOld : MonoBehaviour
 {
     enum movementType
     {
