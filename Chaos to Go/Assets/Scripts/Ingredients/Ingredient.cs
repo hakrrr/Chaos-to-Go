@@ -26,7 +26,7 @@ public class Ingredient : MonoBehaviour
     {
         // TODO fix this!
 
-        /*if(tile == null)
+        if (tile == null)
         {
             Game.GAME.AddScore(-100);
             Destroy(gameObject);
@@ -35,32 +35,53 @@ public class Ingredient : MonoBehaviour
         }
 
         IBoardMovePattern movePattern = tile.GetMovePattern();
-        if(!wait)
-            transform.position = tile.GetMovePattern().Step(transform.position);
-        if (movePattern.ReachedDestination(transform.position))
+
+        if (wait)
         {
-            boardX += (int) movePattern.NextTile().x;
-            boardY += (int) movePattern.NextTile().y;
-            GameBoardTile nextTile = Game.BOARD.GetTile(boardX, boardY);
-            if(nextTile != null && tile is BaseTile && nextTile is BaseTile)
+            int nextX = boardX + (int)movePattern.NextTile().x;
+            int nextY = boardY + (int)movePattern.NextTile().y;
+            GameBoardTile nextTile = Game.BOARD.GetTile(nextX, nextY);
+            if(tile is BaseTile && nextTile is BaseTile)
             {
-                if(((BaseTile) tile).getEnd() == ((BaseTile)nextTile).getStart())
+                Debug.Log("!!!");
+                if (IsConveyerBeltAdjacent((BaseTile) tile, (BaseTile) nextTile))
                 {
+                    boardX = nextX;
+                    boardY = nextY;
                     tile = nextTile;
                     transform.position = tile.GetMovePattern().GetStart();
                     wait = false;
                 }
-                else
-                {
-                    wait = true;
-                }
+            }
+            return;
+        }
+
+        transform.position = tile.GetMovePattern().Step(transform.position);
+        if (movePattern.ReachedDestination(transform.position))
+        {
+            int nextX = boardX + (int) movePattern.NextTile().x;
+            int nextY = boardY + (int)movePattern.NextTile().y;
+            GameBoardTile nextTile = Game.BOARD.GetTile(nextX, nextY);
+            if(nextTile == null)
+            {
+                Debug.Log("(i) NULL");
+                tile = null;
             }
             else
             {
-                tile = null;
+                Debug.Log("(i) WAIT");
+                wait = true;
             }
-        }*/
+        }
+    }
 
+
+    private bool IsConveyerBeltAdjacent(BaseTile endingTile, BaseTile startingTile)
+    {
+        return endingTile.GetEnd() == BaseTile.eDirection.left && startingTile.GetStart() == BaseTile.eDirection.right ||
+            endingTile.GetEnd() == BaseTile.eDirection.right && startingTile.GetStart() == BaseTile.eDirection.left ||
+            endingTile.GetEnd() == BaseTile.eDirection.down && startingTile.GetStart() == BaseTile.eDirection.up ||
+            endingTile.GetEnd() == BaseTile.eDirection.up && startingTile.GetStart() == BaseTile.eDirection.down;
     }
 }
 

@@ -161,6 +161,7 @@ public class TurningMovement : IBoardMovePattern
 
     public Vector3 Step(Vector3 position)
     {
+        return position;
         Vector3 v1 = startPos - tileCenter;
         v1.y = 0.0f;
         Vector3 v2 = endPos - tileCenter;
