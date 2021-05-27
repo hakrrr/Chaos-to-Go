@@ -57,8 +57,8 @@ public class GameBoard : MonoBehaviour
                         dirStart = 1;
                     dirEnd = 3;
                 }
-                //tile.SetDirections((BaseTile.eDirection)dirStart, (BaseTile.eDirection)dirEnd);
-                tile.SetDirections(BaseTile.eDirection.left, BaseTile.eDirection.right);
+                tile.SetDirections((BaseTile.eDirection)dirStart, (BaseTile.eDirection)dirEnd);
+                //tile.SetDirections(BaseTile.eDirection.left, BaseTile.eDirection.right);
                 tile.name = "Tile" + i + "_" + j;
                 AddTile(tile, i, j);
                 Destroy(tile.GetComponent<DraggableObject>());

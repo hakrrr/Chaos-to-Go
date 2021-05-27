@@ -70,6 +70,12 @@ public class StraightMovement : IBoardMovePattern
     }
 
 
+    public Vector3 RotStep()
+    {
+        return Vector3.zero;
+    }
+
+
     public Vector3 GetStart()
     {
         return startPos;
@@ -161,18 +167,40 @@ public class TurningMovement : IBoardMovePattern
 
     public Vector3 Step(Vector3 position)
     {
-        // TODO!!! This does not work!!!
-
-        /*Vector3 v1 = startPos - tileCenter;
+        Vector3 tileCenter = new Vector3(this.tileCenter.x, startPos.y, this.tileCenter.z);
+        Vector3 v1 = startPos - tileCenter;
         v1.y = 0.0f;
         Vector3 v2 = endPos - tileCenter;
         v2.y = 0.0f;
         Vector3 m = tileCenter + v1 + v2;
 
-        Vector3 p = position - m;
-        Vector3 axis = startPos - m;
-        float alpha = Vector3.Angle(axis, p);
-        alpha = (alpha / 360.0f) * 2.0f * Mathf.PI;*/
-        return endPos;//position + speed * new Vector3(Mathf.Cos(alpha), 0.0f, -Mathf.Sin(alpha)).normalized;
+        Vector3 dir = Vector3.Cross(m - position, new Vector3(0, 1, 0));
+
+        if(((int) start + 1) % 4 == (int)end)
+        {
+            dir = -dir;
+        }
+
+        return position + speed * dir.normalized;
+    }
+
+
+    public Vector3 RotStep()
+    {
+        /*Vector3 p1 = startPos;
+        Vector3 p2 = Step(startPos);
+        float angle = Vector3.Angle(p1, p2);
+        //angle = (angle / (360.0f)) * 2.0f * Mathf.PI;
+        Debug.Log("> " + angle);
+        if (((int)start + 1) % 4 == (int)end)
+        {
+            return new Vector3(0, -angle, 0);
+        }
+        return new Vector3(0, angle, 0);*/
+        if (((int)start + 1) % 4 == (int)end)
+        {
+            return new Vector3(0, -.4f, 0);
+        }
+        return new Vector3(0, .4f, 0);
     }
 }

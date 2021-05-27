@@ -43,7 +43,6 @@ public class Ingredient : MonoBehaviour
             GameBoardTile nextTile = Game.BOARD.GetTile(nextX, nextY);
             if(tile is BaseTile && nextTile is BaseTile)
             {
-                Debug.Log("!!!");
                 if (IsConveyerBeltAdjacent((BaseTile) tile, (BaseTile) nextTile))
                 {
                     boardX = nextX;
@@ -57,19 +56,33 @@ public class Ingredient : MonoBehaviour
         }
 
         transform.position = tile.GetMovePattern().Step(transform.position);
+        transform.Rotate(tile.GetMovePattern().RotStep());
         if (movePattern.ReachedDestination(transform.position))
         {
             int nextX = boardX + (int) movePattern.NextTile().x;
             int nextY = boardY + (int)movePattern.NextTile().y;
+
+            // This needs to go somewhere else!
+            if(nextX == 0 && nextY == -1)
+            {
+                CookingPlace pot = GameObject.Find("CookingPot1").GetComponent<CookingPlace>();
+                pot.AddIngredient(ingredientType);
+            }
+            else if(nextX == 2 && nextY == -1)
+            {
+                CookingPlace pot = GameObject.Find("CookingPot2").GetComponent<CookingPlace>();
+                pot.AddIngredient(ingredientType);
+            }
+
             GameBoardTile nextTile = Game.BOARD.GetTile(nextX, nextY);
             if(nextTile == null)
             {
-                Debug.Log("(i) NULL");
+                //Debug.Log("(i) NULL");
                 tile = null;
             }
             else
             {
-                Debug.Log("(i) WAIT");
+                //Debug.Log("(i) WAIT");
                 wait = true;
             }
         }
