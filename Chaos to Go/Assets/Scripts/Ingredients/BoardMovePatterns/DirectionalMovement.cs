@@ -187,8 +187,17 @@ public class TurningMovement : IBoardMovePattern
 
     public Vector3 RotStep()
     {
-        /*Vector3 p1 = startPos;
-        Vector3 p2 = Step(startPos);
+        Vector3 tileCenter = new Vector3(this.tileCenter.x, startPos.y, this.tileCenter.z);
+        Vector3 v1 = startPos - tileCenter;
+        v1.y = 0.0f;
+        Vector3 v2 = endPos - tileCenter;
+        v2.y = 0.0f;
+        Vector3 m = tileCenter + v1 + v2;
+
+        Vector3 p1 = startPos - m;
+        Vector3 p2 = Step(startPos) - m;
+
+
         float angle = Vector3.Angle(p1, p2);
         //angle = (angle / (360.0f)) * 2.0f * Mathf.PI;
         Debug.Log("> " + angle);
@@ -196,11 +205,6 @@ public class TurningMovement : IBoardMovePattern
         {
             return new Vector3(0, -angle, 0);
         }
-        return new Vector3(0, angle, 0);*/
-        if (((int)start + 1) % 4 == (int)end)
-        {
-            return new Vector3(0, -.4f, 0);
-        }
-        return new Vector3(0, .4f, 0);
+        return new Vector3(0, angle, 0);
     }
 }
