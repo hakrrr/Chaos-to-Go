@@ -66,7 +66,7 @@ public class StraightMovement : IBoardMovePattern
 
     public Vector3 Step(Vector3 position)
     {
-        return position + speed * (endPos - startPos).normalized;
+        return speed * (endPos - startPos).normalized;
     }
 
 
@@ -181,7 +181,7 @@ public class TurningMovement : IBoardMovePattern
             dir = -dir;
         }
 
-        return position + speed * dir.normalized;
+        return speed * dir.normalized;
     }
 
 
@@ -195,7 +195,7 @@ public class TurningMovement : IBoardMovePattern
         Vector3 m = tileCenter + v1 + v2;
 
         Vector3 p1 = startPos - m;
-        Vector3 p2 = Step(startPos) - m;
+        Vector3 p2 = (startPos + Step(startPos)) - m;
 
 
         float angle = Vector3.Angle(p1, p2);

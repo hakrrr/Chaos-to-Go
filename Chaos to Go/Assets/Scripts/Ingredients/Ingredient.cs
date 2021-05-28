@@ -55,7 +55,7 @@ public class Ingredient : MonoBehaviour
             return;
         }
 
-        transform.position = tile.GetMovePattern().Step(transform.position);
+        transform.position += tile.GetMovePattern().Step(transform.position);
         transform.Rotate(tile.GetMovePattern().RotStep());
         if (movePattern.ReachedDestination(transform.position))
         {
