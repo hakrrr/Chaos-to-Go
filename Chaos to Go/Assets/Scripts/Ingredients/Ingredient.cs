@@ -7,6 +7,7 @@ public class Ingredient : MonoBehaviour
 {
     private int boardX, boardY;
     private GameBoardTile tile;
+    private IngredientsManager manager;
     private Recipes.eIngredients ingredientType;
     private bool wait;
 
@@ -22,10 +23,39 @@ public class Ingredient : MonoBehaviour
     }
 
 
+    public bool IsBlocked()
+    {
+        if (tile == null)
+        {
+            return false;
+        }
+
+        Vector3 p1 = transform.position + tile.GetMovePattern().Step(transform.position);
+        for (int i = 0; i < manager.transform.childCount; i++)
+        {
+            Ingredient ingredient = manager.transform.GetChild(i).GetComponent<Ingredient>();
+            if (ingredient != null && ingredient != this)
+            {
+                Vector3 p2 = ingredient.transform.position;
+                if((p1 - p2).magnitude < 2.0f)
+                {
+                    return true;
+                }
+            }
+        }
+
+        return false;
+    }
+
+
+    public void Start()
+    {
+        manager = GameObject.Find("IngredientsManager").GetComponent<IngredientsManager>();
+    }
+
+
     public void Update()
     {
-        // TODO fix this!
-
         if (tile == null)
         {
             Game.GAME.AddScore(-100);
@@ -33,6 +63,9 @@ public class Ingredient : MonoBehaviour
             Debug.Log("DESTROYED: fell out of board");
             return;
         }
+
+        if (IsBlocked())
+            return;
 
         IBoardMovePattern movePattern = tile.GetMovePattern();
 
@@ -77,12 +110,10 @@ public class Ingredient : MonoBehaviour
             GameBoardTile nextTile = Game.BOARD.GetTile(nextX, nextY);
             if(nextTile == null)
             {
-                //Debug.Log("(i) NULL");
                 tile = null;
             }
             else
             {
-                //Debug.Log("(i) WAIT");
                 wait = true;
             }
         }

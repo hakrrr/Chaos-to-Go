@@ -199,8 +199,6 @@ public class TurningMovement : IBoardMovePattern
 
 
         float angle = Vector3.Angle(p1, p2);
-        //angle = (angle / (360.0f)) * 2.0f * Mathf.PI;
-        Debug.Log("> " + angle);
         if (((int)start + 1) % 4 == (int)end)
         {
             return new Vector3(0, -angle, 0);
