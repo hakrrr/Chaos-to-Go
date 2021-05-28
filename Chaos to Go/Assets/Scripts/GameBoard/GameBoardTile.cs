@@ -6,6 +6,8 @@ public abstract class GameBoardTile : MonoBehaviour
 {
     public uint x = 0, y = 0;
 
+    protected IBoardMovePattern movePattern;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -30,4 +32,13 @@ public abstract class GameBoardTile : MonoBehaviour
             draggableObject.behavior = dragBehavior;
         }
     }
+
+
+    public IBoardMovePattern GetMovePattern()
+    {
+        return movePattern;
+    }
+
+
+    public virtual void InitMovementPattern() { }
 }

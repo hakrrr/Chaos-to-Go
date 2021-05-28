@@ -105,14 +105,46 @@ public class ConsoleCommands
                     {
                         case "basetile":
                             {
-                                if (argc < 5)
+                                if (argc < 5 || args[3] == args[4])
                                 {
                                     return output + "\nPlease specify a direction!\n" +
-                                                    "give tile basetile <dir1> <dir2> ; <dir1>, <dir2> in {0,1,2,3}";
+                                                    "give tile basetile <dir1> <dir2> ; <dir1>, <dir2> in {u,d,l,r}";
+                                }
+
+                                BaseTile.eDirection start = BaseTile.eDirection.up, end = BaseTile.eDirection.down;
+                                switch (args[3])
+                                {
+                                    case "u":
+                                        start = BaseTile.eDirection.up;
+                                        break;
+                                    case "d":
+                                        start = BaseTile.eDirection.down;
+                                        break;
+                                    case "l":
+                                        start = BaseTile.eDirection.left;
+                                        break;
+                                    case "r":
+                                        start = BaseTile.eDirection.right;
+                                        break;
+                                }
+                                switch (args[4])
+                                {
+                                    case "u":
+                                        end = BaseTile.eDirection.up;
+                                        break;
+                                    case "d":
+                                        end = BaseTile.eDirection.down;
+                                        break;
+                                    case "l":
+                                        end = BaseTile.eDirection.left;
+                                        break;
+                                    case "r":
+                                        end = BaseTile.eDirection.right;
+                                        break;
                                 }
 
                                 TileSelectionMenu menu = GameObject.Find("TileSelectionMenu").GetComponent<TileSelectionMenu>();
-                                menu.AddBaseTile((BaseTile.eDirection) int.Parse(args[3]), (BaseTile.eDirection) int.Parse(args[4]));
+                                menu.AddBaseTile(start, end);
                             }
                             break;
                     }

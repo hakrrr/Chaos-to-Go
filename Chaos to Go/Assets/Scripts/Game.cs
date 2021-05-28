@@ -6,6 +6,7 @@ using UnityEngine.UI;
 public class Game : MonoBehaviour
 {
     public static Game GAME;
+    public static GameBoard BOARD;
 
     public const int RECIPE_MAX_SIZE = 3;
 

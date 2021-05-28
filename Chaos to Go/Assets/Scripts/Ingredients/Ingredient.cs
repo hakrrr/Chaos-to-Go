@@ -2,7 +2,104 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+
 public class Ingredient : MonoBehaviour
+{
+    private int boardX, boardY;
+    private GameBoardTile tile;
+    private Recipes.eIngredients ingredientType;
+    private bool wait;
+
+
+    public void PleaseDontForgetToInitMe(int boardX, int boardY, Recipes.eIngredients ingredientType)
+    {
+        this.boardX = boardX;
+        this.boardY = boardY;
+        this.ingredientType = ingredientType;
+
+        wait = false;
+        tile = Game.BOARD.GetTile(boardX, boardY);
+    }
+
+
+    public void Update()
+    {
+        // TODO fix this!
+
+        if (tile == null)
+        {
+            Game.GAME.AddScore(-100);
+            Destroy(gameObject);
+            Debug.Log("DESTROYED: fell out of board");
+            return;
+        }
+
+        IBoardMovePattern movePattern = tile.GetMovePattern();
+
+        if (wait)
+        {
+            int nextX = boardX + (int)movePattern.NextTile().x;
+            int nextY = boardY + (int)movePattern.NextTile().y;
+            GameBoardTile nextTile = Game.BOARD.GetTile(nextX, nextY);
+            if(tile is BaseTile && nextTile is BaseTile)
+            {
+                if (IsConveyerBeltAdjacent((BaseTile) tile, (BaseTile) nextTile))
+                {
+                    boardX = nextX;
+                    boardY = nextY;
+                    tile = nextTile;
+                    transform.position = tile.GetMovePattern().GetStart();
+                    wait = false;
+                }
+            }
+            return;
+        }
+
+        transform.position += tile.GetMovePattern().Step(transform.position);
+        transform.Rotate(tile.GetMovePattern().RotStep());
+        if (movePattern.ReachedDestination(transform.position))
+        {
+            int nextX = boardX + (int) movePattern.NextTile().x;
+            int nextY = boardY + (int)movePattern.NextTile().y;
+
+            // This needs to go somewhere else!
+            if(nextX == 0 && nextY == -1)
+            {
+                CookingPlace pot = GameObject.Find("CookingPot1").GetComponent<CookingPlace>();
+                pot.AddIngredient(ingredientType);
+            }
+            else if(nextX == 2 && nextY == -1)
+            {
+                CookingPlace pot = GameObject.Find("CookingPot2").GetComponent<CookingPlace>();
+                pot.AddIngredient(ingredientType);
+            }
+
+            GameBoardTile nextTile = Game.BOARD.GetTile(nextX, nextY);
+            if(nextTile == null)
+            {
+                //Debug.Log("(i) NULL");
+                tile = null;
+            }
+            else
+            {
+                //Debug.Log("(i) WAIT");
+                wait = true;
+            }
+        }
+    }
+
+
+    private bool IsConveyerBeltAdjacent(BaseTile endingTile, BaseTile startingTile)
+    {
+        return endingTile.GetEnd() == BaseTile.eDirection.left && startingTile.GetStart() == BaseTile.eDirection.right ||
+            endingTile.GetEnd() == BaseTile.eDirection.right && startingTile.GetStart() == BaseTile.eDirection.left ||
+            endingTile.GetEnd() == BaseTile.eDirection.down && startingTile.GetStart() == BaseTile.eDirection.up ||
+            endingTile.GetEnd() == BaseTile.eDirection.up && startingTile.GetStart() == BaseTile.eDirection.down;
+    }
+}
+
+
+public class IngredientOld : MonoBehaviour
 {
     enum movementType
     {

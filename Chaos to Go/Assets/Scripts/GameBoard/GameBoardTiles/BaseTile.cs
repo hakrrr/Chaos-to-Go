@@ -54,6 +54,19 @@ public class BaseTile : GameBoardTile
         }
     }
 
+
+    public eDirection GetStart()
+    {
+        return start;
+    }
+
+
+    public eDirection GetEnd()
+    {
+        return end;
+    }
+
+
     public string getStart()
     {
         switch(this.start)
@@ -84,6 +97,24 @@ public class BaseTile : GameBoardTile
                 return "right";
         }
         return "none";
+    }
+
+
+    public override void InitMovementPattern()
+    {
+        bool straight = (start == eDirection.up && end == eDirection.down) ||
+            (start == eDirection.left && end == eDirection.right) ||
+            (start == eDirection.right && end == eDirection.left) ||
+            (start == eDirection.down && end == eDirection.up);
+
+        if (straight)
+        {
+            movePattern = new StraightMovement(end, transform.position + new Vector3(0, 2.0f, 0), Game.BOARD.GetTileLengths().x / 2.0f, 0.01f);
+        }
+        else
+        {
+            movePattern = new TurningMovement(transform.position + new Vector3(0, 2.0f, 0), Game.BOARD.GetTileLengths().x / 2.0f, start, end, 0.01f);
+        }
     }
 
 }
