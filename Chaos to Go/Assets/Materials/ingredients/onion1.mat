@@ -77,6 +77,11 @@ Material:
     - _SpecularExponent: 32
     - _SpecularHighlights: 1
     - _SrcBlend: 1
+    - _TexOffsetX: 0
+    - _TexOffsetY: 0
+    - _TexRot: 0
+    - _TexScaleX: 1
+    - _TexScaleY: 1
     - _UVSec: 0
     - _ZWrite: 1
     m_Colors:

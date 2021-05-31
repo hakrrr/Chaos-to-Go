@@ -14,6 +14,12 @@
         _OutlineStrength("Outline Strength", Range(0.0, 1.0)) = 1.0
         _OutlineColor("Outline Color", Color) = (0, 0, 0, 1)
         _OutlineMode("Set to Scale - Normal", Int) = 1
+
+        _TexOffsetX("Texture UV Offset X", Range(0.0, 1.0)) = 0.0
+        _TexOffsetY("Texture UV Offset Y", Range(0.0, 1.0)) = 0.0
+        _TexScaleX("Texture UV Scale X", Range(0.001, 100.0)) = 1.0
+        _TexScaleY("Texture UV Scale Y", Range(0.001, 100.0)) = 1.0
+        _TexRot("Texture UV Rotation", Range(0.0, 6.28318)) = 0.0
     }
     SubShader
     {
@@ -25,6 +31,12 @@
 
             #ifdef VERTEX
 
+            uniform float _TexOffsetX;
+            uniform float _TexOffsetY;
+            uniform float _TexScaleX;
+            uniform float _TexScaleY;
+            uniform float _TexRot;
+
             varying vec4 WorldPos; 
             varying vec3 Normal;
             varying vec2 TextureCoordinate;
@@ -32,7 +44,15 @@
             void main(){
                 WorldPos = unity_ObjectToWorld * gl_Vertex;
                 Normal = normalize((unity_ObjectToWorld * vec4(gl_Normal, 0.0)).xyz);
+
                 TextureCoordinate = gl_MultiTexCoord0.xy;
+                TextureCoordinate = TextureCoordinate + vec2(_TexOffsetX, _TexOffsetY);
+                TextureCoordinate = vec2(1.0 / _TexScaleX, 1.0 / _TexScaleY) * TextureCoordinate;
+                TextureCoordinate = vec2(
+                    cos(_TexRot) * TextureCoordinate.x - sin(_TexRot) * TextureCoordinate.y, 
+                    sin(_TexRot) * TextureCoordinate.x + cos(_TexRot) * TextureCoordinate.y
+                );
+
                 gl_Position = gl_ModelViewProjectionMatrix * gl_Vertex;
             }
 
