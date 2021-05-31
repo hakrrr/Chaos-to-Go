@@ -44,6 +44,15 @@ public class DraggableObject : MonoBehaviour
     }
 
 
+    void OnDestroy()
+    {
+        if (dragged)
+        {
+            dragging = false;
+        }
+    }
+
+
     public static bool IsPlayerDraggingObject()
     {
         return dragging;
