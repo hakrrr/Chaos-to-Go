@@ -68,18 +68,18 @@ namespace TwitchChat
         //private int[][] tiles_dir = new int[12][2] { }
 
         private string[] tiles = {
-        "topdown",
-        "downtop",
-        "leftright",
-        "rightleft",
-        "topleft",
-        "topright",
-        "downleft",
-        "downright",
-        "lefttop",
-        "leftdown",
-        "righttop",
-        "rightdown" };
+        /*0*/ "topdown",
+        /*1*/  "downtop",
+        /*2*/"leftright",
+        /*3*/"rightleft",
+        /*4*/"topleft",
+        /*5*/"topright",
+        /*6*/"downleft",
+        /*7*/"downright",
+        /*8*/"lefttop",
+        /*9*/"leftdown",
+        /*10*/"righttop",
+        /*11*/"rightdown" };
         private string[] emotes = { "LUL", "monkaS", "KEKW", "Kappa", "TriHard" };
         private string[] ingCurrentEmotes = new string[3];
         private string[] tileCurrentEmotes = new string[3];
@@ -135,7 +135,7 @@ namespace TwitchChat
         void IngEvalVote()
         {
             //Print out the votes
-            for (int i = 0; i < 3; i++) Debug.Log("Ingredient " + (i+1) +" has " + ingVoteCounter[i] + " votes");
+     //       for (int i = 0; i < 3; i++) Debug.Log("Ingredient " + (i+1) +" has " + ingVoteCounter[i] + " votes");
             //max voteCounter => spawnInfo
             int maxValue = ingVoteCounter.Max();
             int maxIndex = ingVoteCounter.ToList().IndexOf(maxValue);
@@ -147,14 +147,14 @@ namespace TwitchChat
             IngredientsManager ingredientSpawningScript = ingredientsManager.GetComponent<IngredientsManager>();
             ingredientSpawningScript.SpawnIngredient(result.IngredientName, result.SpawnPoint);
 
-            Debug.Log("Result: " + result.IngredientName + " " + result.SpawnPoint);
-            Debug.Log("-------------------------");
+       //     Debug.Log("Result: " + result.IngredientName + " " + result.SpawnPoint);
+        //    Debug.Log("-------------------------");
         }
 
         void TileEvalVote()
         {
             //Print out the votes
-            for (int i = 0; i < 3; i++) Debug.Log("Tile " + (i + 1) + " has " + tileVoteCounter[i] + " votes");
+        //    for (int i = 0; i < 3; i++) Debug.Log("Tile " + (i + 1) + " has " + tileVoteCounter[i] + " votes");
             //max voteCounter => spawnInfo
             int maxValue = tileVoteCounter.Max();
             int maxIndex = tileVoteCounter.ToList().IndexOf(maxValue);
@@ -173,16 +173,16 @@ namespace TwitchChat
             for (int i = 0; i < 3; i++) ingCurrentEmotes[i] = emotes[result[i]];
             
             //Print out current Emotes
-            Debug.Log("Current ingVoting Emotes are: ");
-            for (int i = 0; i < 3; i++) Debug.Log(ingCurrentEmotes[i]);
+      //      Debug.Log("Current ingVoting Emotes are: ");
+       //     for (int i = 0; i < 3; i++) Debug.Log(ingCurrentEmotes[i]);
 
             //Generate 3 random ingredients with spawnPoints
             var rngIng = Enumerable.Range(0, ingredients.Length).OrderBy(g => Guid.NewGuid()).Take(3).ToArray();
             var rngSpawn = Enumerable.Range(1, MaxSpawns).OrderBy(g => Guid.NewGuid()).Take(3).ToArray();
             for (int i = 0; i < 3; i++) choices[i] = new ingSpawnInfo(ingredients[rngIng[i]], rngSpawn[i]);
 
-            Debug.Log("Current Choices: ");
-            for (int i = 0; i < 3; i++) Debug.Log(choices[i].IngredientName + " " + choices[i].SpawnPoint);
+       //     Debug.Log("Current Choices: ");
+        //    for (int i = 0; i < 3; i++) Debug.Log(choices[i].IngredientName + " " + choices[i].SpawnPoint);
 
             //TODO Update Images according to ing + spawnPoints & emotes
             for (int i = 0; i < choices.Length; i++)
@@ -208,14 +208,23 @@ namespace TwitchChat
             for (int i = 0; i < 3; i++) tileCurrentEmotes[i] = emotes[result[i]];
 
             //Print out current Emotes
-            Debug.Log("Current tileVoting Emotes are: ");
-            for (int i = 0; i < 3; i++) Debug.Log(tileCurrentEmotes[i]);
+            //Debug.Log("Current tileVoting Emotes are: ");
+            //for (int i = 0; i < 3; i++) Debug.Log(tileCurrentEmotes[i]);
 
-            //Generate 3 random ingredients with spawnPoints
-            rngTile = Enumerable.Range(0, tiles.Length).OrderBy(g => Guid.NewGuid()).Take(3).ToArray();
+            //Generate 3 random tiles
+            //rngTile = Enumerable.Range(0, tiles.Length).OrderBy(g => Guid.NewGuid()).Take(3).ToArray();
+            rngTile = new int[] {-1,-1,-1 };
+            for (int i = 0; i < 3; i++)
+            {
+                //this while clause rerolls if a currently disabled (upwards facing) tile is chosen
+                while (rngTile[i] == -1 || rngTile[i] == 1 || rngTile[i] == 8 || rngTile[i] == 10 || rngTile[i] == 1 || rngTile[i] == 6 || rngTile[i] == 7) {
+                    rngTile[i] = Random.Range(0, tiles.Length);
+                }
 
-            Debug.Log("Current Choices: ");
-            for (int i = 0; i < 3; i++) Debug.Log(tiles[rngTile[i]]);
+            }
+
+            //Debug.Log("Current Choices: ");
+            //for (int i = 0; i < 3; i++) Debug.Log(tiles[rngTile[i]]);
 
             //TODO Update Images according to ing + spawnPoints & emotes
             for (int i = 0; i < rngTile.Length; i++)
