@@ -810,6 +810,21 @@ PrefabInstance:
       propertyPath: m_Pivot.y
       value: 0.5
       objectReference: {fileID: 0}
+    - target: {fileID: 3196310158774086456, guid: 73134425c30988547a2e1eb64b4d6973,
+        type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3196310158774086456, guid: 73134425c30988547a2e1eb64b4d6973,
+        type: 3}
+      propertyPath: m_LocalScale.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3196310158774086456, guid: 73134425c30988547a2e1eb64b4d6973,
+        type: 3}
+      propertyPath: m_LocalScale.z
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1249779725, guid: 73134425c30988547a2e1eb64b4d6973, type: 3}
       propertyPath: mainMenu
       value: 
