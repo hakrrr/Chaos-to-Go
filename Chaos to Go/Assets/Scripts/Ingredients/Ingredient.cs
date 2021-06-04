@@ -59,10 +59,13 @@ public class Ingredient : MonoBehaviour
     {
         if (tile == null)
         {
-            if(died) IngredientKillEffects.PlayDeathEffect((int)ingredientType - 1, transform.position, transform.parent);
-            Game.GAME.AddScore(-100);
+            if (died)
+            {
+                IngredientKillEffects.PlayDeathEffect((int)ingredientType - 1, transform.position, transform.parent);
+                Game.GAME.AddScore(-100);
+                Debug.Log("-100 points: Fell out of board or was crushed!");
+            }
             Destroy(gameObject);
-            Debug.Log("DESTROYED: fell out of board");
             return;
         }
 

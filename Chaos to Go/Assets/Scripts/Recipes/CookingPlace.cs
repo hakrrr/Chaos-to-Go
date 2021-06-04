@@ -33,43 +33,43 @@ public class CookingPlace : MonoBehaviour
                 inPot[i] = ingredient;
                 break;
             }
+            if (i == MAX_INGREDIENTS - 1)
+            {
+                if (!CheckRecipe())
+                {
+                    EmptyCookingPlace(true);
+                }
+                AddIngredient(ingredient);
+            }
         }
 
         if(inPot[0] != Recipes.eIngredients.empty)
         {
             effect.transform.localScale = new Vector3(3.7f, 0.5f, 3.7f);
         }
-        if(inPot[1] != Recipes.eIngredients.empty)
-        {
-            CheckRecipe();
-        }
-
-        int c_empty = 0;
-        for(int i = 0; i < MAX_INGREDIENTS; i++)
-        {
-            if(inPot[i] != Recipes.eIngredients.empty)
-            {
-                c_empty++;
-            }
-        }
-        if(c_empty == MAX_INGREDIENTS)
-        {
-            inPot = new Recipes.eIngredients[MAX_INGREDIENTS];
-            for (int i = 0; i < MAX_INGREDIENTS; i++)
-            {
-                inPot[i] = Recipes.eIngredients.empty;
-            }
-        }
     }
 
 
-    public void EmptyCookingPlace()
+    public void EmptyCookingPlace(bool penalty)
     {
-
+        particlesBurst.Play();
+        particles.Stop();
+        int p = 0;
+        foreach(Recipes.eIngredients ingr in inPot){
+            if (ingr != Recipes.eIngredients.empty) p += 100;
+        }
+        if(penalty)
+            Game.GAME.AddScore(-p);
+        effect.transform.localScale = Vector3.zero;
+        inPot = new Recipes.eIngredients[MAX_INGREDIENTS];
+        for (int i = 0; i < MAX_INGREDIENTS; i++)
+        {
+            inPot[i] = Recipes.eIngredients.empty;
+        }
     }
 
 
-    private void CheckRecipe()
+    private bool CheckRecipe()
     {
         for (int recipeIdx = 0; recipeIdx < Game.GAME.GetFoodOrders().Length; recipeIdx++)
         {
@@ -92,17 +92,11 @@ public class CookingPlace : MonoBehaviour
             {
                 Game.GAME.AddScore(recipe.points);
                 Game.GAME.NextRecipe(recipeIdx);
-                effect.transform.localScale = Vector3.zero;
-                particles.Stop();
-                particlesBurst.Play();
-                inPot = new Recipes.eIngredients[MAX_INGREDIENTS];
-                for (int i = 0; i < MAX_INGREDIENTS; i++)
-                {
-                    inPot[i] = Recipes.eIngredients.empty;
-                }
-                return;
+                EmptyCookingPlace(false);
+                return true;
             }
         }
+        return false;
     }
 
 
@@ -149,5 +143,14 @@ public class CookingPlace : MonoBehaviour
     void Update()
     {
         UpdateIcons();
+    }
+
+
+    void OnMouseDown()
+    {
+        if (inPot[0] != Recipes.eIngredients.empty && !CheckRecipe())
+        {
+            EmptyCookingPlace(true);
+        }
     }
 }
