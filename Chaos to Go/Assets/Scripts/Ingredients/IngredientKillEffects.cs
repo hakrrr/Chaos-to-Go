@@ -23,7 +23,7 @@ public class IngredientKillEffects : MonoBehaviour
     }
 
 
-    public static void PlayEffect(GameObject effectPrefab, Vector3 position, Transform root)
+    public static void PlayDeathEffect(GameObject effectPrefab, Vector3 position, Transform root)
     {
         GameObject effect = Instantiate(effectPrefab);
         effect.name = effectPrefab.name + "DeathEffect";
@@ -33,7 +33,7 @@ public class IngredientKillEffects : MonoBehaviour
     }
 
 
-    public static void PlayEffect(int effectID, Vector3 position, Transform root)
+    public static void PlayDeathEffect(int effectID, Vector3 position, Transform root)
     {
         GameObject effect = Instantiate(effects[effectID]);
         effect.name = effects[effectID].name + "DeathEffect";

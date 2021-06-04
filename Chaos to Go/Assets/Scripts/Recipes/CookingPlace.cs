@@ -7,7 +7,11 @@ public class CookingPlace : MonoBehaviour
     public int MAX_INGREDIENTS = 3;
 
     [SerializeField]
-    private GameObject soupEffect;
+    private GameObject effect;
+    [SerializeField]
+    private ParticleSystem particles;
+    [SerializeField]
+    private ParticleSystem particlesBurst;
 
     [SerializeField]
     private Sprite[] iconTextures;
@@ -19,6 +23,9 @@ public class CookingPlace : MonoBehaviour
 
     public void AddIngredient(Recipes.eIngredients ingredient)
     {
+        particlesBurst.Play();
+        particles.Play();
+
         for (int i = 0; i < MAX_INGREDIENTS; i++)
         {
             if(inPot[i] == Recipes.eIngredients.empty)
@@ -30,7 +37,7 @@ public class CookingPlace : MonoBehaviour
 
         if(inPot[0] != Recipes.eIngredients.empty)
         {
-            soupEffect.transform.localScale = new Vector3(3.7f, 0.5f, 3.7f);
+            effect.transform.localScale = new Vector3(3.7f, 0.5f, 3.7f);
         }
         if(inPot[1] != Recipes.eIngredients.empty)
         {
@@ -53,6 +60,12 @@ public class CookingPlace : MonoBehaviour
                 inPot[i] = Recipes.eIngredients.empty;
             }
         }
+    }
+
+
+    public void EmptyCookingPlace()
+    {
+
     }
 
 
@@ -79,7 +92,9 @@ public class CookingPlace : MonoBehaviour
             {
                 Game.GAME.AddScore(recipe.points);
                 Game.GAME.NextRecipe(recipeIdx);
-                soupEffect.SetActive(false);
+                effect.transform.localScale = Vector3.zero;
+                particles.Stop();
+                particlesBurst.Play();
                 inPot = new Recipes.eIngredients[MAX_INGREDIENTS];
                 for (int i = 0; i < MAX_INGREDIENTS; i++)
                 {
@@ -121,7 +136,7 @@ public class CookingPlace : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        soupEffect.transform.localScale = new Vector3(0, 0, 0);
+        effect.transform.localScale = Vector3.zero;
         inPot = new Recipes.eIngredients[MAX_INGREDIENTS];
         for(int i = 0; i < MAX_INGREDIENTS; i++)
         {

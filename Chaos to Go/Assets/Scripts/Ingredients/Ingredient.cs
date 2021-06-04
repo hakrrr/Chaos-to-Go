@@ -10,6 +10,7 @@ public class Ingredient : MonoBehaviour
     private IngredientsManager manager;
     private Recipes.eIngredients ingredientType;
     private bool wait;
+    private bool died = true;
 
 
     public void PleaseDontForgetToInitMe(int boardX, int boardY, Recipes.eIngredients ingredientType)
@@ -58,7 +59,7 @@ public class Ingredient : MonoBehaviour
     {
         if (tile == null)
         {
-            IngredientKillEffects.PlayEffect((int)ingredientType - 1, transform.position, transform.parent);
+            if(died) IngredientKillEffects.PlayDeathEffect((int)ingredientType - 1, transform.position, transform.parent);
             Game.GAME.AddScore(-100);
             Destroy(gameObject);
             Debug.Log("DESTROYED: fell out of board");
@@ -97,19 +98,21 @@ public class Ingredient : MonoBehaviour
             int nextY = boardY + (int)movePattern.NextTile().y;
 
             // This needs to go somewhere else!
-            if(nextX == 0 && nextY == -1)
+            if (nextX == 0 && nextY == -1)
             {
+                died = false;
                 CookingPlace pot = GameObject.Find("CookingPot1").GetComponent<CookingPlace>();
                 pot.AddIngredient(ingredientType);
             }
-            else if(nextX == 2 && nextY == -1)
+            else if (nextX == 2 && nextY == -1)
             {
+                died = false;
                 CookingPlace pot = GameObject.Find("CookingPot2").GetComponent<CookingPlace>();
                 pot.AddIngredient(ingredientType);
             }
 
             GameBoardTile nextTile = Game.BOARD.GetTile(nextX, nextY);
-            if(nextTile == null)
+            if (nextTile == null)
             {
                 tile = null;
             }

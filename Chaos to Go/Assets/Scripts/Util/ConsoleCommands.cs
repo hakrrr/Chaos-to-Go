@@ -156,6 +156,46 @@ public class ConsoleCommands
         return BuildOutput();
     }
 
+
+    public static string recipe()
+    {
+        Func<string, Recipes.eIngredients> toIngr = str =>
+        {
+            switch (str[0])
+            {
+                case 'a':
+                    return Recipes.eIngredients.asparagus;
+                case 'c':
+                    return Recipes.eIngredients.carrot;
+                case 'h':
+                    return Recipes.eIngredients.chicken;
+                case 'o':
+                    return Recipes.eIngredients.onion;
+                case 't':
+                    return Recipes.eIngredients.tomato;
+                default:
+                    return Recipes.eIngredients.empty;
+            }
+        };
+
+        string output = BuildOutput();
+        if (argc < 3)
+            return output + "\nPlease specify a recipe with ingredient ids (see Recipes)!\n" +
+                            "recipe <ingr1> <ingr2> (<ingr3>)";
+
+        Recipes.Recipe recipe = new Recipes.Recipe();
+        recipe.ingredient1 = toIngr(args[1]);
+        recipe.ingredient2 = toIngr(args[2]);
+        recipe.ingredient3 = Recipes.eIngredients.empty;
+        if (argc >= 4)
+        {
+            recipe.ingredient3 = toIngr(args[3]);
+        }
+
+        Game.GAME.SetRecipe(0, recipe);
+        return output;
+    }
+
     // ================================================================================================= //
     //                                     END CONSOLE COMMANDS                                          //
     // ================================================================================================= //
