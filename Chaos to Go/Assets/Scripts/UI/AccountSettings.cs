@@ -5,15 +5,20 @@ using UnityEngine.UI;
 
 public class AccountSettings : MonoBehaviour
 {
-    public static string ACCOUNT_NAME = "Steve";
+    public static string USER_NAME = "Steve";
+    public static string CHANNEL_NAME = "SteveTV";
     public static string VERIFICATION_CODE = "1234567890";
 
     [SerializeField]
-    private InputField fieldAccName;
+    private InputField fieldUserName;
+    [SerializeField]
+    private InputField fieldChannelName;
     [SerializeField]
     private InputField fieldVerifiCode;
     [SerializeField]
     private MainMenu mainMenu;
+    [SerializeField]
+    private TwitchChat.TwitchChatBot twitch;
 
 
     // Start is called before the first frame update
@@ -43,8 +48,15 @@ public class AccountSettings : MonoBehaviour
 
     public void OnPressOkay()
     {
-        ACCOUNT_NAME = fieldAccName.text;
+        USER_NAME = fieldUserName.text;
+        CHANNEL_NAME = fieldChannelName.text;
         VERIFICATION_CODE = fieldVerifiCode.text;
+
+        if(twitch != null)
+        {
+            twitch.NewAccount(USER_NAME, CHANNEL_NAME, VERIFICATION_CODE);
+        }
+
         Hide();
         mainMenu.Unfreeze();
     }

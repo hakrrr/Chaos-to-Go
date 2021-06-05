@@ -1183,6 +1183,59 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5f7201a12d95ffc409449d95f23cf332, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1 &1104755412
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1104755413}
+  - component: {fileID: 1104755414}
+  m_Layer: 0
+  m_Name: IngredientsKillEffects
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1104755413
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1104755412}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: -3, z: -16}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1884120891}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1104755414
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1104755412}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bc27441b72c02ab41a4ccc1fe2d0a4de, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  tomatoDeathEffect: {fileID: 1649105444739961746, guid: 25c56a834e46d7248b3bf9c06f353567,
+    type: 3}
+  onionDeathEffect: {fileID: 5393150937521931623, guid: aa636f52081595d4db2e279f71e79c66,
+    type: 3}
+  asparagusDeathEffect: {fileID: 1197419182536403430, guid: 1da555041e5be7d48a441a848e86b66e,
+    type: 3}
+  chickenDeathEffect: {fileID: 6353069747280613849, guid: cde76d4fdaae4244c8d4a6a31cd9f747,
+    type: 3}
+  carrotDeathEffect: {fileID: 3934491129619873978, guid: 6b47a7c6a8c4a0046b1212b99c9cde2d,
+    type: 3}
 --- !u!224 &1140286520 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 8781019531988122439, guid: a6ae850df0477e04284cfad3de27c02d,
@@ -2290,7 +2343,8 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 3, z: 16}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
+  m_Children:
+  - {fileID: 1104755413}
   m_Father: {fileID: 0}
   m_RootOrder: 10
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
