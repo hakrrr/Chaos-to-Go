@@ -20,16 +20,17 @@ Material:
     serializedVersion: 3
     m_TexEnvs:
     - _MainTex:
-        m_Texture: {fileID: 0}
+        m_Texture: {fileID: 2800000, guid: d46f426eeea162042867685bf29619a7, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     m_Floats:
-    - _Ambient: 1
-    - _CelCount: 4
-    - _Diffuse: 1
-    - _OutlineMode: 1
-    - _OutlineStrength: 1
-    - _Specular: 1
+    - _Ambient: 0.85
+    - _CelCount: 8
+    - _Diffuse: 0.57
+    - _OutlineMode: 0
+    - _OutlineStrength: 0.2
+    - _OutlinesEnabled: 1
+    - _Specular: 0.2
     - _SpecularExponent: 8
     - _TexOffsetX: 0
     - _TexOffsetY: 0
@@ -37,5 +38,5 @@ Material:
     - _TexScaleX: 1
     - _TexScaleY: 1
     m_Colors:
-    - _Color: {r: 1, g: 1, b: 1, a: 1}
+    - _Color: {r: 1, g: 0.53292686, b: 0, a: 1}
     - _OutlineColor: {r: 0, g: 0, b: 0, a: 1}

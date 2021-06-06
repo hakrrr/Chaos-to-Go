@@ -71,12 +71,18 @@ Material:
     - _OcclusionStrength: 1
     - _OutlineMode: 1
     - _OutlineStrength: 0.001
+    - _OutlinesEnabled: 1
     - _Parallax: 0.02
     - _SmoothnessTextureChannel: 0
     - _Specular: 0.3
     - _SpecularExponent: 8
     - _SpecularHighlights: 1
     - _SrcBlend: 1
+    - _TexOffsetX: 0
+    - _TexOffsetY: 0
+    - _TexRot: 0
+    - _TexScaleX: 1
+    - _TexScaleY: 1
     - _UVSec: 0
     - _ZWrite: 1
     m_Colors:

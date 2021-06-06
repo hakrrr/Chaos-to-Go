@@ -14,6 +14,7 @@
         _OutlineStrength("Outline Strength", Range(0.0, 1.0)) = 1.0
         _OutlineColor("Outline Color", Color) = (0, 0, 0, 1)
         _OutlineMode("Set to Scale - Normal", Int) = 1
+        _OutlinesEnabled("Outlines Enabled", Int) = 1
 
         _TexOffsetX("Texture UV Offset X", Range(0.0, 1.0)) = 0.0
         _TexOffsetY("Texture UV Offset Y", Range(0.0, 1.0)) = 0.0
@@ -157,8 +158,12 @@
             #ifdef FRAGMENT
 
             uniform vec4 _OutlineColor;
+            uniform int _OutlinesEnabled;
 
             void main(){
+                if(_OutlinesEnabled == 0){
+                    discard;
+                }
                 gl_FragColor = _OutlineColor;
             }
 
