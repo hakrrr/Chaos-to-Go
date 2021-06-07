@@ -16,6 +16,8 @@ public class GameBoard : MonoBehaviour
     [SerializeField]
     private BaseTile baseTilePrefab;
     [SerializeField]
+    private SpawnPoint spawnPointPrefab;
+    [SerializeField]
     private Transform tileRoot;
 
     private InstanceMatrix<GameBoardTile> tileMatrix;
@@ -49,7 +51,7 @@ public class GameBoard : MonoBehaviour
             for (uint j = 0; j < y; j++)
             {
                 BaseTile tile = Instantiate(prefab);
-                int dirStart = (int)Random.Range(0.0f, 4.0f);
+                int dirStart = (int)Random.Range(0.0f, 3.0f);
                 int dirEnd = (int)Random.Range(0.0f, 3.0f);
                 if(dirEnd == 1) dirEnd = 3;
 
@@ -66,6 +68,16 @@ public class GameBoard : MonoBehaviour
                 Destroy(tile.GetComponent<DraggableObject>());
             }
         }
+    }
+
+
+    public void AddSpawnPoint(uint x, uint y, BaseTile.eDirection direction, GameObject prefab)
+    {
+        SpawnPoint spawnPoint = Instantiate(prefab).GetComponent<SpawnPoint>();
+        spawnPoint.name = "SpawnPoint";
+        GameBoardTile oldTile = tileMatrix.Get(x, y);
+        AddTile(spawnPoint, x, y);
+        Destroy(oldTile.gameObject);
     }
 
 
@@ -186,6 +198,11 @@ public class GameBoard : MonoBehaviour
             }
         }
         FillRandom(baseTilePrefab);
+        for(uint i = 0; i < 5; i++)
+        {
+            AddSpawnPoint(i, 5, BaseTile.eDirection.down, spawnPointPrefab.gameObject);
+            blockedTiles.Set(i, 5, true);
+        }
         Build();
     }
 

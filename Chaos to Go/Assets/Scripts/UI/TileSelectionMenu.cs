@@ -44,9 +44,10 @@ public class TileSelectionMenu : MonoBehaviour
     private void AddNewRandomBaseTile(int idx)
     {
         BaseTile newTile = Instantiate(baseTilePrefab);
-        newTile.name = "BaseTile" + ((int)Random.Range(0.0f, 128.0f));
-        int dirStart = (int)Random.Range(0.0f, 4.0f);
-        int dirEnd = (int)Random.Range(0.0f, 4.0f);
+        int dirStart = (int)Random.Range(0.0f, 3.0f);
+        int dirEnd = (int)Random.Range(0.0f, 3.0f);
+        if (dirEnd == 1) dirEnd = 3;
+
         if (dirStart == dirEnd)
         {
             if (dirStart == 3)

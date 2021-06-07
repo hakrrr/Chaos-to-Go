@@ -10,7 +10,7 @@ public class StraightMovement : IBoardMovePattern
     private BaseTile.eDirection direction;
     private float radius, speed;
 
-    private Vector3 startPos, endPos;
+    protected Vector3 startPos, endPos;
 
 
     public StraightMovement(BaseTile.eDirection direction, Vector3 centerPos, float radius, float speed)
