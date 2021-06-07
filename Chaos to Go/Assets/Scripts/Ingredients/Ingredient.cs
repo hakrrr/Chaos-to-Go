@@ -12,6 +12,9 @@ public class Ingredient : MonoBehaviour
     private bool wait;
     private bool died = true;
 
+    [SerializeField]
+    private GameObject pointLabelPrefab;
+
 
     public void PleaseDontForgetToInitMe(int boardX, int boardY, Recipes.eIngredients ingredientType)
     {
@@ -63,6 +66,7 @@ public class Ingredient : MonoBehaviour
             {
                 IngredientKillEffects.PlayDeathEffect((int)ingredientType - 1, transform.position, transform.parent);
                 Game.GAME.AddScore(-100);
+                PointLabel.SpawnAt(pointLabelPrefab, transform.parent, transform.position, -100);
                 Debug.Log("-100 points: Fell out of board or was crushed!");
             }
             Destroy(gameObject);

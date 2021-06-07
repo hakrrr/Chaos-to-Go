@@ -46,7 +46,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b5b9ff6612418f3488ef91d880c33195, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 1
+  pointLabelPrefab: {fileID: 9007994716539456341, guid: ed437bd180dbc864087814880522ea43,
+    type: 3}
 --- !u!65 &5021195312134906882
 BoxCollider:
   m_ObjectHideFlags: 0

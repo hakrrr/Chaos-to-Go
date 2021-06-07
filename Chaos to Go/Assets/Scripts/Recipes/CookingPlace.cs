@@ -18,6 +18,9 @@ public class CookingPlace : MonoBehaviour
     [SerializeField]
     private SpriteRenderer[] iconSlots;
 
+    [SerializeField]
+    private GameObject pointLabelPrefab;
+
     private Recipes.eIngredients[] inPot; 
 
 
@@ -58,8 +61,11 @@ public class CookingPlace : MonoBehaviour
         foreach(Recipes.eIngredients ingr in inPot){
             if (ingr != Recipes.eIngredients.empty) p += 100;
         }
-        if(penalty)
+        if (penalty)
+        {
             Game.GAME.AddScore(-p);
+            PointLabel.SpawnAt(pointLabelPrefab, transform.parent, transform.position, -p);
+        }
         effect.transform.localScale = Vector3.zero;
         inPot = new Recipes.eIngredients[MAX_INGREDIENTS];
         for (int i = 0; i < MAX_INGREDIENTS; i++)
@@ -90,6 +96,7 @@ public class CookingPlace : MonoBehaviour
 
             if (recipeFit)
             {
+                PointLabel.SpawnAt(pointLabelPrefab, transform.parent, transform.position, recipe.points);
                 Game.GAME.AddScore(recipe.points);
                 Game.GAME.NextRecipe(recipeIdx);
                 EmptyCookingPlace(false);
