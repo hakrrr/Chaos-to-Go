@@ -21,6 +21,9 @@
         _TexScaleX("Texture UV Scale X", Range(0.001, 100.0)) = 1.0
         _TexScaleY("Texture UV Scale Y", Range(0.001, 100.0)) = 1.0
         _TexRot("Texture UV Rotation", Range(0.0, 6.28318)) = 0.0
+
+        _MarkedCol("Marked Color", Color) = (1, 0, 0, 1)
+        _Marked("Use Marked Color", Int) = 0
     }
     SubShader
     {
@@ -73,6 +76,9 @@
             uniform float _SpecularExponent;
             uniform int _CelCount;
 
+            uniform vec4 _MarkedCol;
+            uniform int _Marked;
+
             uniform vec3 _WorldSpaceCameraPos;
             uniform vec4 _WorldSpaceLightPos0; 
             uniform vec4 _LightColor0;
@@ -111,11 +117,12 @@
 
                 vec4 phongColor = vec4((amb + diff + spec) * col * texture2D(_MainTex, TextureCoordinate).rgb, 1.0f);
                 if(_CelCount == 0){
-                    gl_FragColor = phongColor;
+                    gl_FragColor = float(1 - _Marked) * phongColor + float(_Marked) * phongColor * _MarkedCol;
                 }
                 else{
                     vec3 celColor = compute_cel_color(phongColor.rgb, amb * _Color.rgb, vec3(1, 1, 1), _CelCount);
-                    gl_FragColor = vec4((amb + diff + spec) * celColor * texture2D(_MainTex, TextureCoordinate).rgb, 1.0f);
+                    vec4 outCol = vec4((amb + diff + spec) * celColor * texture2D(_MainTex, TextureCoordinate).rgb, 1.0f);
+                    gl_FragColor = float(1 - _Marked) * outCol + float(_Marked) * outCol * _MarkedCol;
                 }
             }
 
