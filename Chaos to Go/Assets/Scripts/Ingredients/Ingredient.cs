@@ -60,6 +60,11 @@ public class Ingredient : MonoBehaviour
 
     public void Update()
     {
+        if (PauseMenu.PAUSED)
+        {
+            return;
+        }
+
         if (tile == null)
         {
             if (died)
