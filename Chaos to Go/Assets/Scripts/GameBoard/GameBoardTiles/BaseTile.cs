@@ -42,6 +42,8 @@ public class BaseTile : GameBoardTile
             //turn curve off
             Transform convc = gameObject.transform.Find("curve");
             convc.gameObject.SetActive(false);
+            Transform convcb = gameObject.transform.Find("curveBorder");
+            convcb.gameObject.SetActive(false);
 
             //rotate
             gameObject.transform.Rotate(new Vector3(0, 90.0f * (int)start, 0));
@@ -52,6 +54,8 @@ public class BaseTile : GameBoardTile
             //turn straight off 
             Transform convs = gameObject.transform.Find("straight");
             convs.gameObject.SetActive(false);
+            Transform convsb = gameObject.transform.Find("straightBorder");
+            convsb.gameObject.SetActive(false);
 
             //set texture scrolling
             if (((int)start == 0 && (int)end == 3) || ((int)start == 1 && (int)end == 0) || ((int)start == 2 && (int)end == 1) || ((int)start == 3 && (int)end == 2))
@@ -65,9 +69,9 @@ public class BaseTile : GameBoardTile
                 gameObject.transform.Rotate(new Vector3(0, 90.0f * (int)end, 0));
 
                 //flip texture
-                gameObject.transform.Find("curve").transform.Find("Cylinder.001").GetComponent<Renderer>().material.SetFloat("_TexScaleY", -1.0f);
+                gameObject.transform.Find("curve").GetComponent<Renderer>().material.SetFloat("_TexScaleY", -1.0f);
                 //rotate scrolling
-                gameObject.transform.Find("curve").transform.Find("Cylinder.001").GetComponent<ScrollTexture>().scrollY = -0.5f;
+                gameObject.transform.Find("curve").GetComponent<ScrollTexture>().scrollY *= -1;
             }
         }
     }
