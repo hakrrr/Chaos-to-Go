@@ -2873,6 +2873,12 @@ PrefabInstance:
       propertyPath: m_Name
       value: TileSelectionMenu
       objectReference: {fileID: 0}
+    - target: {fileID: 8241248568263393532, guid: c86ce52f88d6020448960fa6d4d4d989,
+        type: 3}
+      propertyPath: baseTilePrefab
+      value: 
+      objectReference: {fileID: 167951448545097647, guid: baa5dd993bed68541bfe5a6653864165,
+        type: 3}
     - target: {fileID: 8241248568263393531, guid: c86ce52f88d6020448960fa6d4d4d989,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -3086,6 +3092,12 @@ PrefabInstance:
       propertyPath: spawnPointPrefab
       value: 
       objectReference: {fileID: 7631616953931764973, guid: ca4b878df3372ba47af49819a515cf16,
+        type: 3}
+    - target: {fileID: 9062265954997092432, guid: 9abb453dcc8eceb45a0899d0e9c959fa,
+        type: 3}
+      propertyPath: baseTilePrefab
+      value: 
+      objectReference: {fileID: 167951448545097647, guid: baa5dd993bed68541bfe5a6653864165,
         type: 3}
     - target: {fileID: 9062265954997092433, guid: 9abb453dcc8eceb45a0899d0e9c959fa,
         type: 3}
