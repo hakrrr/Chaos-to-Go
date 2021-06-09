@@ -6,12 +6,17 @@ public class SpawnPoint : BaseTile
 {
     [SerializeField]
     private GameObject mesh;
+    [SerializeField]
+    private ScrollTexture scrollTex;
 
 
     new void Start()
     {
         base.Start();
-        mesh.transform.Rotate(new Vector3(0, ((float) GetStart()) * 90.0f));
+        Debug.Log("<!§!>");
+        scrollTex.scrollY = -0.5f;
+        scrollTex.gameObject.GetComponent<Renderer>().material.SetFloat("_TexScaleY", -1.0f);
+        //mesh.transform.Rotate(new Vector3(0, ((float) GetStart()) * 90.0f));
 
         switch (GetStart())
         {
