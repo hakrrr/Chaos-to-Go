@@ -32,9 +32,11 @@ public class DraggableObject : MonoBehaviour
         initialPosition = transform.position;
     }
 
+
     // Update is called once per frame
     void Update()
     {
+        if (PauseMenu.PAUSED) return;
         if (dragged)
         {
             DragPosition();
@@ -62,7 +64,7 @@ public class DraggableObject : MonoBehaviour
 
     private void OnMouseOver()
     {
-        if (dragging)
+        if (dragging || PauseMenu.PAUSED)
         {
             return;
         }
