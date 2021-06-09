@@ -66,20 +66,29 @@ Material:
     - _GlossMapScale: 1
     - _Glossiness: 0.5
     - _GlossyReflections: 1
+    - _Marked: 0
     - _Metallic: 0
     - _Mode: 0
     - _OcclusionStrength: 1
     - _OutlineMode: 1
     - _OutlineStrength: 0.1
+    - _OutlinesEnabled: 1
     - _Parallax: 0.02
     - _SmoothnessTextureChannel: 0
     - _Specular: 1
     - _SpecularExponent: 8
     - _SpecularHighlights: 1
     - _SrcBlend: 1
+    - _TexOffsetX: 0
+    - _TexOffsetY: 0
+    - _TexRot: 0
+    - _TexScaleX: 1
+    - _TexScaleY: 1
     - _UVSec: 0
     - _ZWrite: 1
     m_Colors:
     - _Color: {r: 0.5, g: 0.5, b: 0.5, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
+    - _MarkedCol: {r: 1, g: 0, b: 0, a: 1}
+    - _MarkerCol: {r: 1, g: 0, b: 0, a: 1}
     - _OutlineColor: {r: 0, g: 0, b: 0, a: 1}

@@ -39,28 +39,28 @@ public class IngredientsManager : MonoBehaviour
         {
             case "tomato":
                 GameObject tomatoObj = Instantiate(tomato, transform.localPosition + spawnPoints[spawnPointID], Quaternion.identity, transform);
-                tomatoObj.GetComponent<Ingredient>().PleaseDontForgetToInitMe(spawnPointID, 3, Recipes.eIngredients.tomato);
-                tomatoObj.transform.position = Game.BOARD.GetTile(spawnPointID, 3).GetMovePattern().GetStart();
+                tomatoObj.GetComponent<Ingredient>().PleaseDontForgetToInitMe(spawnPointID, 5, Recipes.eIngredients.tomato);
+                tomatoObj.transform.position = Game.BOARD.GetTile(spawnPointID, 5).GetMovePattern().GetStart();
                 break;
             case "onion":
                 GameObject onionObj = Instantiate(onion, transform.localPosition + spawnPoints[spawnPointID], Quaternion.identity, transform);
-                onionObj.GetComponent<Ingredient>().PleaseDontForgetToInitMe(spawnPointID, 3, Recipes.eIngredients.onion);
-                onionObj.transform.position = Game.BOARD.GetTile(spawnPointID, 3).GetMovePattern().GetStart();
+                onionObj.GetComponent<Ingredient>().PleaseDontForgetToInitMe(spawnPointID, 5, Recipes.eIngredients.onion);
+                onionObj.transform.position = Game.BOARD.GetTile(spawnPointID, 5).GetMovePattern().GetStart();
                 break;
             case "carrot":
                 GameObject carrotObj = Instantiate(carrot, transform.localPosition + spawnPoints[spawnPointID], Quaternion.identity, transform);
-                carrotObj.GetComponent<Ingredient>().PleaseDontForgetToInitMe(spawnPointID, 3, Recipes.eIngredients.carrot);
-                carrotObj.transform.position = Game.BOARD.GetTile(spawnPointID, 3).GetMovePattern().GetStart();
+                carrotObj.GetComponent<Ingredient>().PleaseDontForgetToInitMe(spawnPointID, 5, Recipes.eIngredients.carrot);
+                carrotObj.transform.position = Game.BOARD.GetTile(spawnPointID, 5).GetMovePattern().GetStart();
                 break;
             case "asparagus":
                 GameObject asparagusObj = Instantiate(asparagus, transform.localPosition + spawnPoints[spawnPointID], Quaternion.identity, transform);
-                asparagusObj.GetComponent<Ingredient>().PleaseDontForgetToInitMe(spawnPointID, 3, Recipes.eIngredients.asparagus);
-                asparagusObj.transform.position = Game.BOARD.GetTile(spawnPointID, 3).GetMovePattern().GetStart();
+                asparagusObj.GetComponent<Ingredient>().PleaseDontForgetToInitMe(spawnPointID, 5, Recipes.eIngredients.asparagus);
+                asparagusObj.transform.position = Game.BOARD.GetTile(spawnPointID, 5).GetMovePattern().GetStart();
                 break;
             case "chicken":
                 GameObject chickenObj = Instantiate(chicken, transform.localPosition + spawnPoints[spawnPointID], Quaternion.identity, transform);
-                chickenObj.GetComponent<Ingredient>().PleaseDontForgetToInitMe(spawnPointID, 3, Recipes.eIngredients.chicken);
-                chickenObj.transform.position = Game.BOARD.GetTile(spawnPointID, 3).GetMovePattern().GetStart();
+                chickenObj.GetComponent<Ingredient>().PleaseDontForgetToInitMe(spawnPointID, 5, Recipes.eIngredients.chicken);
+                chickenObj.transform.position = Game.BOARD.GetTile(spawnPointID, 5).GetMovePattern().GetStart();
                 break;
             default:
                 break;

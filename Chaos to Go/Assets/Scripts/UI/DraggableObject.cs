@@ -48,6 +48,7 @@ public class DraggableObject : MonoBehaviour
     {
         if (dragged)
         {
+            behavior.OnAbort();
             dragging = false;
         }
     }
