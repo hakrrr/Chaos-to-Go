@@ -445,7 +445,7 @@ GameObject:
   - component: {fileID: 2243200665806765984}
   - component: {fileID: 5854551750417627553}
   m_Layer: 0
-  m_Name: convBaseTile
+  m_Name: BaseConveyorbeltTile
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -482,7 +482,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 60eeb460ff64eab49a3e2d9e2bc73d49, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  screenDistance: 75
+  screenDistance: 80
 --- !u!114 &2243200665806765984
 MonoBehaviour:
   m_ObjectHideFlags: 0

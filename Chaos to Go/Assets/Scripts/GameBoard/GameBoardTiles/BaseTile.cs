@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class BaseTile : GameBoardTile
 {
+    public const float Y_VALUE = 1.25f;
+
     public enum eDirection
     {
         left, up, right, down
@@ -165,13 +167,14 @@ public class BaseTile : GameBoardTile
             (start == eDirection.right && end == eDirection.left) ||
             (start == eDirection.down && end == eDirection.up);
 
+        Vector3 centerPos = new Vector3(transform.position.x, Y_VALUE, transform.position.z);
         if (straight)
         {
-            movePattern = new StraightMovement(end, transform.position + new Vector3(0, 2.0f, 0), Game.BOARD.GetTileLengths().x / 2.0f, 0.01f);
+            movePattern = new StraightMovement(end, centerPos, Game.BOARD.GetTileLengths().x / 2.0f, 0.01f);
         }
         else
         {
-            movePattern = new TurningMovement(transform.position + new Vector3(0, 2.0f, 0), Game.BOARD.GetTileLengths().x / 2.0f, start, end, 0.01f);
+            movePattern = new TurningMovement(centerPos, Game.BOARD.GetTileLengths().x / 2.0f, start, end, 0.01f);
         }
     }
 

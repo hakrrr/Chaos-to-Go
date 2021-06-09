@@ -13,7 +13,6 @@ public class SpawnPoint : BaseTile
     new void Start()
     {
         base.Start();
-        Debug.Log("<!§!>");
         scrollTex.scrollY = -0.5f;
         scrollTex.gameObject.GetComponent<Renderer>().material.SetFloat("_TexScaleY", -1.0f);
         //mesh.transform.Rotate(new Vector3(0, ((float) GetStart()) * 90.0f));
@@ -38,6 +37,7 @@ public class SpawnPoint : BaseTile
 
     public override void InitMovementPattern()
     {
-        movePattern = new SpawnPointMovePattern(eDirection.down, transform.position + new Vector3(0, 2.0f, 0), Game.BOARD.GetTileLengths().x / 2.0f, 0.01f, new Vector3(0, 3.0f, 0));
+        Vector3 centerPos = new Vector3(transform.position.x, Y_VALUE, transform.position.z);
+        movePattern = new SpawnPointMovePattern(eDirection.down, centerPos, Game.BOARD.GetTileLengths().x / 2.0f, 0.01f, new Vector3(0, 1.5f, -0.5f), new Vector3(0, 0.1f, 0));
     }
 }
