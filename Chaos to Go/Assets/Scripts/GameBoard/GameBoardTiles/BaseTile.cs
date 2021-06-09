@@ -41,9 +41,16 @@ public class BaseTile : GameBoardTile
         {
             //turn curve off
             Transform convc = gameObject.transform.Find("curve");
+<<<<<<< HEAD
             convc.gameObject.SetActive(false);
             Transform convcb = gameObject.transform.Find("curveBorder");
             convcb.gameObject.SetActive(false);
+=======
+            if(convc != null)
+            {
+                convc.gameObject.SetActive(false);
+            }
+>>>>>>> 1b76ae45492503d58ac50ca4f5291cbe5c5669b9
 
             //rotate
             gameObject.transform.Rotate(new Vector3(0, 90.0f * (int)start, 0));

@@ -18,8 +18,8 @@
 
         _TexOffsetX("Texture UV Offset X", Range(0.0, 1.0)) = 0.0
         _TexOffsetY("Texture UV Offset Y", Range(0.0, 1.0)) = 0.0
-        _TexScaleX("Texture UV Scale X", Range(0.001, 100.0)) = 1.0
-        _TexScaleY("Texture UV Scale Y", Range(0.001, 100.0)) = 1.0
+        _TexScaleX("Texture UV Scale X", Range(-100.0, 100.0)) = 1.0
+        _TexScaleY("Texture UV Scale Y", Range(-100.0, 100.0)) = 1.0
         _TexRot("Texture UV Rotation", Range(0.0, 6.28318)) = 0.0
 
         _MarkedCol("Marked Color", Color) = (1, 0, 0, 1)
