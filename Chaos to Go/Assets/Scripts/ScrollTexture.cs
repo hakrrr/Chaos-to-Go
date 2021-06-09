@@ -4,13 +4,12 @@ using UnityEngine;
 
 public class ScrollTexture : MonoBehaviour
 {
-    //public float scrollX = 0f;
-    public float scrollY = -0.5f;
+    public float scrollY = 0.5f;
+    //public bool flip = false;
 
     // Update is called once per frame
     void Update()
     {
-        //float offsetX = Time.time * scrollX;
         float offsetY = Time.time * scrollY;
 
         GetComponent<Renderer>().material.SetFloat("_TexOffsetY", offsetY);

@@ -34,10 +34,49 @@ public class BaseTile : GameBoardTile
         arrowEnd.transform.Rotate(new Vector3(0, 90.0f * (int)end, 0));
     }
 
+    private void SetCurvatureAndDirection()
+    {
+        ////straight start end: 02, 20, 13, 31 -> even sum
+        if (((int)start + (int)end) % 2 == 0)
+        {
+            //turn curve off
+            Transform convc = gameObject.transform.Find("curve");
+            convc.gameObject.SetActive(false);
+
+            //rotate
+            gameObject.transform.Rotate(new Vector3(0, 90.0f * (int)start, 0));
+        }
+        ////curve start end: 01, 10, 03, 30, 12, 21, 23, 32 -> uneven sum
+        else
+        {
+            //turn straight off 
+            Transform convs = gameObject.transform.Find("straight");
+            convs.gameObject.SetActive(false);
+
+            //set texture scrolling
+            if (((int)start == 0 && (int)end == 3) || ((int)start == 1 && (int)end == 0) || ((int)start == 2 && (int)end == 1) || ((int)start == 3 && (int)end == 2))
+            {
+                //rotate prefab
+                gameObject.transform.Rotate(new Vector3(0, 90.0f * (int)start, 0));
+            }
+            if (((int)start == 3 && (int)end == 0) || ((int)start == 0 && (int)end == 1) || ((int)start == 1 && (int)end == 2) || ((int)start == 2 && (int)end == 3))
+            {
+                //rotate prefab
+                gameObject.transform.Rotate(new Vector3(0, 90.0f * (int)end, 0));
+
+                //flip texture
+                gameObject.transform.Find("curve").transform.Find("Cylinder.001").GetComponent<Renderer>().material.SetFloat("_TexScaleY", -1.0f);
+                //rotate scrolling
+                gameObject.transform.Find("curve").transform.Find("Cylinder.001").GetComponent<ScrollTexture>().scrollY = -0.5f;
+            }
+        }
+    }
+
 
     public void Start()
     {
-        AlignArrows();
+        //AlignArrows();
+        SetCurvatureAndDirection();
         RegisterDragBehavior();
     }
 
