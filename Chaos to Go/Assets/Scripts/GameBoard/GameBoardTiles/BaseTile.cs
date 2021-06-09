@@ -41,16 +41,16 @@ public class BaseTile : GameBoardTile
         {
             //turn curve off
             Transform convc = gameObject.transform.Find("curve");
-<<<<<<< HEAD
-            convc.gameObject.SetActive(false);
-            Transform convcb = gameObject.transform.Find("curveBorder");
-            convcb.gameObject.SetActive(false);
-=======
             if(convc != null)
             {
                 convc.gameObject.SetActive(false);
             }
->>>>>>> 1b76ae45492503d58ac50ca4f5291cbe5c5669b9
+
+            Transform convcb = gameObject.transform.Find("curveBorder");
+            if (convcb != null)
+            {
+                convcb.gameObject.SetActive(false);
+            }
 
             //rotate
             gameObject.transform.Rotate(new Vector3(0, 90.0f * (int)start, 0));
@@ -60,9 +60,17 @@ public class BaseTile : GameBoardTile
         {
             //turn straight off 
             Transform convs = gameObject.transform.Find("straight");
-            convs.gameObject.SetActive(false);
+            if (convs != null)
+            {
+                convs.gameObject.SetActive(false);
+            }
+
             Transform convsb = gameObject.transform.Find("straightBorder");
-            convsb.gameObject.SetActive(false);
+            if (convsb != null)
+            {
+                convsb.gameObject.SetActive(false);
+            }
+
 
             //set texture scrolling
             if (((int)start == 0 && (int)end == 3) || ((int)start == 1 && (int)end == 0) || ((int)start == 2 && (int)end == 1) || ((int)start == 3 && (int)end == 2))
