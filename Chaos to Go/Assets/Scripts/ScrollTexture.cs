@@ -10,6 +10,7 @@ public class ScrollTexture : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (PauseMenu.PAUSED) return;
         float offsetY = Time.time * scrollY;
 
         GetComponent<Renderer>().material.SetFloat("_TexOffsetY", offsetY);

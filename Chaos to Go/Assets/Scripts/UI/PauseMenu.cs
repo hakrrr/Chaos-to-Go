@@ -8,6 +8,7 @@ public class PauseMenu : MonoBehaviour
     public static bool PAUSED = false;
 
     private InputStates btnPause = new InputStates(KeyCode.Escape);
+    private InputStates btnPause2 = new InputStates(KeyCode.Pause);
 
 
     // Start is called before the first frame update
@@ -19,7 +20,8 @@ public class PauseMenu : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (btnPause.Check() == InputStates.InputState.JustPressed)
+        if (btnPause.Check() == InputStates.InputState.JustPressed ||
+            btnPause2.Check() == InputStates.InputState.JustPressed)
         {
             if (!PAUSED)
             {
