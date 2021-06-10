@@ -23,6 +23,8 @@ public class GameBoard : MonoBehaviour
     private InstanceMatrix<GameBoardTile> tileMatrix;
     private InstanceMatrix<bool> blockedTiles;
 
+    public static GameBoard GAME_BOARD;
+
 
     public void FillEmpty()
     {
@@ -184,9 +186,42 @@ public class GameBoard : MonoBehaviour
     }
 
 
+    public bool Contains(GameBoardTile tile)
+    {
+        for(uint i = 0; i < x; i++)
+        {
+            for(uint j = 0; j < y; j++)
+            {
+                if(tileMatrix.Get(i, j) == tile)
+                {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+
+    public Vector2 GetTilePos(GameBoardTile tile)
+    {
+        for (uint i = 0; i < x; i++)
+        {
+            for (uint j = 0; j < y; j++)
+            {
+                if (tileMatrix.Get(i, j) == tile)
+                {
+                    return new Vector2(i, j);
+                }
+            }
+        }
+        return new Vector2(-1, -1);
+    }
+
+
     // Start is called before the first frame update
     void Start()
     {
+        GAME_BOARD = this;
         Game.BOARD = this;
         tileMatrix = new InstanceMatrix<GameBoardTile>(x, y);
         blockedTiles = new InstanceMatrix<bool>(x, y);

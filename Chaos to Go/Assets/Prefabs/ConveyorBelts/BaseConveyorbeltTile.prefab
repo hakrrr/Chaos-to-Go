@@ -444,6 +444,7 @@ GameObject:
   - component: {fileID: 549853457526072350}
   - component: {fileID: 2243200665806765984}
   - component: {fileID: 5854551750417627553}
+  - component: {fileID: 4581906864414588917}
   m_Layer: 0
   m_Name: BaseConveyorbeltTile
   m_TagString: Untagged
@@ -512,5 +513,17 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 4, y: 0.5, z: 4}
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Size: {x: 6.206714, y: 0.5, z: 6.051465}
+  m_Center: {x: 0.088594094, y: 0, z: 0.009493299}
+--- !u!114 &4581906864414588917
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6560028033879957270}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ac35995bd3d399a44b98aae1a181c851, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

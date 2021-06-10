@@ -143,4 +143,10 @@ public class Ingredient : MonoBehaviour
             endingTile.GetEnd() == BaseTile.eDirection.down && startingTile.GetStart() == BaseTile.eDirection.up ||
             endingTile.GetEnd() == BaseTile.eDirection.up && startingTile.GetStart() == BaseTile.eDirection.down;
     }
+
+
+    public bool IsBlockingTile(GameBoardTile tile)
+    {
+        return this.tile == tile;
+    }
 }
