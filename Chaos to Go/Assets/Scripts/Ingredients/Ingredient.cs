@@ -41,7 +41,7 @@ public class Ingredient : MonoBehaviour
             if (ingredient != null && ingredient != this)
             {
                 Vector3 p2 = ingredient.transform.position;
-                if((p1 - p2).magnitude < 0.75f)
+                if((p1 - p2).magnitude < 0.6f)
                 {
                     return true;
                 }
