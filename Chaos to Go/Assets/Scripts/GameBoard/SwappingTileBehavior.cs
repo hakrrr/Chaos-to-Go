@@ -98,6 +98,10 @@ public class SwappingTileBehavior : MonoBehaviour
 
     void OnMouseOver()
     {
+        if (PauseMenu.PAUSED)
+        {
+            return;
+        }
         if (!Game.BOARD.Contains(tile))
         {
             return;
@@ -124,9 +128,9 @@ public class SwappingTileBehavior : MonoBehaviour
                 {
                     if (!IsTileOccupated(selected.tile))
                     {
-                        Debug.Log("§§-§§");
-                        Debug.Log("> T1: " + new Vector2(x, y));
-                        Debug.Log("> T2: " + new Vector2(selected.x, selected.y));
+                        //Debug.Log("§§-§§");
+                        //Debug.Log("> T1: " + new Vector2(x, y));
+                        //Debug.Log("> T2: " + new Vector2(selected.x, selected.y));
                         GameBoard.GAME_BOARD.AddTile(selected.tile, x, y);
                         GameBoard.GAME_BOARD.AddTile(tile, selected.x, selected.y);
                         GameBoard.GAME_BOARD.Build();
