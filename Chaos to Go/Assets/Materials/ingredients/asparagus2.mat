@@ -66,11 +66,12 @@ Material:
     - _GlossMapScale: 1
     - _Glossiness: 0.5
     - _GlossyReflections: 1
+    - _Marked: 0
     - _Metallic: 0
     - _Mode: 0
     - _OcclusionStrength: 1
-    - _OutlineMode: 1
-    - _OutlineStrength: 0.02
+    - _OutlineMode: 0
+    - _OutlineStrength: 0.1
     - _OutlinesEnabled: 1
     - _Parallax: 0.02
     - _SmoothnessTextureChannel: 0
@@ -90,4 +91,5 @@ Material:
     - _CelColor2: {r: 0.33490568, g: 1, b: 0.7899702, a: 1}
     - _Color: {r: 0.28475437, g: 0.764151, b: 0.61234206, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
+    - _MarkedCol: {r: 1, g: 0, b: 0, a: 1}
     - _OutlineColor: {r: 0, g: 0, b: 0, a: 1}

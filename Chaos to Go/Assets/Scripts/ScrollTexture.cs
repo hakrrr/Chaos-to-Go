@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class ScrollTexture : MonoBehaviour
 {
-    public float scrollY = 0.5f;
+    public float scrollY = 0.075f;
     //public bool flip = false;
 
     // Update is called once per frame
