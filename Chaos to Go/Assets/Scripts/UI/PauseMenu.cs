@@ -27,8 +27,7 @@ public class PauseMenu : MonoBehaviour
             return;
         }
 
-        if (btnPause.Check() == InputStates.InputState.JustPressed ||
-            btnPause2.Check() == InputStates.InputState.JustPressed)
+        if (btnPause.Check() == InputStates.InputState.JustPressed || btnPause2.Check() == InputStates.InputState.JustPressed)
         {
             if (!PAUSED)
             {
