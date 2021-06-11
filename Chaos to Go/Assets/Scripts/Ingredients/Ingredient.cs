@@ -5,6 +5,8 @@ using UnityEngine;
 
 public class Ingredient : MonoBehaviour
 {
+    public const int INGREDIENT_PENALTY = 20;
+
     private int boardX, boardY;
     private GameBoardTile tile;
     private IngredientsManager manager;
@@ -70,9 +72,9 @@ public class Ingredient : MonoBehaviour
             if (died)
             {
                 IngredientKillEffects.PlayDeathEffect((int)ingredientType - 1, transform.position, transform.parent);
-                Game.GAME.AddScore(-100);
-                PointLabel.SpawnAt(pointLabelPrefab, transform.parent, transform.position, -100);
-                Debug.Log("-100 points: Fell out of board or was crushed!");
+                Game.GAME.AddScore(-INGREDIENT_PENALTY);
+                PointLabel.SpawnAt(pointLabelPrefab, transform.parent, transform.position, -INGREDIENT_PENALTY);
+                Debug.Log("-" + INGREDIENT_PENALTY + " points: Fell out of board or was crushed!");
             }
             Destroy(gameObject);
             return;
@@ -109,7 +111,7 @@ public class Ingredient : MonoBehaviour
             int nextX = boardX + (int) movePattern.NextTile().x;
             int nextY = boardY + (int)movePattern.NextTile().y;
 
-            // This needs to go somewhere else!
+            // This needs to go somewhere else! Yanderedev-Style Code. I know dammit. I dont have much time okay!!!
             if (nextX == 0 && nextY == -1)
             {
                 died = false;
@@ -120,6 +122,18 @@ public class Ingredient : MonoBehaviour
             {
                 died = false;
                 CookingPlace pot = GameObject.Find("CookingPot2").GetComponent<CookingPlace>();
+                pot.AddIngredient(ingredientType);
+            }
+            else if(nextX == -1 && nextY == 2)
+            {
+                died = false;
+                CookingPlace pot = GameObject.Find("CookingPot3").GetComponent<CookingPlace>();
+                pot.AddIngredient(ingredientType);
+            }
+            else if (nextX == 5 && nextY == 2)
+            {
+                died = false;
+                CookingPlace pot = GameObject.Find("CookingPot4").GetComponent<CookingPlace>();
                 pot.AddIngredient(ingredientType);
             }
 

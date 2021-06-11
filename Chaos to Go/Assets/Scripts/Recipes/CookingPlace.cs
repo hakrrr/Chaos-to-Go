@@ -59,7 +59,7 @@ public class CookingPlace : MonoBehaviour
         particles.Stop();
         int p = 0;
         foreach(Recipes.eIngredients ingr in inPot){
-            if (ingr != Recipes.eIngredients.empty) p += 100;
+            if (ingr != Recipes.eIngredients.empty) p += Ingredient.INGREDIENT_PENALTY;
         }
         if (penalty)
         {
