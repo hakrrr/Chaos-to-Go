@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class PauseMenu : MonoBehaviour
 {
@@ -20,6 +21,12 @@ public class PauseMenu : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (GameOverScreen.IsGameOver())
+        {
+            Hide();
+            return;
+        }
+
         if (btnPause.Check() == InputStates.InputState.JustPressed ||
             btnPause2.Check() == InputStates.InputState.JustPressed)
         {
@@ -61,5 +68,6 @@ public class PauseMenu : MonoBehaviour
         Hide();
         PAUSED = false;
         Application.Quit();
+        SceneManager.LoadScene(0, LoadSceneMode.Single);
     }
 }

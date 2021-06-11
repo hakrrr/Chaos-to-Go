@@ -155,6 +155,10 @@ public class CookingPlace : MonoBehaviour
 
     void OnMouseDown()
     {
+        if (PauseMenu.PAUSED)
+        {
+            return;
+        }
         if (inPot[0] != Recipes.eIngredients.empty && !CheckRecipe())
         {
             EmptyCookingPlace(true);
