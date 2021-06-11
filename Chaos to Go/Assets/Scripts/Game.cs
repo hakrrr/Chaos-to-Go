@@ -18,6 +18,8 @@ public class Game : MonoBehaviour
     private Text scoreText;
     [SerializeField]
     private RecipeOrderUI recipeOrderUI;
+    [SerializeField]
+    private MinuteSecondTimer gameTimer;
 
 
     private int score = 0;
@@ -95,6 +97,10 @@ public class Game : MonoBehaviour
             NextRecipe(2);
             recipesSet = true;
         }
-        
+
+        if (gameTimer.IsExpired())
+        {
+            GameOverScreen.GameOver(score);
+        }
     }
 }
