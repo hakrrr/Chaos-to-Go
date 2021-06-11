@@ -7,7 +7,7 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: spawnbox
+  m_Name: spawnbox3
   m_Shader: {fileID: 4800000, guid: 87f3adf36cf35084193ef572f1e85612, type: 3}
   m_ShaderKeywords: 
   m_LightmapFlags: 4
@@ -40,7 +40,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MainTex:
-        m_Texture: {fileID: 2800000, guid: e336c85b4cc16a94bb17ed4d0ee5fce5, type: 3}
+        m_Texture: {fileID: 2800000, guid: f74029bdbb4b5ca4397ec1d2ac76b252, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MetallicGlossMap:

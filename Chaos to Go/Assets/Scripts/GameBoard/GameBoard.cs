@@ -76,6 +76,19 @@ public class GameBoard : MonoBehaviour
     public void AddSpawnPoint(uint x, uint y, BaseTile.eDirection direction, GameObject prefab)
     {
         SpawnPoint spawnPoint = Instantiate(prefab).GetComponent<SpawnPoint>();
+        for(int i = 0; i < 5; i++)
+        {
+            if(i != x)
+            {
+                if (spawnPoint.transform.Find("spawnBox_fbx") != null)
+                {
+                    if (spawnPoint.transform.Find("spawnBox_fbx").gameObject.transform.Find("cube" + (i + 1)) != null)
+                    {
+                        spawnPoint.transform.Find("spawnBox_fbx").gameObject.transform.Find("cube" + (i + 1)).gameObject.SetActive(false);
+                    }
+                }
+            }
+        }
         spawnPoint.name = "SpawnPoint";
         GameBoardTile oldTile = tileMatrix.Get(x, y);
         AddTile(spawnPoint, x, y);
