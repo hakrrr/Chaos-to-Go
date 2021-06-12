@@ -197,7 +197,7 @@ Canvas:
   m_SortingBucketNormalizedSize: 0
   m_AdditionalShaderChannelsFlag: 0
   m_SortingLayerID: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 1
   m_TargetDisplay: 0
 --- !u!224 &84425943
 RectTransform:
@@ -237,7 +237,7 @@ GameObject:
   - component: {fileID: 87752970}
   - component: {fileID: 87752969}
   - component: {fileID: 87752968}
-  m_Layer: 5
+  m_Layer: 8
   m_Name: Canvas
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -370,7 +370,7 @@ GameObject:
   - component: {fileID: 192063277}
   - component: {fileID: 192063278}
   - component: {fileID: 192063279}
-  m_Layer: 5
+  m_Layer: 8
   m_Name: TileCD
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -449,7 +449,7 @@ GameObject:
   - component: {fileID: 282414974}
   - component: {fileID: 282414976}
   - component: {fileID: 282414975}
-  m_Layer: 5
+  m_Layer: 8
   m_Name: Ingredient2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -789,7 +789,7 @@ GameObject:
   - component: {fileID: 388199823}
   - component: {fileID: 388199825}
   - component: {fileID: 388199824}
-  m_Layer: 5
+  m_Layer: 8
   m_Name: Ingredient3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -895,7 +895,7 @@ GameObject:
   - component: {fileID: 484236909}
   - component: {fileID: 484236911}
   - component: {fileID: 484236910}
-  m_Layer: 5
+  m_Layer: 8
   m_Name: tileEmote1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1115,7 +1115,7 @@ GameObject:
   - component: {fileID: 557748312}
   - component: {fileID: 557748314}
   - component: {fileID: 557748313}
-  m_Layer: 5
+  m_Layer: 8
   m_Name: ingEmote3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1234,7 +1234,7 @@ GameObject:
   - component: {fileID: 631118337}
   - component: {fileID: 631118339}
   - component: {fileID: 631118338}
-  m_Layer: 5
+  m_Layer: 8
   m_Name: Tile2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1552,7 +1552,7 @@ GameObject:
   - component: {fileID: 1208481851}
   - component: {fileID: 1208481853}
   - component: {fileID: 1208481852}
-  m_Layer: 5
+  m_Layer: 8
   m_Name: tileEmote2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1675,7 +1675,7 @@ GameObject:
   - component: {fileID: 1317571724}
   - component: {fileID: 1317571726}
   - component: {fileID: 1317571725}
-  m_Layer: 5
+  m_Layer: 8
   m_Name: ingEmote2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1750,7 +1750,7 @@ GameObject:
   - component: {fileID: 1343060333}
   - component: {fileID: 1343060335}
   - component: {fileID: 1343060334}
-  m_Layer: 5
+  m_Layer: 8
   m_Name: tileEmote3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1825,7 +1825,7 @@ GameObject:
   - component: {fileID: 1374964853}
   - component: {fileID: 1374964855}
   - component: {fileID: 1374964854}
-  m_Layer: 5
+  m_Layer: 8
   m_Name: IngCD
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2141,7 +2141,7 @@ GameObject:
   - component: {fileID: 1562436029}
   - component: {fileID: 1562436031}
   - component: {fileID: 1562436030}
-  m_Layer: 5
+  m_Layer: 8
   m_Name: Tile1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2490,7 +2490,7 @@ GameObject:
   - component: {fileID: 1619269256}
   - component: {fileID: 1619269258}
   - component: {fileID: 1619269257}
-  m_Layer: 5
+  m_Layer: 8
   m_Name: Ingredient1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3222,7 +3222,7 @@ GameObject:
   - component: {fileID: 1886023079}
   - component: {fileID: 1886023081}
   - component: {fileID: 1886023080}
-  m_Layer: 5
+  m_Layer: 8
   m_Name: Tile3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3490,7 +3490,7 @@ GameObject:
   - component: {fileID: 1982744106}
   - component: {fileID: 1982744108}
   - component: {fileID: 1982744107}
-  m_Layer: 5
+  m_Layer: 8
   m_Name: SpawnPoint3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3600,7 +3600,7 @@ GameObject:
   - component: {fileID: 2103574621}
   - component: {fileID: 2103574623}
   - component: {fileID: 2103574622}
-  m_Layer: 5
+  m_Layer: 8
   m_Name: ingEmote1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3675,7 +3675,7 @@ GameObject:
   - component: {fileID: 2118237994}
   - component: {fileID: 2118237996}
   - component: {fileID: 2118237995}
-  m_Layer: 5
+  m_Layer: 8
   m_Name: SpawnPoint2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3754,7 +3754,7 @@ GameObject:
   - component: {fileID: 2133795587}
   - component: {fileID: 2133795589}
   - component: {fileID: 2133795588}
-  m_Layer: 5
+  m_Layer: 8
   m_Name: SpawnPoint1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
