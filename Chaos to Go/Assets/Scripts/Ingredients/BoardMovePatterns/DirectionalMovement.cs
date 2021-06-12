@@ -60,7 +60,7 @@ public class StraightMovement : IBoardMovePattern
 
     public bool ReachedDestination(Vector3 position)
     {   
-        return (endPos - position).magnitude < 0.01f;
+        return (endPos - position).magnitude < 0.1f;
     }
 
 
@@ -161,7 +161,7 @@ public class TurningMovement : IBoardMovePattern
 
     public bool ReachedDestination(Vector3 position)
     {
-        return (endPos - position).magnitude < 0.01f;
+        return (endPos - position).magnitude < 0.1f;
     }
 
 
