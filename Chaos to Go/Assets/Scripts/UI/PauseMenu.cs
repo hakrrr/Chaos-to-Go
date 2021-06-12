@@ -66,7 +66,6 @@ public class PauseMenu : MonoBehaviour
     {
         Hide();
         PAUSED = false;
-        Application.Quit();
         SceneManager.LoadScene(0, LoadSceneMode.Single);
     }
 }
