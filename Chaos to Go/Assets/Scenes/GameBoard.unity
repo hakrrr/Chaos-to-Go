@@ -2786,6 +2786,7 @@ MonoBehaviour:
   - {fileID: 21300000, guid: b86991597a440244a859ba5362ec0cfc, type: 3}
   - {fileID: 21300000, guid: df4b2369208d89741b0a83ea0d6e93bc, type: 3}
   tileSelectionMenu: {fileID: 1773236383}
+  RecipeSpawnBias: 4
   IngMaxCD: 15
   TileMaxCD: 5
 --- !u!1 &1709357074
@@ -2894,7 +2895,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0c4b639357a6aaf4a9d686591eb01611, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  minutes: 5
+  minutes: 10
   seconds: 0
   autostart: 1
   timerText: {fileID: 498222779}
