@@ -66,7 +66,7 @@ public class StraightMovement : IBoardMovePattern
 
     public Vector3 Step(Vector3 position)
     {
-        return speed * (endPos - startPos).normalized;
+        return speed * Time.deltaTime * (endPos - startPos).normalized;
     }
 
 
@@ -181,7 +181,7 @@ public class TurningMovement : IBoardMovePattern
             dir = -dir;
         }
 
-        return speed * dir.normalized;
+        return speed * Time.deltaTime * dir.normalized;
     }
 
 

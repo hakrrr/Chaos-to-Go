@@ -38,6 +38,6 @@ public class SpawnPoint : BaseTile
     public override void InitMovementPattern()
     {
         Vector3 centerPos = new Vector3(transform.position.x, Y_VALUE, transform.position.z);
-        movePattern = new SpawnPointMovePattern(eDirection.down, centerPos, Game.BOARD.GetTileLengths().x / 2.0f, 0.01f, new Vector3(0, 2.0f, 1.0f), new Vector3(0, 0.1f, 0));
+        movePattern = new SpawnPointMovePattern(eDirection.down, centerPos, Game.BOARD.GetTileLengths().x / 2.0f, 0.6f, new Vector3(0, 2.0f, 1.0f), new Vector3(0, 0.1f, 0));
     }
 }
