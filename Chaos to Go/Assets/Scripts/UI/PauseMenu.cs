@@ -11,6 +11,8 @@ public class PauseMenu : MonoBehaviour
     private InputStates btnPause = new InputStates(KeyCode.Escape);
     private InputStates btnPause2 = new InputStates(KeyCode.Pause);
 
+    private bool hidden = false;
+
 
     // Start is called before the first frame update
     void Start()
@@ -21,6 +23,11 @@ public class PauseMenu : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if(PAUSED && hidden)
+        {
+            return;
+        }
+
         if (GameOverScreen.IsGameOver())
         {
             Hide();
@@ -45,12 +52,14 @@ public class PauseMenu : MonoBehaviour
 
     public void Hide()
     {
+        hidden = true;
         transform.localScale = Vector3.zero;
     }
 
 
     public void Show()
     {
+        hidden = false;
         transform.localScale = new Vector3(1, 1, 1);
     }
 
