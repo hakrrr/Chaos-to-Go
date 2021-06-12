@@ -161,7 +161,7 @@ public class TurningMovement : IBoardMovePattern
 
     public bool ReachedDestination(Vector3 position)
     {
-        return (endPos - position).magnitude < 0.015f;
+        return (endPos - position).magnitude < 0.03f;
     }
 
 
