@@ -42,17 +42,22 @@ namespace TwitchChat
             TriHard
         }
 
+        //This variable effects the ingredient spawning. In 1/x cases a recipe-requiered ingredient will  spawn
+        public int RecipeSpawnBias = 4;
+
         private float IngCD;
         public float IngMaxCD;
         private int MaxSpawns = 4;
 
         private float TileCD;
         public float TileMaxCD;
-
-        private string[] ingredients = { "tomato", "chicken", "onion", "carrot", "asparagus" };
-
+        
+       
+     
+        // private string[] ingredients = { "tomato", "chicken", "onion", "carrot", "asparagus" };
+           private string[] ingredients = { "asparagus", "carrot", "chicken", "onion", "tomato" };
         // eDir   left, top, right, down
-         private int[][] tiles_dir = { 
+        private int[][] tiles_dir = { 
             new int[] { 1, 3 },
             new int[] { 3, 1 },
             new int[] { 0, 2 },
@@ -104,7 +109,7 @@ namespace TwitchChat
             IngResetPoll();
             TileResetPoll();
         }
-
+        
         void Update()
         {
             if (IngCD > 0)
@@ -171,14 +176,44 @@ namespace TwitchChat
             //Generate 3 Random Emotes for VoteCasting
             var result = Enumerable.Range(0, emotes.Length).OrderBy(g => Guid.NewGuid()).Take(3).ToArray();
             for (int i = 0; i < 3; i++) ingCurrentEmotes[i] = emotes[result[i]];
-            
+
             //Print out current Emotes
-      //      Debug.Log("Current ingVoting Emotes are: ");
-       //     for (int i = 0; i < 3; i++) Debug.Log(ingCurrentEmotes[i]);
+            //      Debug.Log("Current ingVoting Emotes are: ");
+            //     for (int i = 0; i < 3; i++) Debug.Log(ingCurrentEmotes[i]);
 
             //Generate 3 random ingredients with spawnPoints
+
             var rngIng = Enumerable.Range(0, ingredients.Length).OrderBy(g => Guid.NewGuid()).Take(3).ToArray();
             var rngSpawn = Enumerable.Range(1, MaxSpawns).OrderBy(g => Guid.NewGuid()).Take(3).ToArray();
+
+            //this creates a bias towards ingredients that are used in recipes
+            for (int i = 0; i < rngIng.Length; i++) { 
+                if (Random.Range(0, RecipeSpawnBias) == 0)
+                {
+                    int rndRec = Random.Range(0, Game.GAME.GetFoodOrders().Length);
+                    Recipes.Recipe[] recipes = Game.GAME.GetFoodOrders();
+                    int rndIng = Random.Range(0, 3);
+                    int ingToSpawn = -1;
+                    if (rndIng == 0)
+                    {
+                        ingToSpawn = ((int) recipes[rndRec].ingredient1)-1;
+                        
+                    }
+                    if (rndIng == 1)
+                    {
+                        ingToSpawn = ((int) recipes[rndRec].ingredient2)-1;
+                       
+                    }
+                    if (rndIng == 2)
+                    {
+                        ingToSpawn = ((int)recipes[rndRec].ingredient3) - 1;
+                       
+                    }
+                    if (ingToSpawn != -1) {
+                        rngIng[rndIng] = ingToSpawn;
+                    }
+                }
+             }
             for (int i = 0; i < 3; i++) choices[i] = new ingSpawnInfo(ingredients[rngIng[i]], rngSpawn[i]);
 
        //     Debug.Log("Current Choices: ");
