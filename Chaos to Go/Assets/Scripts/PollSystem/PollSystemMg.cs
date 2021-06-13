@@ -152,8 +152,9 @@ namespace TwitchChat
             IngredientsManager ingredientSpawningScript = ingredientsManager.GetComponent<IngredientsManager>();
             ingredientSpawningScript.SpawnIngredient(result.IngredientName, result.SpawnPoint);
 
-       //     Debug.Log("Result: " + result.IngredientName + " " + result.SpawnPoint);
-        //    Debug.Log("-------------------------");
+            GetComponent<PlaySounds>().playSpawn();
+            //     Debug.Log("Result: " + result.IngredientName + " " + result.SpawnPoint);
+            //    Debug.Log("-------------------------");
         }
 
         void TileEvalVote()
@@ -166,6 +167,7 @@ namespace TwitchChat
 
 
             tileSelectionMenu.AddBaseTile((BaseTile.eDirection) tiles_dir[rngTile[maxIndex]][0], (BaseTile.eDirection) tiles_dir[rngTile[maxIndex]][1]);
+            GetComponent<PlaySounds>().playBlink();
         }
 
         private void IngResetPoll()

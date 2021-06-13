@@ -11,17 +11,42 @@ public class PlaySounds : MonoBehaviour
         try
         {
             this.sounds = GameObject.Find("Audio").GetComponents<AudioSource>();
+            sounds[5].volume *= 0.5f;
         }
         catch (Exception) { }
     }
 
     public void playBtn()
     {
-        sounds[0].Play();
+        if (sounds != null)
+           sounds[0].Play();
     }
 
     public void playAbort()
     {
-        sounds[1].Play();
+        if (sounds != null)
+           sounds[1].Play();
+    }
+
+    public void playReplace()
+    {
+        if (sounds != null)
+            sounds[2].Play();
+    }
+
+    public void playBlink()
+    {
+        if (sounds != null)
+            sounds[3].Play();
+    }
+    public void playPuff()
+    {
+        if (sounds != null)
+            sounds[4].Play();
+    }
+    public void playSpawn()
+    {
+        if (sounds != null)
+            sounds[5].Play();
     }
 }

@@ -30,6 +30,7 @@ public class IngredientKillEffects : MonoBehaviour
         effect.transform.parent = root;
         effect.transform.localScale = new Vector3(0.1f, 0.1f, 0.1f);
         effect.transform.position = position;
+        GameObject.Find("Game").GetComponent<PlaySounds>().playPuff();
     }
 
 
@@ -40,5 +41,6 @@ public class IngredientKillEffects : MonoBehaviour
         effect.transform.parent = root;
         effect.transform.localScale = new Vector3(0.1f, 0.1f, 0.1f);
         effect.transform.position = position;
+        GameObject.Find("Game").GetComponent<PlaySounds>().playPuff();
     }
 }
