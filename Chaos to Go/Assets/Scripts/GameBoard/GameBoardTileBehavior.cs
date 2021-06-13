@@ -18,7 +18,11 @@ public class GameBoardTileBehavior : DraggableObject.IDragBehavior
     {
         this.board = board;
         this.tile = tile;
-        this.sounds = board.GetComponents<AudioSource>();
+        try
+        {
+            this.sounds = GameObject.Find("Audio").GetComponents<AudioSource>();
+        }
+        catch (Exception) {  }
     }
 
 
