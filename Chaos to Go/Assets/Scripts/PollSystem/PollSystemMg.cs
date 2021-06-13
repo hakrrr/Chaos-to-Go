@@ -15,7 +15,7 @@ namespace TwitchChat
         [SerializeField]
         private Text TileCDText;
         [SerializeField]
-        private Text[] SpawnPoints;
+        private Image[] SpawnPoints;
         [SerializeField]
         private Image[] IngredientSlot;
         [SerializeField]
@@ -24,6 +24,8 @@ namespace TwitchChat
         private Image[] IngEmoteSlot;
         [SerializeField]
         private Image[] TileEmoteSlot;
+        [SerializeField]
+        private Sprite[] SpawnPointTextures;
         [SerializeField]
         private Sprite[] IngredientTextures;
         [SerializeField]
@@ -116,7 +118,7 @@ namespace TwitchChat
             {
                 //CD
                 IngCD -= Time.deltaTime;
-                IngCDText.GetComponent<Text>().text = IngCD.ToString();
+                IngCDText.GetComponent<Text>().text = ((int)IngCD).ToString();
             }
             else
             {
@@ -128,7 +130,7 @@ namespace TwitchChat
             {
                 //CD
                 TileCD -= Time.deltaTime;
-                TileCDText.GetComponent<Text>().text = TileCD.ToString();
+                TileCDText.GetComponent<Text>().text = ((int)TileCD).ToString();
             }
             else
             {
@@ -224,7 +226,7 @@ namespace TwitchChat
             //TODO Update Images according to ing + spawnPoints & emotes
             for (int i = 0; i < choices.Length; i++)
             {
-                SpawnPoints[i].GetComponent<Text>().text = choices[i].SpawnPoint.ToString();
+                SpawnPoints[i].sprite = SpawnPointTextures[choices[i].SpawnPoint-1];
                 var e = Enum.Parse(typeof(Recipes.eIngredients), choices[i].IngredientName);
                 IngredientSlot[i].sprite = IngredientTextures[(int)e - 1];
                 e = Enum.Parse(typeof(eEmote), ingCurrentEmotes[i]);
