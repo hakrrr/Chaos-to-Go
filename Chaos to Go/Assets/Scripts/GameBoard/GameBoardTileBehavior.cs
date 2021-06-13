@@ -8,10 +8,7 @@ public class GameBoardTileBehavior : DraggableObject.IDragBehavior
 {
     private GameBoard board;
     private GameBoardTile tile;
-
     private GameBoardTile prevClosest = null;
-
-    // 0 = pickup, 1 = putdown, 2 = replace
     private AudioSource[] sounds;
 
     public GameBoardTileBehavior(GameBoard board, GameBoardTile tile)
@@ -86,7 +83,8 @@ public class GameBoardTileBehavior : DraggableObject.IDragBehavior
 
     public void OnPickup()
     {
-        sounds[0].Play();
+        if(sounds != null)
+            sounds[0].Play();
     }
 
     public void OnAbort()
@@ -102,7 +100,8 @@ public class GameBoardTileBehavior : DraggableObject.IDragBehavior
                 {
                     Material material = renderer.material;
                     material.SetInt("_Marked", 0);
-                    sounds[1].Play();
+                    if (sounds != null)
+                        sounds[1].Play();
                 }
                 catch (Exception) { continue; }
             }
@@ -115,7 +114,8 @@ public class GameBoardTileBehavior : DraggableObject.IDragBehavior
             {
                 Material material = renderer.material;
                 material.SetInt("_Marked", 0);
-                sounds[1].Play();
+                if (sounds != null)
+                    sounds[1].Play();
             }
             catch (Exception) { continue; }
         }
@@ -126,7 +126,8 @@ public class GameBoardTileBehavior : DraggableObject.IDragBehavior
         if (board.FindAndReplace(tile))
         {
             tile.GetComponent<DraggableObject>().enabled = false;
-            sounds[2].Play();
+            if (sounds != null)
+                sounds[2].Play();
             return true;
         }
         return false;

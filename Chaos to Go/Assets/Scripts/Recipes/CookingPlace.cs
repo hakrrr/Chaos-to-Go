@@ -57,6 +57,7 @@ public class CookingPlace : MonoBehaviour
     {
         particlesBurst.Play();
         particles.Stop();
+        GameObject.Find("Game").GetComponent<PlaySounds>().playPuff();
         int p = 0;
         foreach(Recipes.eIngredients ingr in inPot){
             if (ingr != Recipes.eIngredients.empty) p += Ingredient.INGREDIENT_PENALTY;
