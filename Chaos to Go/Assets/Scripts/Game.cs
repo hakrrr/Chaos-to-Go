@@ -31,7 +31,7 @@ public class Game : MonoBehaviour
         score += points;
         UpdateScoreText();
     }
-
+    
 
     public void ResetScore()
     {

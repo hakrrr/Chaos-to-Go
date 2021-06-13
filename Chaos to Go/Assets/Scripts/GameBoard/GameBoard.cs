@@ -23,6 +23,9 @@ public class GameBoard : MonoBehaviour
     private InstanceMatrix<GameBoardTile> tileMatrix;
     private InstanceMatrix<bool> blockedTiles;
 
+    // 0 = pickup, 1 = putdown, 2 = replace
+    private AudioSource[] sounds;
+
     public static GameBoard GAME_BOARD;
 
 
@@ -234,6 +237,8 @@ public class GameBoard : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        //Assigning AudioSources
+        sounds = GetComponents<AudioSource>();
         GAME_BOARD = this;
         Game.BOARD = this;
         tileMatrix = new InstanceMatrix<GameBoardTile>(x, y);
