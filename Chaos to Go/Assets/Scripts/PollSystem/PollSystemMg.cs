@@ -30,6 +30,10 @@ namespace TwitchChat
         private Sprite[] TileTextures;
         [SerializeField]
         private Sprite[] EmoteTextures;
+        [SerializeField]
+        private GameObject[] IngredientVotingBars;
+        [SerializeField]
+        private GameObject[] TileVotingBars;
 
         public TileSelectionMenu tileSelectionMenu;
 
@@ -51,13 +55,13 @@ namespace TwitchChat
 
         private float TileCD;
         public float TileMaxCD;
-        
-       
-     
+
+
+
         // private string[] ingredients = { "tomato", "chicken", "onion", "carrot", "asparagus" };
-           private string[] ingredients = { "asparagus", "carrot", "chicken", "onion", "tomato" };
+        private string[] ingredients = { "asparagus", "carrot", "chicken", "onion", "tomato" };
         // eDir   left, top, right, down
-        private int[][] tiles_dir = { 
+        private int[][] tiles_dir = {
             new int[] { 1, 3 },
             new int[] { 3, 1 },
             new int[] { 0, 2 },
@@ -99,7 +103,7 @@ namespace TwitchChat
             public int SpawnPoint;
             public ingSpawnInfo(string name, int point)
             {
-                this.IngredientName = name; 
+                this.IngredientName = name;
                 this.SpawnPoint = point;
             }
         }
@@ -108,10 +112,13 @@ namespace TwitchChat
         {
             IngResetPoll();
             TileResetPoll();
+            UpdatePollBars();
         }
-        
+
         void Update()
         {
+           
+
             if (IngCD > 0)
             {
                 //CD
@@ -140,11 +147,11 @@ namespace TwitchChat
         void IngEvalVote()
         {
             //Print out the votes
-     //       for (int i = 0; i < 3; i++) Debug.Log("Ingredient " + (i+1) +" has " + ingVoteCounter[i] + " votes");
+            //       for (int i = 0; i < 3; i++) Debug.Log("Ingredient " + (i+1) +" has " + ingVoteCounter[i] + " votes");
             //max voteCounter => spawnInfo
             int maxValue = ingVoteCounter.Max();
             int maxIndex = ingVoteCounter.ToList().IndexOf(maxValue);
-            
+
             //@Dorota
             ingSpawnInfo result = choices[maxIndex];
             //Find the spawning script and spawn ingredients according to poll results
@@ -152,20 +159,20 @@ namespace TwitchChat
             IngredientsManager ingredientSpawningScript = ingredientsManager.GetComponent<IngredientsManager>();
             ingredientSpawningScript.SpawnIngredient(result.IngredientName, result.SpawnPoint);
 
-       //     Debug.Log("Result: " + result.IngredientName + " " + result.SpawnPoint);
-        //    Debug.Log("-------------------------");
+            //     Debug.Log("Result: " + result.IngredientName + " " + result.SpawnPoint);
+            //    Debug.Log("-------------------------");
         }
 
         void TileEvalVote()
         {
             //Print out the votes
-        //    for (int i = 0; i < 3; i++) Debug.Log("Tile " + (i + 1) + " has " + tileVoteCounter[i] + " votes");
+            //    for (int i = 0; i < 3; i++) Debug.Log("Tile " + (i + 1) + " has " + tileVoteCounter[i] + " votes");
             //max voteCounter => spawnInfo
             int maxValue = tileVoteCounter.Max();
             int maxIndex = tileVoteCounter.ToList().IndexOf(maxValue);
 
 
-            tileSelectionMenu.AddBaseTile((BaseTile.eDirection) tiles_dir[rngTile[maxIndex]][0], (BaseTile.eDirection) tiles_dir[rngTile[maxIndex]][1]);
+            tileSelectionMenu.AddBaseTile((BaseTile.eDirection)tiles_dir[rngTile[maxIndex]][0], (BaseTile.eDirection)tiles_dir[rngTile[maxIndex]][1]);
         }
 
         private void IngResetPoll()
@@ -187,7 +194,8 @@ namespace TwitchChat
             var rngSpawn = Enumerable.Range(1, MaxSpawns).OrderBy(g => Guid.NewGuid()).Take(3).ToArray();
 
             //this creates a bias towards ingredients that are used in recipes
-            for (int i = 0; i < rngIng.Length; i++) { 
+            for (int i = 0; i < rngIng.Length; i++)
+            {
                 if (Random.Range(0, RecipeSpawnBias) == 0)
                 {
                     int rndRec = Random.Range(0, Game.GAME.GetFoodOrders().Length);
@@ -196,28 +204,29 @@ namespace TwitchChat
                     int ingToSpawn = -1;
                     if (rndIng == 0)
                     {
-                        ingToSpawn = ((int) recipes[rndRec].ingredient1)-1;
-                        
+                        ingToSpawn = ((int)recipes[rndRec].ingredient1) - 1;
+
                     }
                     if (rndIng == 1)
                     {
-                        ingToSpawn = ((int) recipes[rndRec].ingredient2)-1;
-                       
+                        ingToSpawn = ((int)recipes[rndRec].ingredient2) - 1;
+
                     }
                     if (rndIng == 2)
                     {
                         ingToSpawn = ((int)recipes[rndRec].ingredient3) - 1;
-                       
+
                     }
-                    if (ingToSpawn != -1) {
+                    if (ingToSpawn != -1)
+                    {
                         rngIng[rndIng] = ingToSpawn;
                     }
                 }
-             }
+            }
             for (int i = 0; i < 3; i++) choices[i] = new ingSpawnInfo(ingredients[rngIng[i]], rngSpawn[i]);
 
-       //     Debug.Log("Current Choices: ");
-        //    for (int i = 0; i < 3; i++) Debug.Log(choices[i].IngredientName + " " + choices[i].SpawnPoint);
+            //     Debug.Log("Current Choices: ");
+            //    for (int i = 0; i < 3; i++) Debug.Log(choices[i].IngredientName + " " + choices[i].SpawnPoint);
 
             //TODO Update Images according to ing + spawnPoints & emotes
             for (int i = 0; i < choices.Length; i++)
@@ -231,6 +240,7 @@ namespace TwitchChat
 
             //Reset VoteCounter
             for (int i = 0; i < 3; i++) ingVoteCounter[i] = 0;
+            UpdatePollBars();
         }
 
         private void TileResetPoll()
@@ -248,11 +258,12 @@ namespace TwitchChat
 
             //Generate 3 random tiles
             //rngTile = Enumerable.Range(0, tiles.Length).OrderBy(g => Guid.NewGuid()).Take(3).ToArray();
-            rngTile = new int[] {-1,-1,-1 };
+            rngTile = new int[] { -1, -1, -1 };
             for (int i = 0; i < 3; i++)
             {
                 //this while clause rerolls if a currently disabled (upwards facing) tile is chosen
-                while (rngTile[i] == -1 || rngTile[i] == 1 || rngTile[i] == 8 || rngTile[i] == 10 || rngTile[i] == 1 || rngTile[i] == 6 || rngTile[i] == 7) {
+                while (rngTile[i] == -1 || rngTile[i] == 1 || rngTile[i] == 8 || rngTile[i] == 10 || rngTile[i] == 1 || rngTile[i] == 6 || rngTile[i] == 7)
+                {
                     rngTile[i] = Random.Range(0, tiles.Length);
                 }
 
@@ -272,6 +283,7 @@ namespace TwitchChat
 
             //Reset VoteCounter
             for (int i = 0; i < 3; i++) tileVoteCounter[i] = 0;
+            UpdatePollBars();
         }
 
         private void OnEnable()
@@ -292,6 +304,88 @@ namespace TwitchChat
 
             int tilePos = Array.IndexOf(tileCurrentEmotes, msg);
             if (tilePos > -1) tileVoteCounter[tilePos]++;
+
+         
+            UpdatePollBars();
+        }
+
+        private void UpdatePollBars()
+        {
+            
+            int ingVoteSum = 0;
+            for (int i = 0; i < ingVoteCounter.Length; i++)
+            {
+                ingVoteSum += ingVoteCounter[i];
+            }
+     
+
+            for (int i = 0; i < IngredientVotingBars.Length; i++)
+            {
+          
+                float scale = 0;
+                if (ingVoteSum != 0)
+                {
+                    scale = ((float)ingVoteCounter[i])/ ((float)ingVoteSum);
+                }
+                StartCoroutine(ScaleBarOverTime(IngredientVotingBars[i], scale));
+               // SetBar(IngredientVotingBars[i], scale);
+               
+            }
+
+            int tileVoteSum = 0;
+            for (int i = 0; i < tileVoteCounter.Length; i++)
+            {
+                tileVoteSum += tileVoteCounter[i];
+            }
+            
+
+            for (int i = 0; i < TileVotingBars.Length; i++)
+            {
+                float scale = 0;
+                if (tileVoteSum != 0)
+                {
+                    scale = ((float)tileVoteCounter[i]) / ((float)tileVoteSum);
+                }
+                StartCoroutine(ScaleBarOverTime(TileVotingBars[i], scale));
+                //SetBar(TileVotingBars[i], scale);
+               
+            }
+        }
+        // can be used instead of scalebarovertime for instant poll updates.
+        private void SetBar(GameObject bar, float scale) {
+
+            float time = 0.3f;
+            Vector3 originalScale = bar.transform.localScale;
+            bar.transform.localScale = new Vector3(originalScale.x, scale, originalScale.z);
+
+            Vector3 originalPos = bar.GetComponent<RectTransform>().anchoredPosition;
+            bar.GetComponent<RectTransform>().anchoredPosition = new Vector3(originalPos.x, 134-(44*scale), originalPos.z);
+
+        }
+
+        IEnumerator ScaleBarOverTime(GameObject bar, float scale)
+        {
+            Debug.Log("scaling in progress: "+scale);
+            //pos y def. 112
+            float time = 0.3f;
+            Vector3 originalScale = bar.transform.localScale;
+            Vector3 destinationScale = new Vector3(originalScale.x, scale, originalScale.z);
+
+            Vector3 originalPos = bar.GetComponent<RectTransform>().anchoredPosition;
+            Vector3 destinationPos = new Vector3(originalPos.x, 134 - (44 * scale), originalPos.z);
+            
+
+
+
+            float currentTime = 0.0f;
+
+            do
+            {
+                bar.transform.localScale = Vector3.Lerp(originalScale, destinationScale, currentTime / time);
+                bar.GetComponent<RectTransform>().anchoredPosition = Vector3.Lerp(originalPos, destinationPos, currentTime / time);
+                currentTime += Time.deltaTime;
+                yield return null;
+            } while (currentTime <= time);
         }
     }
 }

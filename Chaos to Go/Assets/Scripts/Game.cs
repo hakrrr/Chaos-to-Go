@@ -101,6 +101,6 @@ public class Game : MonoBehaviour
         if (gameTimer.IsExpired())
         {
             GameOverScreen.GameOver(score);
-        }
+       }
     }
 }
