@@ -60,13 +60,13 @@ public class StraightMovement : IBoardMovePattern
 
     public bool ReachedDestination(Vector3 position)
     {   
-        return (endPos - position).magnitude < 0.01f;
+        return (endPos - position).magnitude < 0.05f;
     }
 
 
     public Vector3 Step(Vector3 position)
     {
-        return speed * (endPos - startPos).normalized;
+        return speed * Time.deltaTime * (endPos - startPos).normalized;
     }
 
 
@@ -161,7 +161,7 @@ public class TurningMovement : IBoardMovePattern
 
     public bool ReachedDestination(Vector3 position)
     {
-        return (endPos - position).magnitude < 0.01f;
+        return (endPos - position).magnitude < 0.03f;
     }
 
 
@@ -181,11 +181,12 @@ public class TurningMovement : IBoardMovePattern
             dir = -dir;
         }
 
-        return speed * dir.normalized;
+        return speed * Time.deltaTime * dir.normalized;
     }
 
 
-    public Vector3 RotStep()
+    // This does not work in Build Mode ... why ...  have I ever?
+    /*public Vector3 RotStep()
     {
         Vector3 tileCenter = new Vector3(this.tileCenter.x, startPos.y, this.tileCenter.z);
         Vector3 v1 = startPos - tileCenter;
@@ -204,5 +205,15 @@ public class TurningMovement : IBoardMovePattern
             return new Vector3(0, -angle, 0);
         }
         return new Vector3(0, angle, 0);
+    }*/
+
+
+    public Vector3 RotStep()
+    {
+        if (((int)start + 1) % 4 == (int)end)
+        {
+            return new Vector3(0, -23.0f * Time.deltaTime, 0);
+        }
+        return new Vector3(0, 23.0f * Time.deltaTime, 0);
     }
 }

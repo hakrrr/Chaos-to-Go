@@ -60,6 +60,7 @@ public class GameOverScreen : MonoBehaviour
     void Start()
     {
         gameOverScreen = this;
+        gameover = false;
         Hide();
     }
 

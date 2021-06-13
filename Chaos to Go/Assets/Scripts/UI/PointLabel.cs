@@ -45,9 +45,9 @@ public class PointLabel : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        transform.Translate(speed * Vector3.Normalize(travelDirection));
-        travelDist -= Mathf.Abs(travelDist);
-        Color nextCol = new Color(textMesh.color.r, textMesh.color.g, textMesh.color.b, textMesh.color.a - alphaReduction);
+        transform.Translate(speed * Time.deltaTime * Vector3.Normalize(travelDirection));
+        travelDist -= Mathf.Abs(speed * Time.deltaTime);
+        Color nextCol = new Color(textMesh.color.r, textMesh.color.g, textMesh.color.b, textMesh.color.a - (alphaReduction * Time.deltaTime));
         textMesh.color = nextCol;
         if(travelDist < 0.0)
         {

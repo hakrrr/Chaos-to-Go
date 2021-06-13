@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
 
@@ -6,14 +8,18 @@ public class GameBoardTileBehavior : DraggableObject.IDragBehavior
 {
     private GameBoard board;
     private GameBoardTile tile;
-
     private GameBoardTile prevClosest = null;
-
+    private AudioSource[] sounds;
 
     public GameBoardTileBehavior(GameBoard board, GameBoardTile tile)
     {
         this.board = board;
         this.tile = tile;
+        try
+        {
+            this.sounds = GameObject.Find("Audio").GetComponents<AudioSource>();
+        }
+        catch (Exception) {  }
     }
 
 
@@ -77,7 +83,8 @@ public class GameBoardTileBehavior : DraggableObject.IDragBehavior
 
     public void OnPickup()
     {
-        
+        if(sounds != null)
+            sounds[0].Play();
     }
 
     public void OnAbort()
@@ -93,6 +100,8 @@ public class GameBoardTileBehavior : DraggableObject.IDragBehavior
                 {
                     Material material = renderer.material;
                     material.SetInt("_Marked", 0);
+                    if (sounds != null)
+                        sounds[1].Play();
                 }
                 catch (Exception) { continue; }
             }
@@ -105,6 +114,8 @@ public class GameBoardTileBehavior : DraggableObject.IDragBehavior
             {
                 Material material = renderer.material;
                 material.SetInt("_Marked", 0);
+                if (sounds != null)
+                    sounds[1].Play();
             }
             catch (Exception) { continue; }
         }
@@ -115,6 +126,8 @@ public class GameBoardTileBehavior : DraggableObject.IDragBehavior
         if (board.FindAndReplace(tile))
         {
             tile.GetComponent<DraggableObject>().enabled = false;
+            if (sounds != null)
+                sounds[2].Play();
             return true;
         }
         return false;

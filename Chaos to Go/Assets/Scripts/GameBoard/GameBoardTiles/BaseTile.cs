@@ -170,11 +170,11 @@ public class BaseTile : GameBoardTile
         Vector3 centerPos = new Vector3(transform.position.x, Y_VALUE, transform.position.z);
         if (straight)
         {
-            movePattern = new StraightMovement(end, centerPos, Game.BOARD.GetTileLengths().x / 2.0f, 0.01f);
+            movePattern = new StraightMovement(end, centerPos, Game.BOARD.GetTileLengths().x / 2.0f, 0.6f);
         }
         else
         {
-            movePattern = new TurningMovement(centerPos, Game.BOARD.GetTileLengths().x / 2.0f, start, end, 0.01f);
+            movePattern = new TurningMovement(centerPos, Game.BOARD.GetTileLengths().x / 2.0f, start, end, 0.6f);
         }
     }
 

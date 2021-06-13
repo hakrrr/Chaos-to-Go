@@ -15,7 +15,7 @@ namespace TwitchChat
         [SerializeField]
         private Text TileCDText;
         [SerializeField]
-        private Text[] SpawnPoints;
+        private Image[] SpawnPoints;
         [SerializeField]
         private Image[] IngredientSlot;
         [SerializeField]
@@ -24,6 +24,8 @@ namespace TwitchChat
         private Image[] IngEmoteSlot;
         [SerializeField]
         private Image[] TileEmoteSlot;
+        [SerializeField]
+        private Sprite[] SpawnPointTextures;
         [SerializeField]
         private Sprite[] IngredientTextures;
         [SerializeField]
@@ -123,7 +125,7 @@ namespace TwitchChat
             {
                 //CD
                 IngCD -= Time.deltaTime;
-                IngCDText.GetComponent<Text>().text = IngCD.ToString();
+                IngCDText.GetComponent<Text>().text = ((int)IngCD).ToString();
             }
             else
             {
@@ -135,7 +137,7 @@ namespace TwitchChat
             {
                 //CD
                 TileCD -= Time.deltaTime;
-                TileCDText.GetComponent<Text>().text = TileCD.ToString();
+                TileCDText.GetComponent<Text>().text = ((int)TileCD).ToString();
             }
             else
             {
@@ -159,6 +161,7 @@ namespace TwitchChat
             IngredientsManager ingredientSpawningScript = ingredientsManager.GetComponent<IngredientsManager>();
             ingredientSpawningScript.SpawnIngredient(result.IngredientName, result.SpawnPoint);
 
+            GetComponent<PlaySounds>().playSpawn();
             //     Debug.Log("Result: " + result.IngredientName + " " + result.SpawnPoint);
             //    Debug.Log("-------------------------");
         }
@@ -173,6 +176,7 @@ namespace TwitchChat
 
 
             tileSelectionMenu.AddBaseTile((BaseTile.eDirection)tiles_dir[rngTile[maxIndex]][0], (BaseTile.eDirection)tiles_dir[rngTile[maxIndex]][1]);
+            GetComponent<PlaySounds>().playBlink();
         }
 
         private void IngResetPoll()
@@ -231,7 +235,7 @@ namespace TwitchChat
             //TODO Update Images according to ing + spawnPoints & emotes
             for (int i = 0; i < choices.Length; i++)
             {
-                SpawnPoints[i].GetComponent<Text>().text = choices[i].SpawnPoint.ToString();
+                SpawnPoints[i].sprite = SpawnPointTextures[choices[i].SpawnPoint-1];
                 var e = Enum.Parse(typeof(Recipes.eIngredients), choices[i].IngredientName);
                 IngredientSlot[i].sprite = IngredientTextures[(int)e - 1];
                 e = Enum.Parse(typeof(eEmote), ingCurrentEmotes[i]);
@@ -353,18 +357,21 @@ namespace TwitchChat
         }
         // can be used instead of scalebarovertime for instant poll updates.
         private void SetBar(GameObject bar, float scale) {
-
+            float scale_normalized = scale;
+            scale = 0.5f + 1.5f * scale;
             float time = 0.3f;
             Vector3 originalScale = bar.transform.localScale;
             bar.transform.localScale = new Vector3(originalScale.x, scale, originalScale.z);
 
             Vector3 originalPos = bar.GetComponent<RectTransform>().anchoredPosition;
-            bar.GetComponent<RectTransform>().anchoredPosition = new Vector3(originalPos.x, 134-(44*scale), originalPos.z);
+            bar.GetComponent<RectTransform>().anchoredPosition = new Vector3(86.5f-(scale_normalized * 33.5f), originalPos.y, originalPos.z);
 
         }
 
         IEnumerator ScaleBarOverTime(GameObject bar, float scale)
         {
+            float scale_normalized = scale;
+            scale = 0.5f + 1.5f * scale;
             Debug.Log("scaling in progress: "+scale);
             //pos y def. 112
             float time = 0.3f;
@@ -372,7 +379,7 @@ namespace TwitchChat
             Vector3 destinationScale = new Vector3(originalScale.x, scale, originalScale.z);
 
             Vector3 originalPos = bar.GetComponent<RectTransform>().anchoredPosition;
-            Vector3 destinationPos = new Vector3(originalPos.x, 134 - (44 * scale), originalPos.z);
+            Vector3 destinationPos = new Vector3(86.5f - (scale_normalized * 33.5f), originalPos.y, originalPos.z);
             
 
 

@@ -11,12 +11,17 @@ public class SwappingTileBehavior : MonoBehaviour
     private GameBoardTile tile;
 
     private InputStates btnSelect = new InputStates(KeyCode.Mouse0);
-
+    private AudioSource[] sounds;
 
     // Start is called before the first frame update
     void Start()
     {
         tile = GetComponent<GameBoardTile>();
+        try
+        {
+            sounds = GameObject.Find("Audio").GetComponents<AudioSource>();
+        }
+        catch (Exception) { }
     }
 
     // Update is called once per frame
@@ -75,6 +80,7 @@ public class SwappingTileBehavior : MonoBehaviour
                 Material material = renderer.material;
                 material.SetColor("_MarkedCol", new Color(0.38f, 0.64f, 1.0f));
                 material.SetInt("_Marked", 1);
+                sounds[0].Play();
             }
             catch (Exception) {}
         }
@@ -90,6 +96,7 @@ public class SwappingTileBehavior : MonoBehaviour
             {
                 Material material = renderer.material;
                 material.SetInt("_Marked", 0);
+                sounds[2].Play();
             }
             catch (Exception) { }
         }

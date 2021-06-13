@@ -36,16 +36,18 @@ public class Ingredient : MonoBehaviour
             return false;
         }
 
+        Vector3 p0 = transform.position;
         Vector3 p1 = transform.position + tile.GetMovePattern().Step(transform.position);
+
         for (int i = 0; i < manager.transform.childCount; i++)
         {
             Ingredient ingredient = manager.transform.GetChild(i).GetComponent<Ingredient>();
             if (ingredient != null && ingredient != this)
             {
                 Vector3 p2 = ingredient.transform.position;
-                if((p1 - p2).magnitude < 0.6f)
+                if ((p1 - p2).magnitude < 0.8f)
                 {
-                    return true;
+                    return (p1 - p2).magnitude < (p0 - p2).magnitude;
                 }
             }
         }
