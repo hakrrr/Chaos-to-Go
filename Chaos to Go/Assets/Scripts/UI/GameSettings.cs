@@ -27,7 +27,9 @@ public class GameSettings : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        MUSIC_VOLUME = sliderMusic.value;
+        SOUND_VOLUME = sliderSound.value;
+        GetComponent<AudioSource>().volume = SOUND_VOLUME;
     }
 
 

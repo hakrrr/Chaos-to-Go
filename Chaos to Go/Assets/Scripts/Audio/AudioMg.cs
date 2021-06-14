@@ -19,7 +19,18 @@ public class AudioMg : MonoBehaviour
         sounds = GetComponents<AudioSource>();
     }
 
-    public void setVolumeMusic()
+
+    public void Update()
+    {
+        sounds[sounds.Length - 1].volume = GameSettings.MUSIC_VOLUME;
+        for (int i = 0; i < sounds.Length - 1; i++)
+        {
+            sounds[i].volume = GameSettings.SOUND_VOLUME;
+        }
+    }
+
+
+    /*public void setVolumeMusic()
     {
         float value = GameObject.Find("SliderMusic").GetComponent<Slider>().value;
         sounds[sounds.Length - 1].volume = value;
@@ -31,6 +42,6 @@ public class AudioMg : MonoBehaviour
             float value = GameObject.Find("SliderSounds").GetComponent<Slider>().value;
             sounds[i].volume = value;
         }
-    }
+    }*/
 
 }

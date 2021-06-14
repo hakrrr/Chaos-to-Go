@@ -5,9 +5,9 @@ using UnityEngine.UI;
 
 public class AccountSettings : MonoBehaviour
 {
-    public static string USER_NAME = "Steve";
-    public static string CHANNEL_NAME = "SteveTV";
-    public static string VERIFICATION_CODE = "1234567890";
+    public static string USER_NAME = "";
+    public static string CHANNEL_NAME = "";
+    public static string VERIFICATION_CODE = "";
 
     [SerializeField]
     private InputField fieldUserName;
@@ -24,6 +24,9 @@ public class AccountSettings : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        fieldUserName.text = USER_NAME;
+        fieldChannelName.text = CHANNEL_NAME;
+        fieldVerifiCode.text = VERIFICATION_CODE;
         Hide();
     }
 
