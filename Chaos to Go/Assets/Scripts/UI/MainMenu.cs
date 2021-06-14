@@ -30,12 +30,14 @@ public class MainMenu : MonoBehaviour
 
     public void OnPressQuit()
     {
+        PlayAudio("Abort");
         Application.Quit();
     }
 
 
     public void OnPressStart()
     {
+        PlayAudio("PickUp");
         Hide();
         SceneManager.LoadScene(1, LoadSceneMode.Single);
     }
@@ -43,6 +45,7 @@ public class MainMenu : MonoBehaviour
 
     public void OnPressAccount()
     {
+        PlayAudio("PickUp");
         Freeze();
         accountSettings.Show();
     }
@@ -50,6 +53,7 @@ public class MainMenu : MonoBehaviour
 
     public void OnPressSettings()
     {
+        PlayAudio("PickUp");
         Freeze();
         gameSettings.Show();
     }
@@ -81,6 +85,20 @@ public class MainMenu : MonoBehaviour
         foreach (Button btn in buttons)
         {
             btn.enabled = true;
+        }
+    }
+
+
+    private void PlayAudio(string clipname)
+    {
+        AudioSource[] audioSources = GameObject.Find("Audio").GetComponents<AudioSource>();
+        foreach (AudioSource src in audioSources)
+        {
+            if (src.clip.name.Equals(clipname))
+            {
+                src.Play();
+                return;
+            }
         }
     }
 }

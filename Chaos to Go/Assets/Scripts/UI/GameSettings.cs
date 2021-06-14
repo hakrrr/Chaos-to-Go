@@ -29,7 +29,6 @@ public class GameSettings : MonoBehaviour
     {
         MUSIC_VOLUME = sliderMusic.value;
         SOUND_VOLUME = sliderSound.value;
-        GetComponent<AudioSource>().volume = SOUND_VOLUME;
     }
 
 
@@ -47,9 +46,24 @@ public class GameSettings : MonoBehaviour
 
     public void OnPressOkay()
     {
+        PlayAudio("PickUp");
         MUSIC_VOLUME = sliderMusic.value;
         SOUND_VOLUME = sliderSound.value;
         Hide();
         mainMenu.Unfreeze();
+    }
+
+
+    private void PlayAudio(string clipname)
+    {
+        AudioSource[] audioSources = GameObject.Find("Audio").GetComponents<AudioSource>();
+        foreach(AudioSource src in audioSources)
+        {
+            if (src.clip.name.Equals(clipname))
+            {
+                src.Play();
+                return;
+            }
+        }
     }
 }

@@ -51,6 +51,7 @@ public class AccountSettings : MonoBehaviour
 
     public void OnPressOkay()
     {
+        PlayAudio("PickUp");
         USER_NAME = fieldUserName.text;
         CHANNEL_NAME = fieldChannelName.text;
         VERIFICATION_CODE = fieldVerifiCode.text;
@@ -62,5 +63,19 @@ public class AccountSettings : MonoBehaviour
 
         Hide();
         mainMenu.Unfreeze();
+    }
+
+
+    private void PlayAudio(string clipname)
+    {
+        AudioSource[] audioSources = GameObject.Find("Audio").GetComponents<AudioSource>();
+        foreach (AudioSource src in audioSources)
+        {
+            if (src.clip.name.Equals(clipname))
+            {
+                src.Play();
+                return;
+            }
+        }
     }
 }
