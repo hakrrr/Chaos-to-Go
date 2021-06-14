@@ -64,6 +64,7 @@ namespace TwitchChat
 
         private void Start()
         {
+            NewAccount(AccountSettings.USER_NAME, AccountSettings.CHANNEL_NAME, AccountSettings.VERIFICATION_CODE);
             Connect();
         }
 

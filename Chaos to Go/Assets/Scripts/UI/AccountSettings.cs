@@ -17,8 +17,6 @@ public class AccountSettings : MonoBehaviour
     private InputField fieldVerifiCode;
     [SerializeField]
     private MainMenu mainMenu;
-    [SerializeField]
-    private TwitchChat.TwitchChatBot twitch;
 
 
     // Start is called before the first frame update
@@ -55,11 +53,6 @@ public class AccountSettings : MonoBehaviour
         USER_NAME = fieldUserName.text;
         CHANNEL_NAME = fieldChannelName.text;
         VERIFICATION_CODE = fieldVerifiCode.text;
-
-        if(twitch != null)
-        {
-            twitch.NewAccount(USER_NAME, CHANNEL_NAME, VERIFICATION_CODE);
-        }
 
         Hide();
         mainMenu.Unfreeze();
