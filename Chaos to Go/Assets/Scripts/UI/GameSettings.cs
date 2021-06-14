@@ -19,6 +19,8 @@ public class GameSettings : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        sliderMusic.value = MUSIC_VOLUME;
+        sliderSound.value = SOUND_VOLUME;
         Hide();
     }
 
