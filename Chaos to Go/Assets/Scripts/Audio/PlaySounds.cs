@@ -49,4 +49,14 @@ public class PlaySounds : MonoBehaviour
         if (sounds != null)
             sounds[5].Play();
     }
+    public void playComplete()
+    {
+        if (sounds != null)
+            sounds[6].Play();
+    }
+    public void playSplash()
+    {
+        if (sounds != null)
+            sounds[7].Play();
+    }
 }

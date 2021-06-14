@@ -50,6 +50,12 @@ public class CookingPlace : MonoBehaviour
         {
             effect.transform.localScale = new Vector3(3.7f, 0.5f, 3.7f);
         }
+
+        //Audio
+        GameObject.Find("Game").GetComponent<PlaySounds>().playSplash();
+        GetComponent<AudioSource>().volume = 0.5f;
+        if (!GetComponent<AudioSource>().isPlaying)
+            GetComponent<AudioSource>().PlayDelayed(.6f);
     }
 
 
@@ -57,15 +63,23 @@ public class CookingPlace : MonoBehaviour
     {
         particlesBurst.Play();
         particles.Stop();
-        GameObject.Find("Game").GetComponent<PlaySounds>().playPuff();
         int p = 0;
-        foreach(Recipes.eIngredients ingr in inPot){
-            if (ingr != Recipes.eIngredients.empty) p += Ingredient.INGREDIENT_PENALTY;
+        foreach(Recipes.eIngredients ingr in inPot)
+        {
+            if (ingr != Recipes.eIngredients.empty)
+            {
+                p += Ingredient.INGREDIENT_PENALTY;
+            }
         }
         if (penalty)
         {
+            GameObject.Find("Game").GetComponent<PlaySounds>().playPuff();
             Game.GAME.AddScore(-p);
             PointLabel.SpawnAt(pointLabelPrefab, transform.parent, transform.position, -p);
+        }
+        else
+        {
+            GameObject.Find("Game").GetComponent<PlaySounds>().playComplete();
         }
         effect.transform.localScale = Vector3.zero;
         inPot = new Recipes.eIngredients[MAX_INGREDIENTS];
@@ -73,6 +87,7 @@ public class CookingPlace : MonoBehaviour
         {
             inPot[i] = Recipes.eIngredients.empty;
         }
+        GetComponent<AudioSource>().Stop();
     }
 
 
