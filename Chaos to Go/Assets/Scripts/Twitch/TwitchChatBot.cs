@@ -64,7 +64,10 @@ namespace TwitchChat
 
         private void Start()
         {
-            NewAccount(AccountSettings.USER_NAME, AccountSettings.CHANNEL_NAME, AccountSettings.VERIFICATION_CODE);
+            if(!AccountSettings.USER_NAME.Equals("") && !AccountSettings.CHANNEL_NAME.Equals("") && !AccountSettings.VERIFICATION_CODE.Equals("")){
+                NewAccount(AccountSettings.USER_NAME, AccountSettings.CHANNEL_NAME, AccountSettings.VERIFICATION_CODE);
+            }
+            
             Connect();
         }
 
