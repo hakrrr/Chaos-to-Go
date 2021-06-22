@@ -33,6 +33,11 @@ namespace TwitchChat
         
         private void Awake()
         {
+            if (!AccountSettings.USER_NAME.Equals("") && !AccountSettings.CHANNEL_NAME.Equals("") && !AccountSettings.VERIFICATION_CODE.Equals(""))
+            {
+                NewAccount(AccountSettings.USER_NAME, AccountSettings.CHANNEL_NAME, AccountSettings.VERIFICATION_CODE);
+            }
+
             var resource = Resources.Load<TextAsset>(FileName);
 
             if (resource == null)
@@ -63,11 +68,7 @@ namespace TwitchChat
         }
 
         private void Start()
-        {
-            if(!AccountSettings.USER_NAME.Equals("") && !AccountSettings.CHANNEL_NAME.Equals("") && !AccountSettings.VERIFICATION_CODE.Equals("")){
-                NewAccount(AccountSettings.USER_NAME, AccountSettings.CHANNEL_NAME, AccountSettings.VERIFICATION_CODE);
-            }
-            
+        {   
             Connect();
         }
 
@@ -81,9 +82,9 @@ namespace TwitchChat
             ReadChat();
         }
 
-        //   username: chaos_to_go
-        //channelName: chaos_to_go
-        //password: oauth:x8tisyc91b191avctc7whf0be00wfs
+        // username: chaos_to_go
+        // channelName: chaos_to_go
+        // password: oauth:x8tisyc91b191avctc7whf0be00wfs
         public void NewAccount(string userName, string channelName,string oAuthToken)
         {
             //empty file
