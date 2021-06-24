@@ -2,6 +2,7 @@
 using System.IO;
 using System.Net.Sockets;
 using System.Text.RegularExpressions;
+using UnityEditor;
 using UnityEngine;
 
 namespace TwitchChat
@@ -38,7 +39,7 @@ namespace TwitchChat
                 NewAccount(AccountSettings.USER_NAME, AccountSettings.CHANNEL_NAME, AccountSettings.VERIFICATION_CODE);
             }
 
-            var resource = Resources.Load<TextAsset>(FileName);
+            string resource = File.ReadAllText(path);
 
             if (resource == null)
             {
@@ -46,8 +47,12 @@ namespace TwitchChat
                 gameObject.SetActive(false);
                 return;
             }
+            else
+            {
+                Debug.Log("ChatBot-Configuration was loaded succesfully! (yay)");
+            }
 
-            var lines = Regex.Split(resource.text, "\r\n|\r|\n");
+            var lines = Regex.Split(resource, "\r\n|\r|\n");
             foreach (var line in lines)
             {
                 if (line.StartsWith(Username))
