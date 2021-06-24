@@ -9,7 +9,7 @@ namespace TwitchChat
     public class TwitchChatBot : MonoBehaviour
     {
         private const string FileName = "ChatBotConfig";
-        private const string path = "Assets/Resources/"+FileName+".txt";
+        private const string path = "Config/" + FileName + ".cfg"; //"Assets/Resources/"+FileName+".txt";
         private const string Username = "username: ";
         private const string ChannelName = "channelName: ";
         private const string Password = "password: ";
@@ -92,6 +92,7 @@ namespace TwitchChat
             //write in credentials
             StreamWriter writer = new StreamWriter(path, true);
             writer.WriteLine("username: "+userName+" \r\nchannelName: "+channelName+" \r\npassword: "+oAuthToken);
+            writer.Flush();
             writer.Close();
 
         }
