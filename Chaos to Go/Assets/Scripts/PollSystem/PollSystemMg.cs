@@ -124,7 +124,7 @@ namespace TwitchChat
             if (IngCD > 0)
             {
                 //CD
-                IngCD -= Time.deltaTime;
+                if(!PauseMenu.PAUSED) IngCD -= Time.deltaTime;
                 IngCDText.GetComponent<Text>().text = ((int)IngCD).ToString();
             }
             else
@@ -136,7 +136,7 @@ namespace TwitchChat
             if (TileCD > 0)
             {
                 //CD
-                TileCD -= Time.deltaTime;
+                if (!PauseMenu.PAUSED)  TileCD -= Time.deltaTime;
                 TileCDText.GetComponent<Text>().text = ((int)TileCD).ToString();
             }
             else

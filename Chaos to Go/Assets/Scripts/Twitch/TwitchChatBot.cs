@@ -34,6 +34,7 @@ namespace TwitchChat
         
         private void Awake()
         {
+            bool accountValid = false;
             if (!AccountSettings.USER_NAME.Equals("") && !AccountSettings.CHANNEL_NAME.Equals("") && !AccountSettings.VERIFICATION_CODE.Equals(""))
             {
                 NewAccount(AccountSettings.USER_NAME, AccountSettings.CHANNEL_NAME, AccountSettings.VERIFICATION_CODE);
@@ -49,6 +50,7 @@ namespace TwitchChat
             }
             else
             {
+                accountValid = true;
                 Debug.Log("ChatBot-Configuration was loaded succesfully! (yay)");
             }
 
@@ -67,9 +69,13 @@ namespace TwitchChat
                 || string.IsNullOrWhiteSpace(_channelName)
                 || string.IsNullOrWhiteSpace(_password))
             {
+                accountValid = false;
                 Debug.LogError("ChatBot-Configuration not valid! Expected Content: 'username; channelName; password'");
                 gameObject.SetActive(false);
             }
+
+            GameObject connIndicator = GameObject.Find("ConnectionIndicator");
+            if (connIndicator != null && accountValid) GameObject.Destroy(connIndicator);
         }
 
         private void Start()
