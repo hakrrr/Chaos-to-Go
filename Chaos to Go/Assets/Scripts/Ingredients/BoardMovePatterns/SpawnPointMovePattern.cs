@@ -8,4 +8,10 @@ public class SpawnPointMovePattern : StraightMovement
         startPos += startHeightOffset;
         endPos += endheightOffset;
     }
+
+
+    public override bool ReachedDestination(Vector3 position)
+    {
+        return (endPos - position).magnitude < 0.03f;
+    }
 }

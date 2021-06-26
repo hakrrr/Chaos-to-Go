@@ -10,7 +10,7 @@ public class StraightMovement : IBoardMovePattern
     private BaseTile.eDirection direction;
     private float radius, speed;
 
-    protected Vector3 startPos, endPos;
+    protected Vector3 startPos, endPos, centerPos;
 
 
     public StraightMovement(BaseTile.eDirection direction, Vector3 centerPos, float radius, float speed)
@@ -18,6 +18,7 @@ public class StraightMovement : IBoardMovePattern
         this.direction = direction;
         this.radius = radius;
         this.speed = speed;
+        this.centerPos = centerPos;
 
         switch (direction)
         {
@@ -58,8 +59,16 @@ public class StraightMovement : IBoardMovePattern
     }
 
 
-    public bool ReachedDestination(Vector3 position)
-    {   
+    public virtual bool ReachedDestination(Vector3 position)
+    {
+        // Failsafe if lagging (meaning basically if ingredient gets too far away)
+        Vector2 p = new Vector2(position.x, position.z);
+        Vector2 c = new Vector2(centerPos.x, centerPos.z);
+        if((c - p).magnitude > 1.05f * radius)
+        {
+            return true;
+        }
+
         return (endPos - position).magnitude < 0.05f;
     }
 
@@ -159,8 +168,16 @@ public class TurningMovement : IBoardMovePattern
     }
 
 
-    public bool ReachedDestination(Vector3 position)
+    public virtual bool ReachedDestination(Vector3 position)
     {
+        // Failsafe if lagging (meaning basically if ingredient gets too far away)
+        Vector2 p = new Vector2(position.x, position.z);
+        Vector2 c = new Vector2(tileCenter.x, tileCenter.z);
+        if ((c - p).magnitude > 1.05f * tileRadius)
+        {
+            return true;
+        }
+
         return (endPos - position).magnitude < 0.03f;
     }
 
