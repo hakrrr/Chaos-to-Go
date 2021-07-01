@@ -34,6 +34,24 @@ public class SwappingTileBehavior : MonoBehaviour
         }
         x = tile.x;
         y = tile.y;
+
+        // This is ugly but it will work for now!
+        if (selected != this)
+        {
+            Unmark();
+            if (selected != null)
+            {
+                selected.MarkNeighbors(new Color(0, 1, 0));
+            }
+        }
+        else
+        {
+            if (IsTileOccupated(tile))
+            {
+                OnRelease();
+                selected = null;
+            }
+        }
     }
 
 
@@ -60,17 +78,42 @@ public class SwappingTileBehavior : MonoBehaviour
 
     private void OnSelect()
     {
-        Mark();
+        //Mark(new Color(0.38f, 0.64f, 1.0f));
+        Mark(new Color(0.0f, 0.5f, 0.15f));
+        sounds[0].Play();
     }
 
 
     private void OnRelease()
     {
         Unmark();
+        sounds[2].Play();
     }
 
 
-    private void Mark()
+    private void MarkNeighbors(Color color)
+    {
+        GameBoard board = GameBoard.GAME_BOARD;
+        List<GameBoardTile> neighbors = new List<GameBoardTile>();
+        if (board.GetTile((int)x - 1, (int)y) != null) neighbors.Add(board.GetTile((int)x - 1, (int)y));
+        if (board.GetTile((int)x + 1, (int)y) != null) neighbors.Add(board.GetTile((int)x + 1, (int)y));
+        if (board.GetTile((int)x, (int)y - 1) != null) neighbors.Add(board.GetTile((int)x, (int)y - 1));
+        if (board.GetTile((int)x, (int)y + 1) != null) neighbors.Add(board.GetTile((int)x, (int)y + 1));
+        foreach (GameBoardTile tile in neighbors)
+        {
+            if (!IsTileOccupated(tile))
+            {
+                tile.GetComponent<SwappingTileBehavior>().Mark(color);
+            }
+            else
+            {
+                tile.GetComponent<SwappingTileBehavior>().Unmark();
+            }
+        }
+    }
+
+
+    private void Mark(Color color)
     {
         MeshRenderer[] renderers = GetComponentsInChildren<MeshRenderer>();
         foreach (MeshRenderer renderer in renderers)
@@ -78,9 +121,8 @@ public class SwappingTileBehavior : MonoBehaviour
             try
             {
                 Material material = renderer.material;
-                material.SetColor("_MarkedCol", new Color(0.38f, 0.64f, 1.0f));
+                material.SetColor("_MarkedCol", color);
                 material.SetInt("_Marked", 1);
-                sounds[0].Play();
             }
             catch (Exception) {}
         }
@@ -96,7 +138,6 @@ public class SwappingTileBehavior : MonoBehaviour
             {
                 Material material = renderer.material;
                 material.SetInt("_Marked", 0);
-                sounds[2].Play();
             }
             catch (Exception) { }
         }

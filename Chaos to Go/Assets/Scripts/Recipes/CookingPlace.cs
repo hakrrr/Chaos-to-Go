@@ -21,7 +21,12 @@ public class CookingPlace : MonoBehaviour
     [SerializeField]
     private GameObject pointLabelPrefab;
 
-    private Recipes.eIngredients[] inPot; 
+    [SerializeField]
+    private GameObject mainMesh;
+
+    private Recipes.eIngredients[] inPot;
+
+    private float blinkTimer = 0.0f;
 
 
     public void AddIngredient(Recipes.eIngredients ingredient)
@@ -38,7 +43,7 @@ public class CookingPlace : MonoBehaviour
             }
             if (i == MAX_INGREDIENTS - 1)
             {
-                if (!CheckRecipe())
+                if (!CheckRecipes())
                 {
                     EmptyCookingPlace(true);
                 }
@@ -91,26 +96,29 @@ public class CookingPlace : MonoBehaviour
     }
 
 
-    private bool CheckRecipe()
+    private bool FitsRecipe(Recipes.Recipe recipe)
+    {
+        Recipes.eIngredients[] recipeIngr = new Recipes.eIngredients[3];
+        recipeIngr[0] = recipe.ingredient1;
+        recipeIngr[1] = recipe.ingredient2;
+        recipeIngr[2] = recipe.ingredient3;
+        foreach (Recipes.eIngredients ingr in inPot)
+        {
+            if (CountIngredient(ingr, recipeIngr) != CountIngredient(ingr, inPot))
+            {
+                return false;
+            }
+        }
+        return true;
+    }
+
+
+    private bool CheckRecipes()
     {
         for (int recipeIdx = 0; recipeIdx < Game.GAME.GetFoodOrders().Length; recipeIdx++)
         {
             Recipes.Recipe recipe = Game.GAME.GetFoodOrders()[recipeIdx];
-            Recipes.eIngredients[] recipeIngr = new Recipes.eIngredients[3];
-            recipeIngr[0] = recipe.ingredient1;
-            recipeIngr[1] = recipe.ingredient2;
-            recipeIngr[2] = recipe.ingredient3;
-            bool recipeFit = true;
-            foreach (Recipes.eIngredients ingr in inPot)
-            {
-                if (CountIngredient(ingr, recipeIngr) != CountIngredient(ingr, inPot))
-                {
-                    recipeFit = false;
-                    break;
-                }
-            }
-
-            if (recipeFit)
+            if (FitsRecipe(recipe))
             {
                 PointLabel.SpawnAt(pointLabelPrefab, transform.parent, transform.position, recipe.points);
                 Game.GAME.AddScore(recipe.points);
@@ -150,6 +158,32 @@ public class CookingPlace : MonoBehaviour
     }
 
 
+    private void UpdateHighlighting()
+    {
+        if(mainMesh == null)
+        {
+            return;
+        }
+
+        for (int recipeIdx = 0; recipeIdx < Game.GAME.GetFoodOrders().Length; recipeIdx++)
+        {
+            Recipes.Recipe recipe = Game.GAME.GetFoodOrders()[recipeIdx];
+            if (FitsRecipe(recipe)) {
+                blinkTimer += Time.deltaTime;
+                if (blinkTimer > 0.5f)
+                {
+                    blinkTimer = 0.0f;
+                    int marked = mainMesh.GetComponent<MeshRenderer>().material.GetInt("_Marked");
+                    mainMesh.GetComponent<MeshRenderer>().material.SetInt("_Marked", (marked + 1) % 2);
+                }
+                return;
+            }
+        }
+
+        mainMesh.GetComponent<MeshRenderer>().material.SetInt("_Marked", 0);
+    }
+
+
     // Start is called before the first frame update
     void Start()
     {
@@ -166,6 +200,7 @@ public class CookingPlace : MonoBehaviour
     void Update()
     {
         UpdateIcons();
+        UpdateHighlighting();
     }
 
 
@@ -175,7 +210,7 @@ public class CookingPlace : MonoBehaviour
         {
             return;
         }
-        if (inPot[0] != Recipes.eIngredients.empty && !CheckRecipe())
+        if (inPot[0] != Recipes.eIngredients.empty && !CheckRecipes())
         {
             EmptyCookingPlace(true);
         }

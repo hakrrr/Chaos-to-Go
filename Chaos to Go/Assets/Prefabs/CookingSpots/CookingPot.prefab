@@ -9571,6 +9571,8 @@ MonoBehaviour:
   - {fileID: 5232702927538011881}
   - {fileID: 5738130697123940111}
   - {fileID: 3988265496615095109}
+  pointLabelPrefab: {fileID: 0}
+  mainMesh: {fileID: 5811337656377933536}
 --- !u!65 &1159469578
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -9976,6 +9978,12 @@ PrefabInstance:
       objectReference: {fileID: 2100000, guid: 2974f6bf83da5974a93c1550e011a719, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b705fca5a6466114caf372a2f078a3f7, type: 3}
+--- !u!1 &5811337656377933536 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: -927199367670048503, guid: b705fca5a6466114caf372a2f078a3f7,
+    type: 3}
+  m_PrefabInstance: {fileID: 2560272033150576617}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &7421190118265261299 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -4216859302048453862, guid: b705fca5a6466114caf372a2f078a3f7,
