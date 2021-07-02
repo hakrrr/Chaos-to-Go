@@ -45,7 +45,7 @@ public class DispenserMovePattern : IBoardMovePattern
 
         if(!queue.Peek() == ingr)
         {
-            if((position - centerPos).z > 0.075f)
+            if((position - centerPos).z > 0.8f)
             {
                 return down.Step(ingr, position);
             }
@@ -53,9 +53,17 @@ public class DispenserMovePattern : IBoardMovePattern
         }
         else
         {
-            if ((position - centerPos).z > 0.05f)
+            if ((position - centerPos).z > 0.8f)
             {
                 return down.Step(ingr, position);
+            }
+            else if((position - centerPos).z > 0.05f && !blocked)
+            {
+                return down.Step(ingr, position);
+            }
+            else if((position - centerPos).z > 0.05f && blocked)
+            {
+                return Vector3.zero;
             }
             else if (nextEntered)
             {
@@ -136,7 +144,7 @@ public class DispenserMovePattern : IBoardMovePattern
     {
         if(queue.Count != 0)
         {
-            if((queue.Peek().transform.position - centerPos).z <= 0.5f)
+            if((queue.Peek().transform.position - centerPos).z <= 0.6f)
             {
                 return false;
             }

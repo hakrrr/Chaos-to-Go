@@ -16,7 +16,7 @@ public class Dispenser : BaseTile
     {
         base.Start();
         start = eDirection.up;
-        end = eDirection.up;
+        end = eDirection.down;
     }
 
 
@@ -38,7 +38,8 @@ public class Dispenser : BaseTile
         Vector3 centerPos = new Vector3(transform.position.x, Y_VALUE, transform.position.z);
         movePattern = new DispenserMovePattern(centerPos, Game.BOARD.GetTileLengths().x / 2.0f, 0.6f, this);
 
-        OpenDirection(eDirection.left);
+        OpenDirection(eDirection.down);
+        Block();
     }
 
 
