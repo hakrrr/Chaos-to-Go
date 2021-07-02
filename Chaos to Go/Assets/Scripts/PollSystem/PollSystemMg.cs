@@ -372,7 +372,7 @@ namespace TwitchChat
         {
             float scale_normalized = scale;
             scale = 0.5f + 1.5f * scale;
-            Debug.Log("scaling in progress: "+scale);
+            //Debug.Log("scaling in progress: "+scale);
             //pos y def. 112
             float time = 0.3f;
             Vector3 originalScale = bar.transform.localScale;

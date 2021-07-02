@@ -103,11 +103,13 @@ public class SwappingTileBehavior : MonoBehaviour
         {
             if (!IsTileOccupated(tile))
             {
-                tile.GetComponent<SwappingTileBehavior>().Mark(color);
+                if(tile.GetComponent<SwappingTileBehavior>() != null)
+                    tile.GetComponent<SwappingTileBehavior>().Mark(color);
             }
             else
             {
-                tile.GetComponent<SwappingTileBehavior>().Unmark();
+                if (tile.GetComponent<SwappingTileBehavior>() != null)
+                    tile.GetComponent<SwappingTileBehavior>().Unmark();
             }
         }
     }
