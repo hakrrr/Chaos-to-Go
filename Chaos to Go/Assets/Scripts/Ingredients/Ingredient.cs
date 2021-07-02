@@ -37,7 +37,7 @@ public class Ingredient : MonoBehaviour
         }
 
         Vector3 p0 = transform.position;
-        Vector3 p1 = transform.position + tile.GetMovePattern().Step(transform.position);
+        Vector3 p1 = transform.position + tile.GetMovePattern().Step(this, transform.position);
 
         for (int i = 0; i < manager.transform.childCount; i++)
         {
@@ -89,8 +89,8 @@ public class Ingredient : MonoBehaviour
 
         if (wait)
         {
-            int nextX = boardX + (int)movePattern.NextTile().x;
-            int nextY = boardY + (int)movePattern.NextTile().y;
+            int nextX = boardX + (int)movePattern.NextTile(this).x;
+            int nextY = boardY + (int)movePattern.NextTile(this).y;
             GameBoardTile nextTile = Game.BOARD.GetTile(nextX, nextY);
             if(tile is BaseTile && nextTile is BaseTile)
             {
@@ -99,19 +99,19 @@ public class Ingredient : MonoBehaviour
                     boardX = nextX;
                     boardY = nextY;
                     tile = nextTile;
-                    transform.position = tile.GetMovePattern().GetStart();
+                    transform.position = tile.GetMovePattern().GetStart(this);
                     wait = false;
                 }
             }
             return;
         }
 
-        transform.position += tile.GetMovePattern().Step(transform.position);
-        transform.Rotate(tile.GetMovePattern().RotStep());
-        if (movePattern.ReachedDestination(transform.position))
+        transform.position += tile.GetMovePattern().Step(this, transform.position);
+        transform.Rotate(tile.GetMovePattern().RotStep(this));
+        if (movePattern.ReachedDestination(this, transform.position))
         {
-            int nextX = boardX + (int) movePattern.NextTile().x;
-            int nextY = boardY + (int)movePattern.NextTile().y;
+            int nextX = boardX + (int) movePattern.NextTile(this).x;
+            int nextY = boardY + (int)movePattern.NextTile(this).y;
 
             // This needs to go somewhere else! Yanderedev-Style Code. I know dammit. I dont have much time okay!!!
             if (nextX == 0 && nextY == -1)

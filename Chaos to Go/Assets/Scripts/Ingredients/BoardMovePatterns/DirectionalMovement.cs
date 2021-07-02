@@ -42,7 +42,7 @@ public class StraightMovement : IBoardMovePattern
     }
 
 
-    public Vector2 NextTile()
+    public Vector2 NextTile(Ingredient ingr)
     {
         switch (direction)
         {
@@ -59,7 +59,7 @@ public class StraightMovement : IBoardMovePattern
     }
 
 
-    public virtual bool ReachedDestination(Vector3 position)
+    public virtual bool ReachedDestination(Ingredient ingr, Vector3 position)
     {
         // Failsafe if lagging (meaning basically if ingredient gets too far away)
         Vector2 p = new Vector2(position.x, position.z);
@@ -73,19 +73,19 @@ public class StraightMovement : IBoardMovePattern
     }
 
 
-    public Vector3 Step(Vector3 position)
+    public Vector3 Step(Ingredient ingr, Vector3 position)
     {
         return speed * Time.deltaTime * (endPos - startPos).normalized;
     }
 
 
-    public Vector3 RotStep()
+    public Vector3 RotStep(Ingredient ingr)
     {
         return Vector3.zero;
     }
 
 
-    public Vector3 GetStart()
+    public Vector3 GetStart(Ingredient ingr)
     {
         return startPos;
     }
@@ -145,13 +145,13 @@ public class TurningMovement : IBoardMovePattern
     }
 
 
-    public Vector3 GetStart()
+    public Vector3 GetStart(Ingredient ingr)
     {
         return startPos;
     }
 
 
-    public Vector2 NextTile()
+    public Vector2 NextTile(Ingredient ingr)
     {
         switch (end)
         {
@@ -168,7 +168,7 @@ public class TurningMovement : IBoardMovePattern
     }
 
 
-    public virtual bool ReachedDestination(Vector3 position)
+    public virtual bool ReachedDestination(Ingredient ingr, Vector3 position)
     {
         // Failsafe if lagging (meaning basically if ingredient gets too far away)
         Vector2 p = new Vector2(position.x, position.z);
@@ -182,7 +182,7 @@ public class TurningMovement : IBoardMovePattern
     }
 
 
-    public Vector3 Step(Vector3 position)
+    public Vector3 Step(Ingredient ingr, Vector3 position)
     {
         Vector3 tileCenter = new Vector3(this.tileCenter.x, startPos.y, this.tileCenter.z);
         Vector3 v1 = startPos - tileCenter;
@@ -203,7 +203,7 @@ public class TurningMovement : IBoardMovePattern
 
 
     // This does not work in Build Mode ... why ...  have I ever?
-    /*public Vector3 RotStep()
+    /*public Vector3 RotStep(Ingredient ingr)
     {
         Vector3 tileCenter = new Vector3(this.tileCenter.x, startPos.y, this.tileCenter.z);
         Vector3 v1 = startPos - tileCenter;
@@ -225,7 +225,7 @@ public class TurningMovement : IBoardMovePattern
     }*/
 
 
-    public Vector3 RotStep()
+    public Vector3 RotStep(Ingredient ingr)
     {
         if (((int)start + 1) % 4 == (int)end)
         {

@@ -10,7 +10,7 @@ public class SpawnPointMovePattern : StraightMovement
     }
 
 
-    public override bool ReachedDestination(Vector3 position)
+    public override bool ReachedDestination(Ingredient ingr, Vector3 position)
     {
         return (endPos - position).magnitude < 0.03f;
     }

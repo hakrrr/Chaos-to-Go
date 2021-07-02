@@ -147,6 +147,12 @@ public class ConsoleCommands
                                 menu.AddBaseTile(start, end);
                             }
                             break;
+                        case "dispenser":
+                            {
+                                TileSelectionMenu menu = GameObject.Find("TileSelectionMenu").GetComponent<TileSelectionMenu>();
+                                menu.AddDispenserTile();
+                            }
+                            break;
                     }
 
                 }

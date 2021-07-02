@@ -7,6 +7,8 @@ public class TileSelectionMenu : MonoBehaviour
     [SerializeField]
     private BaseTile baseTilePrefab;
     [SerializeField]
+    private Dispenser dispenserPrefab;
+    [SerializeField]
     private Transform tileRoot;
 
     private GameBoardTile[] tiles;
@@ -40,6 +42,35 @@ public class TileSelectionMenu : MonoBehaviour
         newTile.transform.position = new Vector3(13.0f, 0, 10.0f + 3.0f * idx);
         tiles[idx] = newTile;
     }
+
+
+    public void AddDispenserTile()
+    {
+        int idx = -1;
+        for (int i = 0; i < tiles.Length; i++)
+        {
+            if (tiles[i] == null || tiles[i].transform.parent != tileRoot)
+            {
+                idx = i;
+            }
+        }
+        if (idx == -1)
+        {
+            idx = Random.Range(0, 4);
+        }
+
+        if (tiles[idx] != null && tiles[idx].transform.parent == tileRoot)
+        {
+            Destroy(tiles[idx].gameObject);
+        }
+
+        Dispenser newTile = Instantiate(dispenserPrefab);
+        newTile.name = "Dispenser" + ((int)Random.Range(0.0f, 128.0f));
+        newTile.transform.parent = tileRoot;
+        newTile.transform.position = new Vector3(13.0f, 0, 10.0f + 3.0f * idx);
+        tiles[idx] = newTile;
+    }
+
 
     private void AddNewRandomBaseTile(int idx)
     {

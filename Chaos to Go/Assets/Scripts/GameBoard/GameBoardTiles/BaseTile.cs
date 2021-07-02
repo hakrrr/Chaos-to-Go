@@ -12,9 +12,9 @@ public class BaseTile : GameBoardTile
     }
 
     [SerializeField]
-    private eDirection start = eDirection.up;
+    protected eDirection start = eDirection.up;
     [SerializeField]
-    private eDirection end = eDirection.down;
+    protected eDirection end = eDirection.down;
 
     [SerializeField]
     private GameObject arrowStart, arrowEnd;
@@ -127,7 +127,8 @@ public class BaseTile : GameBoardTile
     }
 
 
-    public string getStart()
+    // Why do these exist? Do we really need them? I mean, look up... ^ ^ ^ 
+    /*public string getStart()
     {
         switch(this.start)
         {
@@ -157,7 +158,7 @@ public class BaseTile : GameBoardTile
                 return "right";
         }
         return "none";
-    }
+    }*/
 
 
     public override void InitMovementPattern()

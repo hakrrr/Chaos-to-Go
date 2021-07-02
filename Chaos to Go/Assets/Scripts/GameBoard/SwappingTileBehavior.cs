@@ -80,14 +80,14 @@ public class SwappingTileBehavior : MonoBehaviour
     {
         //Mark(new Color(0.38f, 0.64f, 1.0f));
         Mark(new Color(0.0f, 0.5f, 0.15f));
-        sounds[0].Play();
+        if(sounds != null) sounds[0].Play();
     }
 
 
     private void OnRelease()
     {
         Unmark();
-        sounds[2].Play();
+        if (sounds != null)  sounds[2].Play();
     }
 
 

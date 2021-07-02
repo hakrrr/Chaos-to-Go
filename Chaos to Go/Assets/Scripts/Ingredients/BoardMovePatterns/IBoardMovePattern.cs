@@ -4,9 +4,9 @@ using System;
 
 public interface IBoardMovePattern
 {
-    Vector3 Step(Vector3 position);
-    Vector3 RotStep();
-    Vector3 GetStart();
-    bool ReachedDestination(Vector3 position);
-    Vector2 NextTile();
+    Vector3 Step(Ingredient ingr, Vector3 position);
+    Vector3 RotStep(Ingredient ingr);
+    Vector3 GetStart(Ingredient ingr);
+    bool ReachedDestination(Ingredient ingr, Vector3 position);
+    Vector2 NextTile(Ingredient ingr);
 }
