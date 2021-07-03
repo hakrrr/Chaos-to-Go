@@ -115,13 +115,13 @@
                     float(dot(Normal, lightDir) >= 0.0) * 
                     _Specular * attentuation * vec3(_LightColor0) * col * pow(max(0.0, dot(reflect(-lightDir, Normal), viewDir)), _SpecularExponent);
 
-                vec4 phongColor = vec4((amb + diff + spec) * col * texture2D(_MainTex, TextureCoordinate).rgb, 1.0f);
+                vec4 phongColor = vec4((amb + diff + spec) * col * texture2D(_MainTex, TextureCoordinate).rgb, 1.0);
                 if(_CelCount == 0){
                     gl_FragColor = float(1 - _Marked) * phongColor + float(_Marked) * phongColor * _MarkedCol;
                 }
                 else{
                     vec3 celColor = compute_cel_color(phongColor.rgb, amb * _Color.rgb, vec3(1, 1, 1), _CelCount);
-                    vec4 outCol = vec4((amb + diff + spec) * celColor * texture2D(_MainTex, TextureCoordinate).rgb, 1.0f);
+                    vec4 outCol = vec4((amb + diff + spec) * celColor * texture2D(_MainTex, TextureCoordinate).rgb, 1.0);
                     gl_FragColor = float(1 - _Marked) * outCol + float(_Marked) * outCol * _MarkedCol;
                 }
             }
@@ -145,17 +145,17 @@
             void main(){
                 if(_OutlineMode == 0){
                     float dist = distance(gl_Vertex, _WorldSpaceCameraPos);
-                    float thickness = 0.1f * _OutlineStrength;
-                    float scale = 1.0f + thickness * 0.05 * dist;
+                    float thickness = 0.1 * _OutlineStrength;
+                    float scale = 1.0 + thickness * 0.05 * dist;
                     vec3 scaledPos = gl_Vertex.xyz * scale;
-                    gl_Position = gl_ModelViewProjectionMatrix * vec4(scaledPos, 1.0f);
+                    gl_Position = gl_ModelViewProjectionMatrix * vec4(scaledPos, 1.0);
                 }
                 else{
                     float dist = distance(gl_Vertex, _WorldSpaceCameraPos);
-                    float thickness = 0.1f * _OutlineStrength;
+                    float thickness = 0.1 * _OutlineStrength;
                     float extrude = thickness * 0.05 * dist;
                     vec3 extrudedPos = gl_Vertex.xyz + extrude * gl_Normal;
-                    gl_Position = gl_ModelViewProjectionMatrix * vec4(extrudedPos, 1.0f);
+                    gl_Position = gl_ModelViewProjectionMatrix * vec4(extrudedPos, 1.0);
                 }
             }
 
