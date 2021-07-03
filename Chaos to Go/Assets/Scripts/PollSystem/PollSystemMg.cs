@@ -13,6 +13,8 @@ namespace TwitchChat
         [SerializeField]
         private Text IngCDText;
         [SerializeField]
+        private RectTransform TwitchTutorial;
+        [SerializeField]
         private Text TileCDText;
         [SerializeField]
         private Image[] SpawnPoints;
@@ -59,7 +61,6 @@ namespace TwitchChat
         public float TileMaxCD;
 
 
-
         // private string[] ingredients = { "tomato", "chicken", "onion", "carrot", "asparagus" };
         private string[] ingredients = { "asparagus", "carrot", "chicken", "onion", "tomato" };
         // eDir   left, top, right, down
@@ -99,6 +100,10 @@ namespace TwitchChat
         private ingSpawnInfo[] choices = new ingSpawnInfo[3];
         private int[] rngTile = new int[3];
 
+        
+        private string[] twitchTutorials = { "IMPACT THE GAME AS VIEWER!", "VOTE BY WRITING THE EMOTES IN THE CHAT!", "ANY MESSAGE THAT CONTAINS THE EMOTE COUNTS!", "CHANGE UP YOUR MESSAGES TO BYPASS THE 30 SECOND SPAM PROTECTION!", "<spaceholder for emotes in use>" };
+
+
         struct ingSpawnInfo
         {
             public string IngredientName;
@@ -112,19 +117,21 @@ namespace TwitchChat
 
         void Start()
         {
+            twitchTutorials[twitchTutorials.Length-1] = "EMOTES IN USE: " + string.Join(" ", emotes);
             IngResetPoll();
             TileResetPoll();
             UpdatePollBars();
+            StartCoroutine(CycleTwitchTutorial(0));
         }
 
         void Update()
         {
-           
+
 
             if (IngCD > 0)
             {
                 //CD
-                if(!PauseMenu.PAUSED) IngCD -= Time.deltaTime;
+                if (!PauseMenu.PAUSED) IngCD -= Time.deltaTime;
                 IngCDText.GetComponent<Text>().text = ((int)IngCD).ToString();
             }
             else
@@ -136,7 +143,7 @@ namespace TwitchChat
             if (TileCD > 0)
             {
                 //CD
-                if (!PauseMenu.PAUSED)  TileCD -= Time.deltaTime;
+                if (!PauseMenu.PAUSED) TileCD -= Time.deltaTime;
                 TileCDText.GetComponent<Text>().text = ((int)TileCD).ToString();
             }
             else
@@ -145,6 +152,8 @@ namespace TwitchChat
                 TileResetPoll();
             }
         }
+
+
 
         void IngEvalVote()
         {
@@ -235,7 +244,7 @@ namespace TwitchChat
             //TODO Update Images according to ing + spawnPoints & emotes
             for (int i = 0; i < choices.Length; i++)
             {
-                SpawnPoints[i].sprite = SpawnPointTextures[choices[i].SpawnPoint-1];
+                SpawnPoints[i].sprite = SpawnPointTextures[choices[i].SpawnPoint - 1];
                 var e = Enum.Parse(typeof(Recipes.eIngredients), choices[i].IngredientName);
                 IngredientSlot[i].sprite = IngredientTextures[(int)e - 1];
                 e = Enum.Parse(typeof(eEmote), ingCurrentEmotes[i]);
@@ -309,31 +318,31 @@ namespace TwitchChat
             int tilePos = Array.IndexOf(tileCurrentEmotes, msg);
             if (tilePos > -1) tileVoteCounter[tilePos]++;
 
-         
+
             UpdatePollBars();
         }
 
         private void UpdatePollBars()
         {
-            
+
             int ingVoteSum = 0;
             for (int i = 0; i < ingVoteCounter.Length; i++)
             {
                 ingVoteSum += ingVoteCounter[i];
             }
-     
+
 
             for (int i = 0; i < IngredientVotingBars.Length; i++)
             {
-          
+
                 float scale = 0;
                 if (ingVoteSum != 0)
                 {
-                    scale = ((float)ingVoteCounter[i])/ ((float)ingVoteSum);
+                    scale = ((float)ingVoteCounter[i]) / ((float)ingVoteSum);
                 }
                 StartCoroutine(ScaleBarOverTime(IngredientVotingBars[i], scale));
-               // SetBar(IngredientVotingBars[i], scale);
-               
+                // SetBar(IngredientVotingBars[i], scale);
+
             }
 
             int tileVoteSum = 0;
@@ -341,7 +350,7 @@ namespace TwitchChat
             {
                 tileVoteSum += tileVoteCounter[i];
             }
-            
+
 
             for (int i = 0; i < TileVotingBars.Length; i++)
             {
@@ -352,11 +361,12 @@ namespace TwitchChat
                 }
                 StartCoroutine(ScaleBarOverTime(TileVotingBars[i], scale));
                 //SetBar(TileVotingBars[i], scale);
-               
+
             }
         }
         // can be used instead of scalebarovertime for instant poll updates.
-        private void SetBar(GameObject bar, float scale) {
+        private void SetBar(GameObject bar, float scale)
+        {
             float scale_normalized = scale;
             scale = 0.5f + 1.5f * scale;
             float time = 0.3f;
@@ -364,7 +374,7 @@ namespace TwitchChat
             bar.transform.localScale = new Vector3(originalScale.x, scale, originalScale.z);
 
             Vector3 originalPos = bar.GetComponent<RectTransform>().anchoredPosition;
-            bar.GetComponent<RectTransform>().anchoredPosition = new Vector3(86.5f-(scale_normalized * 33.5f), originalPos.y, originalPos.z);
+            bar.GetComponent<RectTransform>().anchoredPosition = new Vector3(86.5f - (scale_normalized * 33.5f), originalPos.y, originalPos.z);
 
         }
 
@@ -380,7 +390,7 @@ namespace TwitchChat
 
             Vector3 originalPos = bar.GetComponent<RectTransform>().anchoredPosition;
             Vector3 destinationPos = new Vector3(86.5f - (scale_normalized * 33.5f), originalPos.y, originalPos.z);
-            
+
 
 
 
@@ -394,5 +404,15 @@ namespace TwitchChat
                 yield return null;
             } while (currentTime <= time);
         }
+
+        IEnumerator CycleTwitchTutorial(int i)
+        {
+            Debug.Log("StartedCoroutine with i: " + i);
+            TwitchTutorial.GetComponent<TMPro.TextMeshProUGUI>().text = twitchTutorials[(i % twitchTutorials.Length)];
+            yield return new WaitForSeconds(5);
+            Debug.Log("Waiting done  i mod is : " + (i % twitchTutorials.Length));
+            StartCoroutine(CycleTwitchTutorial(++i));
+        }
     }
 }
+
