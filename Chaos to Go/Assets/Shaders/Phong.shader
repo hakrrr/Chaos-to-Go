@@ -69,7 +69,7 @@
                     float(dot(Normal, lightDir) >= 0.0) * 
                     _Specular * attentuation * vec3(_LightColor0) * col * pow(max(0.0, dot(reflect(-lightDir, Normal), viewDir)), _SpecularExponent);
 
-                gl_FragColor = vec4((amb + diff + spec) * col * texture2D(_MainTex, TextureCoordinate).rgb, 1.0f);
+                gl_FragColor = vec4((amb + diff + spec) * col * texture2D(_MainTex, TextureCoordinate).rgb, 1.0);
             }
 
             #endif

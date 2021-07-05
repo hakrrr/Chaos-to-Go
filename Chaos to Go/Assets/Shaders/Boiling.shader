@@ -45,11 +45,11 @@
             uniform float _Time;
             varying vec2 TextureCoordinate;
             
-            const float PI = 3.14159f;
+            const float PI = 3.14159;
 
 
             float wave1(float x, float freq){
-                return (0.5f * sin(freq * x) + 0.5f);
+                return (0.5 * sin(freq * x) + 0.5);
             }
 
 
@@ -64,14 +64,14 @@
 
 
             float radial_expansion(sampler2D tex, vec2 r){
-                float val = 0.0f;
-                for(int i = 0; i < 360 && val == 0.0f; i++){
-                    float angle = (float(i) / 360.0f) * 2.0f * PI;
+                float val = 0.0;
+                for(int i = 0; i < 360 && val == 0.0; i++){
+                    float angle = (float(i) / 360.0) * 2.0 * PI;
                     vec2 v = rotated2D(r, angle);
                     val += texture2D(tex, TextureCoordinate + v).r;
                 }
-                if(val > 0.0f){
-                    val = 1.0f;
+                if(val > 0.0){
+                    val = 1.0;
                 }
                 return val;
             }
@@ -79,31 +79,31 @@
 
             void main()
             {
-                float freq1 = 100.0f * _Freq1;
-                vec2 r1 = wave1_ceiled_derivate(_Time, freq1) * wave1(_Time, freq1) * vec2(0.1f, 0.0f);
+                float freq1 = 100.0 * _Freq1;
+                vec2 r1 = wave1_ceiled_derivate(_Time, freq1) * wave1(_Time, freq1) * vec2(0.1, 0.0);
                 float val1 = radial_expansion(_DotTex1, r1);
 
-                float freq2 = 100.0f * _Freq2;
-                vec2 r2 = wave1_ceiled_derivate(_Time + 0.5f, freq2) * wave1(_Time + 0.5f, freq2) * vec2(0.05f, 0.0f);
+                float freq2 = 100.0 * _Freq2;
+                vec2 r2 = wave1_ceiled_derivate(_Time + 0.5, freq2) * wave1(_Time + 0.5, freq2) * vec2(0.05, 0.0);
                 float val2 = radial_expansion(_DotTex2, r2);
 
-                float freq3 = 100.0f * _Freq3;
-                vec2 r3 = wave1_ceiled_derivate(_Time + 0.25f, freq3) * wave1(_Time + 0.25f, freq3) * vec2(0.15f, 0.0f);
+                float freq3 = 100.0 * _Freq3;
+                vec2 r3 = wave1_ceiled_derivate(_Time + 0.25, freq3) * wave1(_Time + 0.25, freq3) * vec2(0.15, 0.0);
                 float val3 = radial_expansion(_DotTex3, r3);
 
                 // Ifs im Shader, Hat keiner gesehen...
                 vec3 col = _MainColor.rgb;
-                if(val1 > 0.0f){
+                if(val1 > 0.0){
                     col = mix(_Color1.rgb, _MainColor.rgb, wave1(_Time, freq1));
                 }
-                if(val2 > 0.0f){
-                    col = mix(_Color2.rgb, col, wave1(_Time + 0.5f, freq2));
+                if(val2 > 0.0){
+                    col = mix(_Color2.rgb, col, wave1(_Time + 0.5, freq2));
                 }
-                if(val3 > 0.0f){
-                    col = mix(_Color3.rgb, col, wave1(_Time + 0.25f, freq3));
+                if(val3 > 0.0){
+                    col = mix(_Color3.rgb, col, wave1(_Time + 0.25, freq3));
                 }
 
-                gl_FragColor = vec4(col, 1.0f);
+                gl_FragColor = vec4(col, 1.0);
             }
             
             #endif
