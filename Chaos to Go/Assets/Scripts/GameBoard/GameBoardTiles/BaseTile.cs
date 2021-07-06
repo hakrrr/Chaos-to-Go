@@ -16,7 +16,7 @@ public class BaseTile : GameBoardTile
     [SerializeField]
     protected eDirection end = eDirection.down;
 
-    [SerializeField]
+    //[SerializeField]
     private GameObject arrowStart, arrowEnd;
 
 

@@ -7536,7 +7536,7 @@ PrefabInstance:
         type: 3}
       propertyPath: dispenserPrefab
       value: 
-      objectReference: {fileID: 4178380658384968647, guid: 02298798c03f9db42925c7fd694db9b4,
+      objectReference: {fileID: 8949968235802500486, guid: dab7ccb3e2e81ed448c57268ebfa93fe,
         type: 3}
     - target: {fileID: 8241248568263393531, guid: c86ce52f88d6020448960fa6d4d4d989,
         type: 3}

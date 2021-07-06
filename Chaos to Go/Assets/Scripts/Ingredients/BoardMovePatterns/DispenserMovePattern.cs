@@ -153,4 +153,18 @@ public class DispenserMovePattern : IBoardMovePattern
         this.direction = direction;
         return true;
     }
+
+
+    public bool IsDispensing()
+    {
+        if (queue.Count != 0)
+        {
+            if ((queue.Peek().transform.position - centerPos).z <= 0.6f)
+            {
+                return true;
+            }
+        }
+
+        return false;
+    }
 }

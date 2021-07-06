@@ -6,9 +6,16 @@ using UnityEngine;
 public class Dispenser : BaseTile
 {
     private InputStates btnSelect = new InputStates(KeyCode.Mouse0);
-    private InputStates btnLeft = new InputStates(KeyCode.LeftArrow);
-    private InputStates btnRight = new InputStates(KeyCode.RightArrow);
-    private InputStates btnDown = new InputStates(KeyCode.DownArrow);
+    private InputStates btnBlock = new InputStates(KeyCode.Mouse1);
+
+    [SerializeField]
+    private ScrollTexture upScrollTex;
+    [SerializeField]
+    private ScrollTexture downScrollTex;
+    [SerializeField]
+    private ScrollTexture leftScrollTex;
+    [SerializeField]
+    private ScrollTexture rightScrollTex;
 
     private bool opened = false;
 
@@ -22,7 +29,7 @@ public class Dispenser : BaseTile
 
     public void Update()
     {
-        if(movePattern != null)
+        if (movePattern != null)
         {
             (movePattern as DispenserMovePattern).UpdateQueue();
         }
@@ -47,6 +54,7 @@ public class Dispenser : BaseTile
     {
         if((movePattern as DispenserMovePattern).SetDirection(direction))
         {
+            Debug.Log("Swapping Direction: " + direction);
             (movePattern as DispenserMovePattern).SetBlocked(false);
             end = direction;
             opened = true;
@@ -78,32 +86,79 @@ public class Dispenser : BaseTile
         {
             return;
         }
-
-        if(btnLeft.Check() == InputStates.InputState.JustPressed)
+        if (!GameBoard.GAME_BOARD.Contains(this))
         {
-            Debug.Log("Switched direction: " + eDirection.left);
-            OpenDirection(eDirection.left);
-        }
-        else if (btnRight.Check() == InputStates.InputState.JustPressed)
-        {
-            Debug.Log("Switched direction: " + eDirection.right);
-            OpenDirection(eDirection.right);
-        }
-        else if (btnDown.Check() == InputStates.InputState.JustPressed)
-        {
-            Debug.Log("Switched direction: " + eDirection.down);
-            OpenDirection(eDirection.down);
+            return;
         }
 
-        if (GameBoard.GAME_BOARD.Contains(this) && btnSelect.Check() == InputStates.InputState.JustPressed)
+        if(btnBlock.Check() == InputStates.InputState.JustPressed)
         {
-            if (opened)
+            if(!(movePattern as DispenserMovePattern).IsDispensing())
             {
                 Block();
             }
+        }
+        else if(btnSelect.Check() == InputStates.InputState.JustPressed)
+        {
+            Vector3 mouseScrPos = Input.mousePosition;
+            Vector3 screenPos = Camera.main.WorldToScreenPoint(transform.position);
+            Vector2 v = new Vector2(mouseScrPos.x - screenPos.x, mouseScrPos.y - screenPos.y);
+            if(Math.Abs(v.x) > Math.Abs(v.y))
+            {
+                if(v.x > 0.0f)
+                {
+                    OpenDirection(eDirection.right);
+                }
+                else
+                {
+                    OpenDirection(eDirection.left);
+                }
+            }
             else
             {
-                Open();
+                OpenDirection(eDirection.down);
+            }
+        }
+
+        UpdateConveyorBelts();
+    }
+
+
+    private void UpdateConveyorBelts()
+    {
+        if (!opened)
+        {
+            upScrollTex.scrollY = 0.0f;
+            downScrollTex.scrollY = 0.0f;
+            leftScrollTex.scrollY = 0.0f;
+            rightScrollTex.scrollY = 0.0f;
+        }
+        else
+        {
+            upScrollTex.scrollY = 0.2f;
+            switch (end)
+            {
+                case eDirection.left:
+                    {
+                        
+                        downScrollTex.scrollY = 0.0f;
+                        leftScrollTex.scrollY = 0.2f;
+                        rightScrollTex.scrollY = 0.0f;
+                    } break;
+                case eDirection.down:
+                    {
+                        downScrollTex.scrollY = 0.2f;
+                        leftScrollTex.scrollY = 0.0f;
+                        rightScrollTex.scrollY = 0.0f;
+                    }
+                    break;
+                case eDirection.right:
+                    {
+                        downScrollTex.scrollY = 0.0f;
+                        leftScrollTex.scrollY = 0.0f;
+                        rightScrollTex.scrollY = 0.2f;
+                    }
+                    break;
             }
         }
     }
