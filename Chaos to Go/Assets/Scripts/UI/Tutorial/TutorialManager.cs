@@ -29,10 +29,13 @@ public class TutorialManager : MonoBehaviour
         PauseMenu.PAUSED = true;
         transform.localScale = new Vector3(1, 1, 1);
 
-        //Debug.Log("Starting Tutorial");
+        //Debug.Log("Starting TutorialA");
         currentHint = 0;
         sentence = sentences[currentHint];
         hintText.text = sentence;
+        //images[currentHint].SetActive(true);
+        //Debug.Log("Starting TutorialB");
+
     }
 
     public void DisplayNextHint()
@@ -42,9 +45,11 @@ public class TutorialManager : MonoBehaviour
             CloseTutorial();
             return;
         }
+        images[currentHint].SetActive(false);
         currentHint++;
         sentence = sentences[currentHint];
         hintText.text = sentence;
+        images[currentHint].SetActive(true);
         //Debug.Log(sentence);
     }
 
@@ -55,9 +60,11 @@ public class TutorialManager : MonoBehaviour
             BackToMenu();
             return;
         }
+        images[currentHint].SetActive(false);
         currentHint--;
         sentence = sentences[currentHint];
         hintText.text = sentence;
+        images[currentHint].SetActive(true);
         //Debug.Log(sentence);
     }
 
