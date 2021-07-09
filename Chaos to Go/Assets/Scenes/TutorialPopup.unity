@@ -483,6 +483,47 @@ PrefabInstance:
       propertyPath: m_Pivot.y
       value: 0.5
       objectReference: {fileID: 0}
+    - target: {fileID: 1935346082869823026, guid: ec41121e52d0ad4469a5543f44c66a24,
+        type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 76
+      objectReference: {fileID: 0}
+    - target: {fileID: 7502717809521046953, guid: ec41121e52d0ad4469a5543f44c66a24,
+        type: 3}
+      propertyPath: sentences.Array.data[3]
+      value: You can only swap tiles with no ingredients on them.
+      objectReference: {fileID: 0}
+    - target: {fileID: 7502717809521046953, guid: ec41121e52d0ad4469a5543f44c66a24,
+        type: 3}
+      propertyPath: sentences.Array.data[0]
+      value: Cook something nice according to the recipes on the left. (Ingredient
+        order does not matter!)
+      objectReference: {fileID: 0}
+    - target: {fileID: 7502717809521046953, guid: ec41121e52d0ad4469a5543f44c66a24,
+        type: 3}
+      propertyPath: sentences.Array.data[1]
+      value: 'Bring ingredients to the pots. '
+      objectReference: {fileID: 0}
+    - target: {fileID: 7502717809521046953, guid: ec41121e52d0ad4469a5543f44c66a24,
+        type: 3}
+      propertyPath: sentences.Array.data[4]
+      value: 'Left click to drag tiles from the side bar onto the board. '
+      objectReference: {fileID: 0}
+    - target: {fileID: 7502717809521046953, guid: ec41121e52d0ad4469a5543f44c66a24,
+        type: 3}
+      propertyPath: sentences.Array.data[5]
+      value: Right click to release picked-up tile.
+      objectReference: {fileID: 0}
+    - target: {fileID: 7502717809521046953, guid: ec41121e52d0ad4469a5543f44c66a24,
+        type: 3}
+      propertyPath: sentences.Array.data[6]
+      value: Placing new tiles on ingredients will smash them!
+      objectReference: {fileID: 0}
+    - target: {fileID: 7502717809521046953, guid: ec41121e52d0ad4469a5543f44c66a24,
+        type: 3}
+      propertyPath: sentences.Array.data[10]
+      value: Finished recipes = Points! GL HF!
+      objectReference: {fileID: 0}
     - target: {fileID: 6238547216673490248, guid: ec41121e52d0ad4469a5543f44c66a24,
         type: 3}
       propertyPath: m_AnchoredPosition.y
@@ -493,15 +534,15 @@ PrefabInstance:
       propertyPath: m_SizeDelta.y
       value: 100
       objectReference: {fileID: 0}
+    - target: {fileID: 1294355258297358156, guid: ec41121e52d0ad4469a5543f44c66a24,
+        type: 3}
+      propertyPath: m_FontData.m_Alignment
+      value: 4
+      objectReference: {fileID: 0}
     - target: {fileID: 1935346084038017999, guid: ec41121e52d0ad4469a5543f44c66a24,
         type: 3}
       propertyPath: m_AnchoredPosition.y
       value: 4.2
-      objectReference: {fileID: 0}
-    - target: {fileID: 1935346082869823026, guid: ec41121e52d0ad4469a5543f44c66a24,
-        type: 3}
-      propertyPath: m_AnchoredPosition.y
-      value: 76
       objectReference: {fileID: 0}
     - target: {fileID: 1935346082433983608, guid: ec41121e52d0ad4469a5543f44c66a24,
         type: 3}
@@ -527,11 +568,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_AnchoredPosition.y
       value: 32
-      objectReference: {fileID: 0}
-    - target: {fileID: 1294355258297358156, guid: ec41121e52d0ad4469a5543f44c66a24,
-        type: 3}
-      propertyPath: m_FontData.m_Alignment
-      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 431540621604941144, guid: ec41121e52d0ad4469a5543f44c66a24,
         type: 3}

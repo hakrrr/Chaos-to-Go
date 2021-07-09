@@ -852,18 +852,21 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   hintText: {fileID: 1294355258297358156}
   sentences:
-  - "Cook something nice! \nAccording to recipes (order doesn't matter)."
-  - 'Bring the ingredients to the pots. '
+  - Cook something nice according to recipes on the left. (Ingredient order does not
+    matter).
+  - 'Bring ingredients to the pots. '
   - Left click to swap adjacent tiles.
-  - You can only swap the tiles with no ingrednients on them.
-  - 'Left click to move the tiles from the side on the board. '
-  - Right click to release picked up tile.
-  - Placing new tiles on ingredients will smash them.
+  - You can only swap tiles with no ingredients on them.
+  - 'Left click to drag tiles from the side bar onto the board. '
+  - Right click to release picked-up tile.
+  - Placing new tiles on ingredients will crush them.
   - "\rTwitch chat can decide which ingredients spawn where and which new tiles will
     appear. "
-  - 'Left click to empty the pots or finalize the recipe. '
+  - 'Left click to empty pots or to finalize a recipe. '
   - Do not waste food!
-  - Finished recipes = Points! GL HF
+  - 'Finished recipes = Points! GL HF!
+
+'
   images:
   - {fileID: 1935346082869823021}
   - {fileID: 7300881317604986689}
