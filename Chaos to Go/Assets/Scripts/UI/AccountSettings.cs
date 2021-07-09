@@ -17,7 +17,7 @@ public class AccountSettings : MonoBehaviour
     [SerializeField]
     private InputField fieldVerifiCode;
     [SerializeField]
-    private MainMenu mainMenu;
+    private AccountInfoPopup popup;
 
 
     // Start is called before the first frame update
@@ -55,7 +55,7 @@ public class AccountSettings : MonoBehaviour
 
         PlayAudio("PickUp");
         Hide();
-        mainMenu.Unfreeze();
+        popup.Show();
     }
 
 
