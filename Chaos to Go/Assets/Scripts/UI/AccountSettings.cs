@@ -49,6 +49,9 @@ public class AccountSettings : MonoBehaviour
             USER_NAME = fieldUserName.text;
             CHANNEL_NAME = fieldChannelName.text;
             VERIFICATION_CODE = fieldVerifiCode.text;
+            fieldUserName.text = "";
+            fieldChannelName.text = "";
+            fieldVerifiCode.text = "";
             GameObject.Find("TwitchChat").GetComponent<TwitchChatBot>().
                 Reconnect(USER_NAME, CHANNEL_NAME, VERIFICATION_CODE);
         }

@@ -14,7 +14,7 @@ namespace TwitchChat
 
         public bool connected = false;
         private const string FileName = "ChatBotConfig";
-        private const string path = "Resources/" + FileName + ".txt"; //"Assets/Resources/"+FileName+".txt";
+        private const string path = FileName + ".cfg"; //"Assets/Resources/"+FileName+".txt";
         private const string Username = "username: ";
         private const string ChannelName = "channelName: ";
         private const string Password = "password: ";
@@ -132,8 +132,6 @@ namespace TwitchChat
             }
 
             Debug.Log("This is what the host returned to you: " + returndata);
-            Debug.Log(_twitchClient.Connected);
-
         }
 
         public void Reconnect(string userName, string channelName, string oAuthToken)
