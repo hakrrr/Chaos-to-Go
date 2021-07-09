@@ -68,7 +68,7 @@ public class TutorialManager : MonoBehaviour
         //Debug.Log(sentence);
     }
 
-    void CloseTutorial()
+    public void CloseTutorial()
     {
         hidden = true;
         PauseMenu.PAUSED = false;

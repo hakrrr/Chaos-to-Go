@@ -52,8 +52,8 @@ namespace TwitchChat
 
             if (resource == null)
             {
-                Debug.LogError("ChatBot-Configuration file is missing! Expected a file 'ChatBotConfig.txt' in a Resource-Folder");
-                gameObject.SetActive(false);
+                Debug.Log("(!) Failed to open Config file: " + path + ", creating file...");
+                File.Create(path);
                 return;
             }
             else
@@ -77,7 +77,7 @@ namespace TwitchChat
                 || string.IsNullOrWhiteSpace(_password))
             {
                 Debug.LogError("ChatBot-Configuration not valid! Expected Content: 'username; channelName; password'");
-                gameObject.SetActive(false);
+                //gameObject.SetActive(false);
             }
         }
 
