@@ -1,9 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.IO;
 using System.Net.Sockets;
-using System.Text;
 using System.Text.RegularExpressions;
-using UnityEditor;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -14,8 +12,9 @@ namespace TwitchChat
         [SerializeField]
         private Sprite[] ConnectionIcon;
 
+        public bool connected = false;
         private const string FileName = "ChatBotConfig";
-        private const string path = "Resources/" + FileName + ".txt"; //"Assets/Resources/"+FileName+".txt";
+        private const string path = FileName + ".cfg"; //"Assets/Resources/"+FileName+".txt";
         private const string Username = "username: ";
         private const string ChannelName = "channelName: ";
         private const string Password = "password: ";
@@ -44,7 +43,12 @@ namespace TwitchChat
         }
         private void EvalConfig()
         {
-            string resource = File.ReadAllText(path);
+            string resource = null;
+            try
+            {
+                resource = File.ReadAllText(path);
+            }
+            catch (FileNotFoundException) { };
 
             if (resource == null)
             {
@@ -110,10 +114,24 @@ namespace TwitchChat
             char[] bytes = new char[_twitchClient.ReceiveBufferSize];
             _reader.Read(bytes, 0, (int)_twitchClient.ReceiveBufferSize);
             string returndata = new string(bytes);
-            SetIcon(returndata.Contains("Welcome, GLHF!"));
-            Debug.Log("This is what the host returned to you: " + returndata);
-            Debug.Log(_twitchClient.Connected);
+            connected = returndata.Contains("Welcome, GLHF!");
+            
+            //Check if connection established & change notification/icon
+            SetIcon(connected);
+            if (connected)
+            {
+                GameObject.Find("ConnectionText1").GetComponent<Text>().text = "Success!";
+                GameObject.Find("ConnectionText2").GetComponent<Text>().text = 
+                    "Connected to User: " + _username;
+            }
+            else
+            {
+                GameObject.Find("ConnectionText1").GetComponent<Text>().text = "Failed Connection!";
+                GameObject.Find("ConnectionText2").GetComponent<Text>().text =
+                    "Could not connect to a Twitch Account with the entered username, password, token.";
+            }
 
+            Debug.Log("This is what the host returned to you: " + returndata);
         }
 
         public void Reconnect(string userName, string channelName, string oAuthToken)
