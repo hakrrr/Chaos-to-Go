@@ -1,16 +1,21 @@
 ﻿using System.Collections.Generic;
 using System.IO;
 using System.Net.Sockets;
+using System.Text;
 using System.Text.RegularExpressions;
 using UnityEditor;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace TwitchChat
 {
     public class TwitchChatBot : MonoBehaviour
     {
+        [SerializeField]
+        private Sprite[] ConnectionIcon;
+
         private const string FileName = "ChatBotConfig";
-        private const string path = "Config/" + FileName + ".cfg"; //"Assets/Resources/"+FileName+".txt";
+        private const string path = "Resources/" + FileName + ".txt"; //"Assets/Resources/"+FileName+".txt";
         private const string Username = "username: ";
         private const string ChannelName = "channelName: ";
         private const string Password = "password: ";
@@ -31,15 +36,15 @@ namespace TwitchChat
         {
             TextMessages = new List<TextMessage>();
         }
-        
+
         private void Awake()
         {
+            DontDestroyOnLoad(this.gameObject);
+            EvalConfig();
+        }
+        private void EvalConfig()
+        {
             bool accountValid = false;
-            if (!AccountSettings.USER_NAME.Equals("") && !AccountSettings.CHANNEL_NAME.Equals("") && !AccountSettings.VERIFICATION_CODE.Equals(""))
-            {
-                NewAccount(AccountSettings.USER_NAME, AccountSettings.CHANNEL_NAME, AccountSettings.VERIFICATION_CODE);
-            }
-
             string resource = File.ReadAllText(path);
 
             if (resource == null)
@@ -51,7 +56,7 @@ namespace TwitchChat
             else
             {
                 accountValid = true;
-                Debug.Log("ChatBot-Configuration was loaded succesfully! (yay)");
+                // Debug.Log("ChatBot-Configuration was loaded succesfully!");
             }
 
             var lines = Regex.Split(resource, "\r\n|\r|\n");
@@ -96,18 +101,6 @@ namespace TwitchChat
         // username: chaos_to_go
         // channelName: chaos_to_go
         // password: oauth:x8tisyc91b191avctc7whf0be00wfs
-        public void NewAccount(string userName, string channelName,string oAuthToken)
-        {
-            //empty file
-            File.WriteAllText(path, string.Empty);
-            //write in credentials
-            StreamWriter writer = new StreamWriter(path, true);
-            writer.WriteLine("username: "+userName+" \r\nchannelName: "+channelName+" \r\npassword: "+oAuthToken);
-            writer.Flush();
-            writer.Close();
-
-        }
-
         private void Connect()
         {
             _twitchClient = new TcpClient("irc.chat.twitch.tv", 6667);
@@ -119,6 +112,31 @@ namespace TwitchChat
             _writer.WriteLine("USER " + _username + " 8 * :" + _username);
             _writer.WriteLine("JOIN #" + _channelName);
             _writer.Flush();
+
+            char[] bytes = new char[_twitchClient.ReceiveBufferSize];
+            _reader.Read(bytes, 0, (int)_twitchClient.ReceiveBufferSize);
+            string returndata = new string(bytes);
+            SetIcon(returndata.Contains("Welcome, GLHF!"));
+            Debug.Log("This is what the host returned to you: " + returndata);
+            Debug.Log(_twitchClient.Connected);
+
+        }
+
+        public void Reconnect(string userName, string channelName, string oAuthToken)
+        {
+            File.WriteAllText(path, string.Empty);
+            StreamWriter writer = new StreamWriter(path, true);
+            writer.WriteLine("username: " + userName + " \r\nchannelName: " + channelName + " \r\npassword: " + oAuthToken);
+            writer.Flush();
+            writer.Close();
+            EvalConfig();
+            Connect();
+        }
+
+        private void SetIcon(bool connected)
+        {
+            Image Icon = GameObject.Find("ConnectionIcon").GetComponent<Image>();
+            Icon.sprite = connected ? ConnectionIcon[0] : ConnectionIcon[1];
         }
 
         private void ReadChat()

@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using TwitchChat;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -28,13 +29,6 @@ public class AccountSettings : MonoBehaviour
         Hide();
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
-
     public void Hide()
     {
         transform.localScale = Vector3.zero;
@@ -49,11 +43,17 @@ public class AccountSettings : MonoBehaviour
 
     public void OnPressOkay()
     {
-        PlayAudio("PickUp");
-        USER_NAME = fieldUserName.text;
-        CHANNEL_NAME = fieldChannelName.text;
-        VERIFICATION_CODE = fieldVerifiCode.text;
+        //Connect to new Account if input != empty
+        if(fieldUserName.text != "" && fieldChannelName.text != "" && fieldVerifiCode.text != "")
+        {
+            USER_NAME = fieldUserName.text;
+            CHANNEL_NAME = fieldChannelName.text;
+            VERIFICATION_CODE = fieldVerifiCode.text;
+            GameObject.Find("TwitchChat").GetComponent<TwitchChatBot>().
+                Reconnect(USER_NAME, CHANNEL_NAME, VERIFICATION_CODE);
+        }
 
+        PlayAudio("PickUp");
         Hide();
         mainMenu.Unfreeze();
     }
