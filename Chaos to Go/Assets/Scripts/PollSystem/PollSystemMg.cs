@@ -51,7 +51,7 @@ namespace TwitchChat
         }
 
         //This variable effects the ingredient spawning. In 1/x cases a recipe-requiered ingredient will  spawn
-        public int RecipeSpawnBias = 4;
+        public int RecipeSpawnBias = 1000;
 
         private float IngCD;
         public float IngMaxCD;
@@ -158,7 +158,7 @@ namespace TwitchChat
         void IngEvalVote()
         {
             //Print out the votes
-            //       for (int i = 0; i < 3; i++) Debug.Log("Ingredient " + (i+1) +" has " + ingVoteCounter[i] + " votes");
+            for (int i = 0; i < 3; i++) Debug.Log("Ingredient " + (i+1) +" has " + ingVoteCounter[i] + " votes");
             //max voteCounter => spawnInfo
             int maxValue = ingVoteCounter.Max();
             int maxIndex = ingVoteCounter.ToList().IndexOf(maxValue);
@@ -198,8 +198,8 @@ namespace TwitchChat
             for (int i = 0; i < 3; i++) ingCurrentEmotes[i] = emotes[result[i]];
 
             //Print out current Emotes
-            //      Debug.Log("Current ingVoting Emotes are: ");
-            //     for (int i = 0; i < 3; i++) Debug.Log(ingCurrentEmotes[i]);
+            Debug.Log("Current ingVoting Emotes are: ");
+            for (int i = 0; i < 3; i++) Debug.Log(ingCurrentEmotes[i]);
 
             //Generate 3 random ingredients with spawnPoints
 
@@ -238,8 +238,8 @@ namespace TwitchChat
             }
             for (int i = 0; i < 3; i++) choices[i] = new ingSpawnInfo(ingredients[rngIng[i]], rngSpawn[i]);
 
-            //     Debug.Log("Current Choices: ");
-            //    for (int i = 0; i < 3; i++) Debug.Log(choices[i].IngredientName + " " + choices[i].SpawnPoint);
+            Debug.Log("Current Choices: ");
+            for (int i = 0; i < 3; i++) Debug.Log(choices[i].IngredientName + " " + choices[i].SpawnPoint);
 
             //TODO Update Images according to ing + spawnPoints & emotes
             for (int i = 0; i < choices.Length; i++)
@@ -407,10 +407,10 @@ namespace TwitchChat
 
         IEnumerator CycleTwitchTutorial(int i)
         {
-            Debug.Log("StartedCoroutine with i: " + i);
+            //Debug.Log("StartedCoroutine with i: " + i);
             TwitchTutorial.GetComponent<TMPro.TextMeshProUGUI>().text = twitchTutorials[(i % twitchTutorials.Length)];
             yield return new WaitForSeconds(5);
-            Debug.Log("Waiting done  i mod is : " + (i % twitchTutorials.Length));
+            //Debug.Log("Waiting done  i mod is : " + (i % twitchTutorials.Length));
             StartCoroutine(CycleTwitchTutorial(++i));
         }
     }
